@@ -126,12 +126,11 @@ class IdVerificationController extends Controller
         }
 
         // 3. Success: return details
-        $parts = explode('-', $record['display_id']);
-        $lastSegment = end($parts);
         if (str_starts_with($record['display_id'], 'TEMP-')) {
             $qrText = 'https://amis.edu.ph/id?id=' . $record['display_id'];
         } else {
-            $hash = base64_encode((int)$lastSegment + 987654);
+            $normalized = $this->normalizeAmisId($record['display_id']);
+            $hash = base64_encode((int)$normalized + 987654);
             $qrText = 'https://amis.edu.ph/v/' . $hash;
         }
         $qrCodeUrl = route('qr.generate', ['text' => $qrText]);

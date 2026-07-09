@@ -30,12 +30,18 @@ class PublicVerificationController extends Controller
                 'enrollment_applicants.learning_mode',
                 'users.account_status'
             )
-            ->where('students.student_number', $studentNumber)
+            ->where(function ($query) use ($studentNumber) {
+                $query->where('students.student_number', $studentNumber);
+                if (is_numeric($studentNumber) && strlen($studentNumber) < 6) {
+                    $padded = str_pad($studentNumber, 4, '0', STR_PAD_LEFT);
+                    $query->orWhere('students.student_number', 'like', '%' . $padded);
+                }
+            })
             ->first();
 
         return view('public.verify_student', [
             'student' => $student,
-            'studentNumber' => $studentNumber,
+            'studentNumber' => $student ? $student->student_number : $studentNumber,
         ]);
     }
 
@@ -52,7 +58,13 @@ class PublicVerificationController extends Controller
         $student = DB::table('students')
             ->leftJoin('enrollment_applicants', 'enrollment_applicants.id', '=', 'students.enrollment_applicant_id')
             ->select('enrollment_applicants.photo_2x2_url')
-            ->where('students.student_number', $studentNumber)
+            ->where(function ($query) use ($studentNumber) {
+                $query->where('students.student_number', $studentNumber);
+                if (is_numeric($studentNumber) && strlen($studentNumber) < 6) {
+                    $padded = str_pad($studentNumber, 4, '0', STR_PAD_LEFT);
+                    $query->orWhere('students.student_number', 'like', '%' . $padded);
+                }
+            })
             ->first();
 
         if (!$student || !$student->photo_2x2_url) {
