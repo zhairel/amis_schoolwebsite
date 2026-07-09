@@ -290,16 +290,12 @@ class IdVerificationController extends Controller
         $middleInitial = ($applicant->middle_name ?? '') ? mb_strtoupper(substr(trim($applicant->middle_name), 0, 1)) . '.' : '';
         $firstName = mb_strtoupper(trim($applicant->first_name ?? '')) . ($middleInitial ? ' ' . $middleInitial : '');
 
-        // Parent Name fallback
-        $father = trim(($applicant->father_first_name ?? '') . ' ' . ($applicant->father_last_name ?? ''));
-        $mother = trim(($applicant->mother_first_name ?? '') . ' ' . ($applicant->mother_last_name ?? ''));
-        $parent = $father ?: ($mother ?: null);
+        // Emergency Contact & Parent Name fallback
+        $parent = !empty($applicant->emergency_name) && strtolower(trim($applicant->emergency_name)) !== 'emergency contact'
+            ? trim($applicant->emergency_name)
+            : (trim(($applicant->father_first_name ?? '') . ' ' . ($applicant->father_last_name ?? '')) ?: (trim(($applicant->mother_first_name ?? '') . ' ' . ($applicant->mother_last_name ?? '')) ?: null));
 
-        if (!$parent && !empty($applicant->emergency_name) && strtolower(trim($applicant->emergency_name)) !== 'emergency contact') {
-            $parent = trim($applicant->emergency_name);
-        }
-
-        $contactNo = ($applicant->parent_mobile ?? null) ?: (($applicant->mobile_number ?? null) ?: ($applicant->emergency_phone ?? null));
+        $contactNo = ($applicant->emergency_phone ?? null) ?: (($applicant->parent_mobile ?? null) ?: ($applicant->mobile_number ?? null));
 
         // Photo url using local temp route
         $photoUrl = $applicant->photo_2x2_url ? route('id-verification.temp-photo', ['id' => $applicant->id]) : null;
@@ -341,16 +337,12 @@ class IdVerificationController extends Controller
         $middleInitial = ($student->middle_name ?? '') ? mb_strtoupper(substr(trim($student->middle_name), 0, 1)) . '.' : '';
         $firstName = mb_strtoupper(trim($student->first_name ?? '')) . ($middleInitial ? ' ' . $middleInitial : '');
 
-        // Parent Name fallback
-        $father = trim(($student->father_first_name ?? '') . ' ' . ($student->father_last_name ?? ''));
-        $mother = trim(($student->mother_first_name ?? '') . ' ' . ($student->mother_last_name ?? ''));
-        $parent = $father ?: ($mother ?: null);
+        // Emergency Contact & Parent Name fallback
+        $parent = !empty($student->emergency_name) && strtolower(trim($student->emergency_name)) !== 'emergency contact'
+            ? trim($student->emergency_name)
+            : (trim(($student->father_first_name ?? '') . ' ' . ($student->father_last_name ?? '')) ?: (trim(($student->mother_first_name ?? '') . ' ' . ($student->mother_last_name ?? '')) ?: null));
 
-        if (!$parent && !empty($student->emergency_name) && strtolower(trim($student->emergency_name)) !== 'emergency contact') {
-            $parent = trim($student->emergency_name);
-        }
-
-        $contactNo = ($student->parent_mobile ?? null) ?: (($student->mobile_number ?? null) ?: ($student->emergency_phone ?? null));
+        $contactNo = ($student->emergency_phone ?? null) ?: (($student->parent_mobile ?? null) ?: ($student->mobile_number ?? null));
 
         // Serve student photo using the hash route already registered in website
         $photoUrl = $student->photo_2x2_url ? route('public.student.photo', ['hash' => base64_encode((int)$student->student_number + 987654)]) : null;
