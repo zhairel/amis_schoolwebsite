@@ -906,7 +906,7 @@
                                 </div>
 
                                 <!-- LRN Overlay (if present) -->
-                                <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'EMPTY' && result.lrn !== ''"
+                                <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'NA' && result.lrn !== 'EMPTY' && result.lrn !== ''"
                                      class="student-lrn absolute text-center flex flex-col justify-center px-4" 
                                      style="left: 15px; top: 437px; width: 310px; height: 16px; z-index: 10;">
                                     <span class="font-bold text-slate-600" 
@@ -1089,7 +1089,7 @@
                                 </div>
 
                                 <!-- LRN Overlay (if present) -->
-                                <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'EMPTY' && result.lrn !== ''"
+                                <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'NA' && result.lrn !== 'EMPTY' && result.lrn !== ''"
                                      class="student-lrn absolute text-center flex flex-col justify-center px-4" 
                                      style="left: 15px; top: 437px; width: 310px; height: 16px; z-index: 10;">
                                     <span class="font-bold text-slate-600" 
