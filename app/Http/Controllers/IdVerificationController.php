@@ -73,7 +73,10 @@ class IdVerificationController extends Controller
                     'enrollment_applicants.home_address',
                     'enrollment_applicants.parent_mobile',
                     'enrollment_applicants.mobile_number',
-                    'enrollment_applicants.lrn'
+                    'enrollment_applicants.lrn',
+                    'enrollment_applicants.emergency_name',
+                    'enrollment_applicants.emergency_relationship',
+                    'enrollment_applicants.emergency_phone'
                 )
                 ->where('students.student_number', $enteredId)
                 ->orWhere('students.student_number', $normalizedId)
