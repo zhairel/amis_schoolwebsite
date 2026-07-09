@@ -898,21 +898,18 @@
 
                                 <!-- Grade Level Text Overlay -->
                                 <div class="student-grade absolute text-center flex flex-col justify-center px-4" 
-                                     style="left: 15px; top: 412px; width: 310px; height: 26px; z-index: 10;">
-                                    <span class="font-black uppercase" 
+                                     style="left: 15px; top: 406px; width: 310px; height: 30px; z-index: 10;">
+                                    <span class="font-extrabold uppercase" 
                                           :style="'color: ' + getGradeColor(result?.grade_level)"
-                                          style="font-family: 'Outfit', sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.5px;"
+                                          style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; line-height: 1; letter-spacing: 0.5px; text-shadow: 0 1px 1px rgba(0,0,0,0.05);"
                                           x-text="result?.grade_level"></span>
                                 </div>
 
-                                <!-- LRN Overlay (if present) -->
+                                <!-- LRN Overlay (Rotated 90deg, aligned to the right blank side, matching SY style on left) -->
                                 <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'NA' && result.lrn !== 'EMPTY' && result.lrn !== ''"
-                                     class="student-lrn absolute text-center flex flex-col justify-center px-4" 
-                                     style="left: 15px; top: 437px; width: 310px; height: 16px; z-index: 10;">
-                                    <span class="font-bold text-slate-600" 
-                                          style="font-family: 'Outfit', sans-serif; font-size: 11px; line-height: 1; letter-spacing: 0.5px;">
-                                        LRN: <span x-text="result?.lrn"></span>
-                                    </span>
+                                     class="absolute text-slate-800 font-bold" 
+                                     style="font-family: 'Outfit', sans-serif; font-size: 15.5px; z-index: 10; right: 8px; top: 405px; width: 22px; height: 130px; display: flex; align-items: center; justify-content: center; transform: rotate(-90deg); transform-origin: center; white-space: nowrap; letter-spacing: 0.05em;">
+                                    LRN: <span x-text="result?.lrn" style="margin-left: 4px;"></span>
                                 </div>
 
                                 <!-- QR Code Overlay (Aligned perfectly inside the template green square border) -->
@@ -1081,21 +1078,18 @@
 
                                 <!-- Grade Level Text Overlay -->
                                 <div class="student-grade absolute text-center flex flex-col justify-center px-4" 
-                                     style="left: 15px; top: 412px; width: 310px; height: 26px; z-index: 10;">
-                                    <span class="font-black uppercase" 
+                                     style="left: 15px; top: 406px; width: 310px; height: 30px; z-index: 10;">
+                                    <span class="font-extrabold uppercase" 
                                           :style="'color: ' + getGradeColor(result?.grade_level)"
-                                          style="font-family: 'Outfit', sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.5px;"
+                                          style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; line-height: 1; letter-spacing: 0.5px; text-shadow: 0 1px 1px rgba(0,0,0,0.05);"
                                           x-text="result?.grade_level"></span>
                                 </div>
 
-                                <!-- LRN Overlay (if present) -->
+                                <!-- LRN Overlay (Rotated 90deg, aligned to the right blank side, matching SY style on left) -->
                                 <div x-show="result?.lrn && result.lrn !== 'N/A' && result.lrn !== 'NA' && result.lrn !== 'EMPTY' && result.lrn !== ''"
-                                     class="student-lrn absolute text-center flex flex-col justify-center px-4" 
-                                     style="left: 15px; top: 437px; width: 310px; height: 16px; z-index: 10;">
-                                    <span class="font-bold text-slate-600" 
-                                          style="font-family: 'Outfit', sans-serif; font-size: 11px; line-height: 1; letter-spacing: 0.5px;">
-                                        LRN: <span x-text="result?.lrn"></span>
-                                    </span>
+                                     class="absolute text-slate-800 font-bold" 
+                                     style="font-family: 'Outfit', sans-serif; font-size: 15.5px; z-index: 10; right: 8px; top: 405px; width: 22px; height: 130px; display: flex; align-items: center; justify-content: center; transform: rotate(-90deg); transform-origin: center; white-space: nowrap; letter-spacing: 0.05em;">
+                                    LRN: <span x-text="result?.lrn" style="margin-left: 4px;"></span>
                                 </div>
 
                                 <!-- QR Code Overlay (Aligned perfectly inside the template green square border) -->
