@@ -1171,11 +1171,13 @@
                             </template>
                         </ul>
                         <div class="text-[11px] text-amber-700 font-bold mt-2 pt-2 border-t border-amber-200/60">
-                            Or contact the Technical/IT:
+                            Or contact the Technical/IT / Email:
                             <div class="mt-1 text-[11.5px] flex items-center gap-1.5 flex-wrap font-bold">
                                 <a href="https://www.facebook.com/zhaii97" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors underline">Sir Mohaymen</a>
                                 <span class="text-amber-400 font-black">|</span>
                                 <a href="https://www.facebook.com/sirmo.amis" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors underline">Sir Mon</a>
+                                <span class="text-amber-400 font-black">|</span>
+                                <a href="mailto:inquiries@amis.edu.ph" class="text-blue-600 hover:text-blue-800 transition-colors underline">inquiries@amis.edu.ph</a>
                             </div>
                         </div>
                     </div>
