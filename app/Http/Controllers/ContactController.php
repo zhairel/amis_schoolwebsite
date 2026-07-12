@@ -37,14 +37,22 @@ class ContactController extends Controller
 
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'phone' => 'required|string|max:50',
-                'address' => 'required|string',
-                'ms_teams' => 'required|string|max:255',
-                'level' => 'required|string|max:255',
+                'email' => 'nullable|email|max:255',
+                'phone' => 'nullable|string|max:50',
+                'address' => 'nullable|string',
+                'ms_teams' => 'nullable|string|max:255',
+                'level' => 'nullable|string|max:255',
                 'grade_level' => 'required|string|max:255',
-                'message' => 'required|string',
+                'message' => 'nullable|string',
             ]);
+
+            // Fill optional fields with empty strings to satisfy database constraints
+            $validated['email'] = $validated['email'] ?? '';
+            $validated['phone'] = $validated['phone'] ?? '';
+            $validated['address'] = $validated['address'] ?? '';
+            $validated['ms_teams'] = $validated['ms_teams'] ?? '';
+            $validated['level'] = $validated['level'] ?? '';
+            $validated['message'] = $validated['message'] ?? '';
 
             \App\Models\HalaqahRegistration::create($validated);
 
@@ -52,18 +60,20 @@ class ContactController extends Controller
             try {
                 $emailBody = "New Halaqah Online Registration received:\n\n"
                     . "Name: " . $validated['name'] . "\n"
-                    . "Email: " . $validated['email'] . "\n"
-                    . "Phone: " . $validated['phone'] . "\n"
-                    . "Address: " . $validated['address'] . "\n"
-                    . "MS Teams Account: " . $validated['ms_teams'] . "\n"
+                    . "Email: " . ($validated['email'] ?: 'N/A') . "\n"
+                    . "Phone: " . ($validated['phone'] ?: 'N/A') . "\n"
+                    . "Address: " . ($validated['address'] ?: 'N/A') . "\n"
+                    . "MS Teams Account: " . ($validated['ms_teams'] ?: 'N/A') . "\n"
                     . "Grade Level: " . $validated['grade_level'] . "\n"
-                    . "Learning Level: " . $validated['level'] . "\n\n"
-                    . "Message/Goals:\n" . $validated['message'];
+                    . "Learning Level: " . ($validated['level'] ?: 'N/A') . "\n\n"
+                    . "Message/Goals:\n" . ($validated['message'] ?: 'N/A');
 
                 \Illuminate\Support\Facades\Mail::raw($emailBody, function ($message) use ($validated) {
                     $message->to('agonzales.amis@gmail.com')
-                            ->subject('AMIS Halaqah Registration: ' . $validated['name'])
-                            ->replyTo($validated['email'], $validated['name']);
+                            ->subject('AMIS Halaqah Registration: ' . $validated['name']);
+                    if (!empty($validated['email'])) {
+                        $message->replyTo($validated['email'], $validated['name']);
+                    }
                 });
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('Halaqah registration email failed: ' . $e->getMessage());

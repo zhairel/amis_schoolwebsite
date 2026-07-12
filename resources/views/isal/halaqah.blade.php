@@ -892,60 +892,60 @@
                              </div>
                             
                             <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Contact Number *</label>
-                                <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required placeholder="e.g. +63 912 345 6789" oninput="this.value = this.value.toUpperCase()" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="address">Home Address *</label>
-                                <input type="text" id="address" name="address" value="{{ old('address') }}" required placeholder="Enter home address" oninput="this.value = this.value.toUpperCase()" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="ms_teams">MS Teams Account *</label>
-                                <input type="text" id="ms_teams" name="ms_teams" value="{{ old('ms_teams') }}" required placeholder="Email or Username" oninput="this.value = this.value.toUpperCase()" />
-                            </div>
+                                 <label for="email">Email Address</label>
+                                 <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="email@example.com" />
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label for="phone">Contact Number</label>
+                                 <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" placeholder="e.g. +63 912 345 6789" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label for="address">Home Address</label>
+                                 <input type="text" id="address" name="address" value="{{ old('address') }}" placeholder="Enter home address" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label for="ms_teams">MS Teams Account</label>
+                                 <input type="text" id="ms_teams" name="ms_teams" value="{{ old('ms_teams') }}" placeholder="Email or Username" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
 
-                            <div class="form-group">
-                                <label for="grade_level">Grade Level *</label>
-                                <select id="grade_level" name="grade_level" required>
-                                    <option value="" disabled selected>Select grade level</option>
-                                    <option value="KINDERGARTEN 1">KINDERGARTEN 1</option>
-                                    <option value="KINDERGARTEN 2">KINDERGARTEN 2</option>
-                                    <option value="GRADE 1">GRADE 1</option>
-                                    <option value="GRADE 2">GRADE 2</option>
-                                    <option value="GRADE 3">GRADE 3</option>
-                                    <option value="GRADE 4">GRADE 4</option>
-                                    <option value="GRADE 5">GRADE 5</option>
-                                    <option value="GRADE 6">GRADE 6</option>
-                                    <option value="GRADE 7">GRADE 7</option>
-                                    <option value="GRADE 8">GRADE 8</option>
-                                    <option value="GRADE 9">GRADE 9</option>
-                                    <option value="GRADE 10">GRADE 10</option>
-                                    <option value="GRADE 11">GRADE 11</option>
-                                    <option value="GRADE 12">GRADE 12</option>
-                                    <option value="ADULT / COLLEGE / NON-STUDENT">ADULT / COLLEGE / NON-STUDENT</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="level">Learning Level *</label>
-                                <select id="level" name="level" required>
-                                    <option value="" disabled selected>Select learning level</option>
-                                    <option value="Beginner (Cannot read or write)">Beginner (Cannot read or write)</option>
-                                    <option value="Advanced (Can read and write)">Advanced (Can read and write)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label for="message">Message / Learning Goals / Background *</label>
-                                <textarea id="message" name="message" rows="4" required placeholder="Tell us briefly about your learning goals or Islamic learning background..." oninput="this.value = this.value.toUpperCase()">{{ old('message') }}</textarea>
-                            </div>
+                             <div class="form-group">
+                                 <label for="grade_level">Grade Level *</label>
+                                 <select id="grade_level" name="grade_level" required>
+                                     <option value="" disabled selected>Select grade level</option>
+                                     <option value="KINDERGARTEN 1">KINDERGARTEN 1</option>
+                                     <option value="KINDERGARTEN 2">KINDERGARTEN 2</option>
+                                     <option value="GRADE 1">GRADE 1</option>
+                                     <option value="GRADE 2">GRADE 2</option>
+                                     <option value="GRADE 3">GRADE 3</option>
+                                     <option value="GRADE 4">GRADE 4</option>
+                                     <option value="GRADE 5">GRADE 5</option>
+                                     <option value="GRADE 6">GRADE 6</option>
+                                     <option value="GRADE 7">GRADE 7</option>
+                                     <option value="GRADE 8">GRADE 8</option>
+                                     <option value="GRADE 9">GRADE 9</option>
+                                     <option value="GRADE 10">GRADE 10</option>
+                                     <option value="GRADE 11">GRADE 11</option>
+                                     <option value="GRADE 12">GRADE 12</option>
+                                     <option value="ADULT / COLLEGE / NON-STUDENT">ADULT / COLLEGE / NON-STUDENT</option>
+                                 </select>
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label for="level">Learning Level</label>
+                                 <select id="level" name="level">
+                                     <option value="" selected>Select learning level (Optional)</option>
+                                     <option value="Beginner (Cannot read or write)">Beginner (Cannot read or write)</option>
+                                     <option value="Advanced (Can read and write)">Advanced (Can read and write)</option>
+                                 </select>
+                             </div>
+                             
+                             <div class="form-group full-width">
+                                 <label for="message">Message / Learning Goals / Background</label>
+                                 <textarea id="message" name="message" rows="4" placeholder="Tell us briefly about your learning goals or Islamic learning background..." oninput="this.value = this.value.toUpperCase()">{{ old('message') }}</textarea>
+                             </div>
                         </div>
                         
                         <button type="submit" class="btn-register">
