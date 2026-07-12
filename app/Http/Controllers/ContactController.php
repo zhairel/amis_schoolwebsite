@@ -14,6 +14,27 @@ class ContactController extends Controller
     {
         // If this is a Halaqah registration, save to HalaqahRegistration model
         if ($request->input('subject') === 'Halaqah Online Registration') {
+            $request->validate([
+                'first_name' => 'required|string|max:100',
+                'middle_name' => 'nullable|string|max:100',
+                'last_name' => 'required|string|max:100',
+            ]);
+
+            $firstName = trim((string) $request->input('first_name'));
+            $middleName = trim((string) $request->input('middle_name'));
+            $lastName = trim((string) $request->input('last_name'));
+
+            $fullName = $firstName;
+            if ($middleName !== '') {
+                $fullName .= ' ' . $middleName;
+            }
+            if ($lastName !== '') {
+                $fullName .= ' ' . $lastName;
+            }
+            $fullName = trim($fullName);
+
+            $request->merge(['name' => $fullName]);
+
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',

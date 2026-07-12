@@ -876,10 +876,20 @@
                         <input type="hidden" name="subject" value="Halaqah Online Registration" />
                         
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label for="name">Applicant Full Name *</label>
-                                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="Enter full name" oninput="this.value = this.value.toUpperCase()" />
-                            </div>
+                             <div class="form-group">
+                                 <label for="first_name">First Name *</label>
+                                 <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="Enter first name" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
+
+                             <div class="form-group">
+                                 <label for="middle_name">Middle Name</label>
+                                 <input type="text" id="middle_name" name="middle_name" value="{{ old('middle_name') }}" placeholder="Enter middle name" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
+
+                             <div class="form-group">
+                                 <label for="last_name">Last Name *</label>
+                                 <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="Enter last name" oninput="this.value = this.value.toUpperCase()" />
+                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
