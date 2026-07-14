@@ -41,7 +41,7 @@ class ContactController extends Controller
                 'phone' => 'nullable|string|max:50',
                 'address' => 'nullable|string',
                 'ms_teams' => 'nullable|string|max:255',
-                'level' => 'nullable|string|max:255',
+                'level' => 'required|string|max:255',
                 'grade_level' => 'required|string|max:255',
                 'message' => 'nullable|string',
             ]);

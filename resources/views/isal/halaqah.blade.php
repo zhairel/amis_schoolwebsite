@@ -934,9 +934,9 @@
                              </div>
                              
                              <div class="form-group">
-                                 <label for="level">Learning Level</label>
-                                 <select id="level" name="level">
-                                     <option value="" selected>Select learning level (Optional)</option>
+                                 <label for="level">Learning Level *</label>
+                                 <select id="level" name="level" required>
+                                     <option value="" disabled selected>Select learning level</option>
                                      <option value="Beginner (Cannot read or write)">Beginner (Cannot read or write)</option>
                                      <option value="Advanced (Can read and write)">Advanced (Can read and write)</option>
                                  </select>
