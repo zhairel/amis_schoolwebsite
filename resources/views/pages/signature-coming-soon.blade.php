@@ -3,119 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Signature Verification Portal — Coming Soon</title>
+    <title>Digital Signature Verification Portal — Al Munawwara Islamic School</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
         
         :root {
-            color-scheme: light dark;
+            color-scheme: light;
         }
         * {
             box-sizing: border-box;
         }
         body {
             margin: 0;
-            padding: 24px;
+            padding: 24px 16px;
             min-height: 100vh;
             display: grid;
             place-items: center;
-            background: radial-gradient(circle at top, #0f2d24 0%, #051611 100%);
+            background: #ffffff;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #e2e8f0;
-            overflow-x: hidden;
+            color: #1e293b;
         }
         
-        /* Premium card glow & glass effect */
         main {
             width: min(100%, 540px);
-            padding: 40px 30px;
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            border-radius: 28px;
-            background: rgba(10, 25, 20, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 36px 28px;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            background: #ffffff;
             box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 20px 45px -10px rgba(15, 23, 42, 0.08),
+                0 4px 12px -2px rgba(15, 23, 42, 0.04);
             text-align: center;
             position: relative;
         }
         
-        /* Security Shield Icon Animation */
         .shield-container {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
             display: grid;
             place-items: center;
             border-radius: 20px;
-            background: rgba(16, 185, 129, 0.08);
-            border: 1.5px solid rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            position: relative;
+            background: #f0fdf4;
+            border: 1.5px solid #bbf7d0;
+            color: #059669;
         }
         .shield-container svg {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             stroke-width: 1.75;
-        }
-        .shield-glow {
-            position: absolute;
-            inset: -10px;
-            border-radius: 30px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
-            opacity: 0.6;
-            filter: blur(10px);
         }
         
         .badge {
             display: inline-block;
             margin-bottom: 16px;
-            padding: 5px 12px;
+            padding: 5px 14px;
             border-radius: 999px;
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            font-size: 10px;
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            font-size: 10.5px;
             font-weight: 800;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
+        }
+        
+        .greeting-card {
+            margin-bottom: 20px;
+            padding: 14px 18px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .greeting-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 4px;
+        }
+        .greeting-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #059669;
+            margin: 0;
+            direction: rtl;
         }
         
         h1 {
             margin: 0 0 12px;
             font-family: 'Outfit', sans-serif;
-            font-size: clamp(24px, 5vw, 30px);
+            font-size: clamp(22px, 4.5vw, 28px);
             font-weight: 900;
             letter-spacing: -0.02em;
             line-height: 1.15;
-            color: #ffffff;
-            background: linear-gradient(135deg, #ffffff 30%, #a7f3d0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #0f172a;
         }
         
         .description {
-            margin: 0 auto 30px;
-            font-size: 14px;
+            margin: 0 auto 24px;
+            font-size: 13.5px;
             line-height: 1.6;
-            color: #94a3b8;
-            max-width: 420px;
+            color: #475569;
+            max-width: 440px;
         }
         
-        /* Security stats/details */
         .features {
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 20px;
-            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background: #f8fafc;
+            padding: 18px 20px;
+            margin-bottom: 28px;
             text-align: left;
         }
         .features-title {
             font-size: 11px;
             font-weight: 800;
-            color: #10b981;
+            color: #047857;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 12px;
@@ -132,9 +137,9 @@
             align-items: flex-start;
             gap: 10px;
             margin-bottom: 10px;
-            font-size: 12.5px;
-            line-height: 1.4;
-            color: #cbd5e1;
+            font-size: 12px;
+            line-height: 1.45;
+            color: #334155;
         }
         .feature-item:last-child {
             margin-bottom: 0;
@@ -143,29 +148,77 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #10b981;
-            margin-top: 6px;
+            background: #059669;
+            margin-top: 5px;
             flex-shrink: 0;
         }
         
-        .footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        /* School Information Footer Block */
+        .school-footer-card {
+            border-top: 2px solid #e2e8f0;
             padding-top: 24px;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .school-logo {
+            width: 68px;
+            height: 68px;
+            object-fit: contain;
+        }
+        .school-arabic-name {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #047857;
+            direction: rtl;
+            line-height: 1.2;
+        }
+        .school-english-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .school-address {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .school-id-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
             font-size: 11px;
-            color: #64748b;
+            font-weight: 800;
+            color: #1e293b;
             letter-spacing: 0.05em;
         }
-        .footer a {
-            color: #34d399;
+        
+        .footer-link {
+            margin-top: 16px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+        .footer-link a {
+            color: #059669;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 <main>
     <div class="shield-container">
-        <div class="shield-glow"></div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
@@ -173,13 +226,9 @@
     
     <span class="badge">Official Security Portal</span>
 
-    <div style="margin-bottom: 18px; padding: 12px 16px; border-radius: 16px; background: rgba(16, 185, 129, 0.06); border: 1px dashed rgba(16, 185, 129, 0.25);">
-        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #a7f3d0; margin: 0 0 4px; letter-spacing: -0.01em;">
-            Assalamu Alaikum &amp; Good Day!
-        </h2>
-        <p style="font-size: 13px; font-weight: 600; color: #6ee7b7; margin: 0;">
-            السلام عليكم ورحمة الله وبركاته
-        </p>
+    <div class="greeting-card">
+        <div class="greeting-title">Assalamu Alaikum &amp; Good Day!</div>
+        <div class="greeting-arabic">السلام عليكم ورحمة الله وبركاته</div>
     </div>
 
     <h1>Digital Signature Verification</h1>
@@ -208,7 +257,19 @@
         </div>
     </div>
     
-    <div class="footer">
+    <!-- School Information Block at Bottom -->
+    <div class="school-footer-card">
+        <img src="{{ asset('logo/AMIS_Logo.png') }}" class="school-logo" alt="AMIS Logo" onerror="this.src='{{ asset('logo.png') }}'">
+        <div class="school-arabic-name">مدرسة المنورة الإسلامية</div>
+        <div class="school-english-name">Al Munawwara Islamic School</div>
+        <div class="school-address">Don Julian Rodriguez Avenue, Ma-a, Davao City</div>
+        <div class="school-id-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>SCHOOL ID: 466150</span>
+        </div>
+    </div>
+
+    <div class="footer-link">
         Al Munawwara Islamic School &copy; 2026. <br>
         Go back to <a href="/">amis.edu.ph</a>
     </div>

@@ -165,7 +165,13 @@
         <div class="card-body">
             @if ($student)
                 @php
-                    $fullName = trim(($student->first_name ?? '').' '.($student->middle_name ?? '').' '.($student->last_name ?? ''));
+                    // Format: First Name M. Last Name
+                    $middleInitial = '';
+                    if (!empty($student->middle_name)) {
+                        $middleInitial = strtoupper(substr(trim($student->middle_name), 0, 1)) . '.';
+                    }
+                    $fullName = trim(($student->first_name ?? '') . ' ' . $middleInitial . ' ' . ($student->last_name ?? ''));
+                    $fullName = preg_replace('/\s+/', ' ', $fullName);
                     $status = $student->account_status ?? 'verified';
                     
                     // Fetch current active school year
@@ -220,10 +226,7 @@
                             @endif
                         </span>
                     </div>
-                    <div class="details-item">
-                        <span class="details-label">Learning Mode</span>
-                        <span class="details-value">{{ $student->learning_mode ?: 'Face-to-Face' }}</span>
-                    </div>
+
                 </div>
             @else
                 <div class="status-badge status-unverified">
