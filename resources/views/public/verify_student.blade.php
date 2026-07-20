@@ -145,11 +145,57 @@
         }
         .card-footer {
             border-top: 1px solid #f1f5f9;
-            padding: 14px 20px;
+            padding: 16px 20px;
             text-align: center;
+        }
+        .school-info-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding-bottom: 12px;
+        }
+        .school-info-arabic {
+            font-family: 'Times New Roman', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #047857;
+            direction: rtl;
+        }
+        .school-info-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12.5px;
+            font-weight: 900;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .school-info-id {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            font-size: 10px;
+            font-weight: 800;
+            color: #1e293b;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+        .school-info-address {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .footer-copy {
             font-size: 9.5px;
             color: #94a3b8;
             font-weight: 600;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -250,7 +296,16 @@
         </div>
         
         <div class="card-footer">
-            Official AMIS Verification Portal &copy; {{ date('Y') }}
+            <div class="school-info-block">
+                <div class="school-info-arabic">مدرسة المنورة الإسلامية</div>
+                <div class="school-info-name">Al Munawwara Islamic School</div>
+                <div class="school-info-address">Don Julian Rodriguez Avenue, Ma-a, Davao City</div>
+                <div class="school-info-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    SCHOOL ID: 466150
+                </div>
+            </div>
+            <div class="footer-copy">Official AMIS Verification Portal &copy; {{ date('Y') }}</div>
         </div>
     </div>
 </body>
