@@ -202,10 +202,15 @@
 <body>
     <div class="container">
         <div class="card-header">
-            <img class="logo-img" src="/images/AMIS_Logo.png" alt="AMIS Logo" onerror="this.onerror=null; this.src='/logo/AMIS_Logo.png'; this.onerror=function(){this.style.display='none';};">
+            <img class="logo-img" src="/images/AMIS_Logo.png" alt="AMIS Logo" onerror="this.onerror=null; this.src='/logo/AMIS_Logo.png'; this.onerror=function(){this.style.display='none';};"></img>
             <div class="school-arabic" style="font-family: 'Times New Roman', serif; font-size: 15.5px; font-weight: bold; color: #ffffff; margin-top: 5px; direction: rtl; unicode-bidi: embed;">المدرسة المنورة الإسلامية</div>
             <div class="school-name" style="margin-top: 1px;">AL MUNAWWARA ISLAMIC SCHOOL</div>
             <div class="school-subtitle" style="margin-top: 4px;">Student Verification System</div>
+            <div style="margin-top: 8px; font-size: 9px; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.04em;">Don Julian Rodriguez Avenue, Ma-a, Davao City, Philippines</div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; padding: 2px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); font-size: 9px; font-weight: 800; color: rgba(255,255,255,0.7); letter-spacing: 0.06em;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                SCHOOL ID: 466150
+            </div>
         </div>
         
         <div class="card-body">
@@ -296,15 +301,6 @@
         </div>
         
         <div class="card-footer">
-            <div class="school-info-block">
-                <div class="school-info-arabic">مدرسة المنورة الإسلامية</div>
-                <div class="school-info-name">Al Munawwara Islamic School</div>
-                <div class="school-info-address">Don Julian Rodriguez Avenue, Ma-a, Davao City</div>
-                <div class="school-info-id">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    SCHOOL ID: 466150
-                </div>
-            </div>
             <div class="footer-copy">Official AMIS Verification Portal &copy; {{ date('Y') }}</div>
         </div>
     </div>
