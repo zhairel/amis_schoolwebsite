@@ -187,7 +187,15 @@ class PageController extends Controller
      */
     public function calendar()
     {
-        return view('pages.calendar');
+        $dbEvents = Announcement::where(function ($query) {
+                $query->where('category', 'like', '%event%')
+                      ->orWhere('category', 'like', '%sport%')
+                      ->orWhere('category', 'like', '%activity%')
+                      ->orWhere('category', 'like', '%program%');
+            })
+            ->get();
+
+        return view('pages.calendar', compact('dbEvents'));
     }
 
     /**

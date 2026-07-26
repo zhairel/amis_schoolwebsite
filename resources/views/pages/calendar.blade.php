@@ -502,7 +502,7 @@
                 <button class="nav-arrow-btn" onclick="navigateMonth(-1)" title="Previous Month">
                     <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
-                <div class="calendar-month-title" id="currentMonthYearLabel">June 2026</div>
+                <div class="calendar-month-title" id="currentMonthYearLabel">July 2026</div>
                 <button class="nav-arrow-btn" onclick="navigateMonth(1)" title="Next Month">
                     <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
@@ -584,6 +584,7 @@
                         <tr><td>July 11</td><td>PTA General Assembly and Election of Officers</td></tr>
                         <tr><td>July 18</td><td>JHS and SHS Get Together</td></tr>
                         <tr class="row-exam-highlight"><td>July 19-23</td><td>1st Summative Test (Term 1)</td></tr>
+                        <tr style="background:#eff6ff;"><td>July 20</td><td><strong>22nd Asia Youth International Model United Nations (AYIMUN) 2026</strong></td></tr>
                         <tr><td>July 21</td><td>SSC Filing of Candidacy</td></tr>
                         <tr><td>July 22-23</td><td>SSC Campaign Week</td></tr>
                         <tr><td>July 28</td><td>Earthquake Drill (Davao)</td></tr>
@@ -796,6 +797,7 @@
         { dates: "July 11", month: 6, year: 2026, startDay: 11, endDay: 11, title: "PTA General Assembly and Election of Officers", type: "event" },
         { dates: "July 18", month: 6, year: 2026, startDay: 18, endDay: 18, title: "JHS and SHS Get Together", type: "event" },
         { dates: "July 19-23", month: 6, year: 2026, startDay: 19, endDay: 23, title: "1st Summative Test (Term 1)", type: "exam" },
+        { dates: "July 20", month: 6, year: 2026, startDay: 20, endDay: 20, title: "22nd Asia Youth International Model United Nations (AYIMUN) 2026", type: "event" },
         { dates: "July 21", month: 6, year: 2026, startDay: 21, endDay: 21, title: "SSC Filing of Candidacy", type: "event" },
         { dates: "July 22-23", month: 6, year: 2026, startDay: 22, endDay: 23, title: "SSC Campaign Week", type: "event" },
         { dates: "July 28", month: 6, year: 2026, startDay: 28, endDay: 28, title: "Earthquake Drill (Davao)", type: "event" },
@@ -884,8 +886,10 @@
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
-    let currentMonth = 5; // Default June (0-indexed 5)
-    let currentYear = 2026;
+    // Default to Current Real Month (July 2026 = 6)
+    let realDate = new Date();
+    let currentMonth = (realDate.getFullYear() === 2026 || realDate.getFullYear() === 2027) ? realDate.getMonth() : 6;
+    let currentYear = (realDate.getFullYear() === 2026 || realDate.getFullYear() === 2027) ? realDate.getFullYear() : 2026;
 
     document.addEventListener('DOMContentLoaded', function() {
         renderVisualCalendar(currentMonth, currentYear);
@@ -916,6 +920,9 @@
             const cell = document.createElement('div');
             cell.className = 'grid-cell';
 
+            // Check if today
+            const isToday = (realDate.getDate() === day && realDate.getMonth() === month && realDate.getFullYear() === year);
+
             // Find matching events for this day
             const eventsForDay = calendarEvents.filter(evt => {
                 return evt.month === month && evt.year === year && day >= evt.startDay && day <= evt.endDay;
@@ -943,7 +950,7 @@
 
             cell.innerHTML = `
                 <div class="grid-cell-top">
-                    <span class="cell-day-num">${day}</span>
+                    <span class="cell-day-num ${isToday ? 'is-today' : ''}">${day}</span>
                 </div>
                 ${eventsHtml}
             `;
