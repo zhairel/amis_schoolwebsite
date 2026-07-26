@@ -13,7 +13,45 @@ class PageController extends Controller
      */
     public function home()
     {
-        // Fetch active announcements sorted by priority and date
+        // Fetch active announcements sorted by priority and date (excluding events/activities)
+        $announcements = Announcement::where(function ($query) {
+                $query->whereNull('publish_date')
+                      ->orWhere('publish_date', '<=', now());
+            })
+            ->where(function ($query) {
+                $query->where(function ($q) {
+                    $q->where('category', 'not like', '%event%')
+                      ->where('category', 'not like', '%sport%')
+                      ->where('category', 'not like', '%activity%')
+                      ->where('category', 'not like', '%program%');
+                })
+                ->orWhereNull('category');
+            })
+            ->orderByRaw("
+                CASE priority
+                    WHEN 'urgent' THEN 1
+                    WHEN 'high' THEN 2
+                    WHEN 'normal' THEN 3
+                    WHEN 'low' THEN 4
+                    ELSE 5
+                END ASC
+            ")
+            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
+
+        $heroType = Setting::getValue('hero_type', 'slides');
+        $heroTitle = Setting::getValue('hero_title', 'Al Munawwara Islamic School');
+        $heroSubtitle = Setting::getValue('hero_subtitle', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira');
+
+        return view('home', compact('announcements', 'heroType', 'heroTitle', 'heroSubtitle'));
+    }
+
+    /**
+     * Display the dedicated news list index page.
+     */
+    public function newsIndex()
+    {
         $announcements = Announcement::where(function ($query) {
                 $query->whereNull('publish_date')
                       ->orWhere('publish_date', '<=', now());
@@ -29,13 +67,31 @@ class PageController extends Controller
             ")
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')
-            ->paginate(4); // 4 announcements per page as in Vue app
+            ->paginate(10);
 
-        $heroType = Setting::getValue('hero_type', 'slides');
-        $heroTitle = Setting::getValue('hero_title', 'Al Munawwara Islamic School');
-        $heroSubtitle = Setting::getValue('hero_subtitle', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira');
+        return view('news_index', compact('announcements'));
+    }
 
-        return view('home', compact('announcements', 'heroType', 'heroTitle', 'heroSubtitle'));
+    /**
+     * Display the dedicated events grid index page.
+     */
+    public function eventsIndex()
+    {
+        $events = Announcement::where(function ($query) {
+                $query->whereNull('publish_date')
+                      ->orWhere('publish_date', '<=', now());
+            })
+            ->where(function ($query) {
+                $query->where('category', 'like', '%event%')
+                      ->orWhere('category', 'like', '%sport%')
+                      ->orWhere('category', 'like', '%activity%')
+                      ->orWhere('category', 'like', '%program%');
+            })
+            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
+
+        return view('events_index', compact('events'));
     }
 
     /**
@@ -43,7 +99,14 @@ class PageController extends Controller
      */
     public function announcementShow($id)
     {
-        $announcement = Announcement::findOrFail($id);
+        if (is_numeric($id)) {
+            $announcement = Announcement::findOrFail($id);
+            if ($announcement->uuid) {
+                return redirect()->route('announcement.show', $announcement->uuid);
+            }
+        } else {
+            $announcement = Announcement::where('uuid', $id)->firstOrFail();
+        }
         return view('announcement_detail', compact('announcement'));
     }
 
@@ -117,6 +180,14 @@ class PageController extends Controller
     public function basicEducation()
     {
         return view('academics.basic_education');
+    }
+
+    /**
+     * Display Calendar of Activities page.
+     */
+    public function calendar()
+    {
+        return view('pages.calendar');
     }
 
     /**

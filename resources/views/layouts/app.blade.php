@@ -7,6 +7,81 @@
     <title>@yield('title', 'Al Munawwara Islamic School')</title>
     <meta name="description" content="@yield('meta_description', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira. Al Munawwara Islamic School offers high-quality Islamic education in Davao City.')">
     
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="C-3N2wjyM9KESjDCT4MXpCoqyWmxh54zVhlt6KUZ2bA">
+    
+    <!-- Search Engine Crawler Directives (Google, Bing, Yahoo, DuckDuckGo, Safari) -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="author" content="Al Munawwara Islamic School">
+    
+    <!-- Apple / Safari Web App Meta -->
+    <meta name="apple-mobile-web-app-title" content="Al Munawwara Islamic School">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Twitter / X Cards Meta -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'Al Munawwara Islamic School')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira. Al Munawwara Islamic School offers high-quality Islamic education in Davao City.')">
+    <meta name="twitter:image" content="{{ asset('logo.png') }}">
+
+    <!-- Local & Geo SEO Meta Tags -->
+    <meta name="geo.region" content="PH-DVO">
+    <meta name="geo.placename" content="Davao City, Philippines">
+    <meta name="geo.position" content="7.0736;125.6110">
+    <meta name="ICBM" content="7.0736, 125.6110">
+
+    <!-- Canonical & Open Graph Meta Tags -->
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:site_name" content="Al Munawwara Islamic School">
+    <meta property="og:title" content="@yield('title', 'Al Munawwara Islamic School')">
+    <meta property="og:description" content="@yield('meta_description', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira. Al Munawwara Islamic School offers high-quality Islamic education in Davao City.')">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('logo.png') }}">
+
+    <!-- Google & Search Engines Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "WebSite",
+      "name": "Al Munawwara Islamic School",
+      "alternateName": ["AMIS", "amis.edu.ph"],
+      "url": "https://amis.edu.ph/"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "EducationalOrganization",
+      "name": "Al Munawwara Islamic School",
+      "alternateName": "AMIS",
+      "url": "https://amis.edu.ph",
+      "logo": "https://amis.edu.ph/logo.png",
+      "email": "inquiries@amis.edu.ph",
+      "address": {
+        "@@type": "PostalAddress",
+        "addressLocality": "Davao City",
+        "addressRegion": "Davao del Sur",
+        "addressCountry": "PH"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://amis.edu.ph/"
+      }]
+    }
+    </script>
+    
     <!-- Google Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +94,33 @@
     <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
     <link rel="shortcut icon" href="{{ asset('logo.png') }}">
     
+    <!-- CookieConsent CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.css">
+    <style>
+        /* Custom Cookie Consent Theme Overrides (AMIS Green) */
+        :root {
+            --cc-bg: #ffffff;
+            --cc-text: #1e293b;
+            --cc-btn-primary-bg: #059669;
+            --cc-btn-primary-text: #ffffff;
+            --cc-btn-primary-hover-bg: #047857;
+            --cc-btn-secondary-bg: #f1f5f9;
+            --cc-btn-secondary-text: #334155;
+            --cc-btn-secondary-hover-bg: #e2e8f0;
+            --cc-toggle-on-bg: #059669;
+            --cc-toggle-off-bg: #cbd5e1;
+            --cc-toggle-on-knob-bg: #ffffff;
+            --cc-toggle-off-knob-bg: #ffffff;
+            --cc-toggle-readonly-bg: #e2e8f0;
+            --cc-toggle-readonly-knob-bg: #94a3b8;
+        }
+        /* Custom font pairing matching Outfit */
+        .cc--darkmode,
+        #cc-main {
+            font-family: 'Outfit', 'Inter', sans-serif !important;
+        }
+    </style>
+
     @yield('styles')
 </head>
 <body class="bg-gray-50">
@@ -121,28 +223,20 @@
                                 <li><a href="{{ route('about.location') }}">School Location</a></li>
                             </ul>
                         </li>
+
                         <li class="dropdown">
-                            <a href="#" onclick="event.preventDefault()">
+                            <a href="{{ route('academics.index') }}" class="{{ request()->routeIs('academics.*') ? 'active-link' : '' }}">
                                 Academics
                                 <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('academics.basic-education') }}">Basic Education - K to 12</a></li>
+                                <li><a href="{{ route('academics.basic-education') }}">Basic Education</a></li>
+                                <li><a href="{{ route('academics.calendar') }}">Calendar of Activities 2026-2027</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" onclick="event.preventDefault()" class="{{ request()->routeIs('admissions') ? 'active-link' : '' }}">
-                                Admissions
-                                <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('admissions') }}">Basic Education - K to 12</a></li>
-                            </ul>
-                        </li>
+
                         <li class="dropdown">
                             <a href="#" onclick="event.preventDefault()">
                                 ISAL Department
@@ -153,6 +247,16 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('isal.halaqah') }}">Halaqah Online</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('news.index') }}" class="{{ request()->routeIs('news.index') ? 'active-link' : '' }}">
+                                News
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('events.index') }}" class="{{ request()->routeIs('events.index') ? 'active-link' : '' }}">
+                                Events
+                            </a>
                         </li>
                         <li>
                             <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active-link' : '' }}">
@@ -175,16 +279,16 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-section">
-                        <h3>AMIS</h3>
-                        <p>Empowering students for a brighter future through quality Islamic education and innovation.</p>
+                        <img src="/logo.png" alt="AMIS Logo" class="footer-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
                     </div>
                     
                     <div class="footer-section">
                         <h4>Quick Links</h4>
                         <ul>
                             <li><a href="{{ route('about.index') }}">About Us</a></li>
-                            <li><a href="{{ route('academics.index') }}">Academics</a></li>
-                            <li><a href="{{ route('admissions') }}">Admissions</a></li>
+                            <li><a href="{{ route('academics.calendar') }}">Calendar S.Y. 2026-2027</a></li>
+                            <li><a href="{{ route('news.index') }}">News & Announcements</a></li>
+                            <li><a href="{{ route('events.index') }}">Events</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>
@@ -449,6 +553,207 @@
             }
         });
     </script>
+    <!-- CookieConsent JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.umd.js"></script>
+    <script>
+        CookieConsent.run({
+            guiOptions: {
+                consentModal: {
+                    layout: 'box',
+                    position: 'bottom left',
+                    equalWeightButtons: false,
+                    flipButtons: false
+                },
+                preferencesModal: {
+                    layout: 'box',
+                    position: 'right',
+                    equalWeightButtons: true,
+                    flipButtons: false
+                }
+            },
+            categories: {
+                necessary: {
+                    readOnly: true,
+                    enabled: true
+                },
+                analytics: {
+                    enabled: false
+                }
+            },
+            language: {
+                default: 'en',
+                translations: {
+                    en: {
+                        consentModal: {
+                            title: '🍪 We value your privacy',
+                            description: 'Al Munawwara Islamic School uses cookies to enhance your browsing experience and analyze site traffic. You can choose which cookies to allow.',
+                            acceptAllBtn: 'Accept All',
+                            acceptNecessaryBtn: 'Reject All',
+                            showPreferencesBtn: 'Manage Preferences',
+                            footer: '<a href="/privacy-policy">Privacy Policy</a>'
+                        },
+                        preferencesModal: {
+                            title: 'Cookie Preferences',
+                            acceptAllBtn: 'Accept All',
+                            acceptNecessaryBtn: 'Reject All',
+                            savePreferencesBtn: 'Save Preferences',
+                            closeIconLabel: 'Close',
+                            sections: [
+                                {
+                                    title: 'Cookie Usage',
+                                    description: 'We use cookies to ensure the basic functionalities of our website and to enhance your online experience. You can opt-in or opt-out for each category.'
+                                },
+                                {
+                                    title: 'Strictly Necessary <span class="pm__badge">Always Active</span>',
+                                    description: 'These cookies are essential for the proper functioning of our website. Without these cookies, the website cannot function properly.',
+                                    linkedCategory: 'necessary'
+                                },
+                                {
+                                    title: 'Analytics & Statistics',
+                                    description: 'These cookies help us understand how visitors interact with our website to improve content and user experience.',
+                                    linkedCategory: 'analytics'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Global Skeleton Loading Engine -->
+    <script>
+    (function() {
+        // Selectors to SKIP (logos, icons, tiny UI images, slideshow slides, etc.)
+        const SKIP_SELECTORS = [
+            '.logo-img',
+            '.social-link img',
+            'nav img',
+            '.footer-logo img',
+            '.indicator',
+            '.news-slide-img',
+            '.hero-image',
+            '.news-slideshow-container img',
+            '.album-slide-img',
+        ];
+
+        function shouldSkip(img) {
+            for (const sel of SKIP_SELECTORS) {
+                if (img.closest(sel.split(' ')[0]) || img.matches(sel)) return true;
+            }
+            // Skip tiny images (icons)
+            if (img.width && img.width < 48 && img.height && img.height < 48) return true;
+            return false;
+        }
+
+        function wrapImage(img) {
+            if (img.dataset.skeletonWrapped) return;
+            if (shouldSkip(img)) return;
+
+            img.dataset.skeletonWrapped = '1';
+
+            // If already loaded (cached), no skeleton needed
+            if (img.complete && img.naturalWidth > 0) {
+                return;
+            }
+
+            const parent = img.parentNode;
+            if (!parent) return;
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'img-skeleton-wrapper';
+
+            // Copy sizing from parent or img's computed styles
+            const computedParent = window.getComputedStyle(parent);
+            if (computedParent.position === 'static') {
+                parent.style.position = 'relative';
+            }
+
+            // Insert wrapper before img, move img inside
+            parent.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+
+            // Add shimmer placeholder
+            const placeholder = document.createElement('div');
+            placeholder.className = 'skeleton-placeholder';
+            wrapper.appendChild(placeholder);
+
+            // On load: fade out skeleton
+            img.addEventListener('load', function onLoad() {
+                wrapper.classList.add('loaded');
+                img.removeEventListener('load', onLoad);
+            });
+
+            // On error: still remove skeleton so broken state is visible
+            img.addEventListener('error', function onErr() {
+                wrapper.classList.add('loaded');
+                img.removeEventListener('error', onErr);
+            });
+        }
+
+        // Hero skeleton: dark shimmer until first hero image loads
+        function setupHeroSkeleton() {
+            const hero = document.querySelector('.hero');
+            if (!hero) return;
+
+            // Don't add if it's a video hero
+            const heroVideo = hero.querySelector('.hero-video');
+            if (heroVideo) return;
+
+            const sk = document.createElement('div');
+            sk.className = 'hero-skeleton';
+            hero.appendChild(sk);
+
+            // Listen for first active hero image
+            const firstHeroImg = hero.querySelector('.hero-image.active, .hero-image:first-child');
+            if (firstHeroImg) {
+                if (firstHeroImg.complete && firstHeroImg.naturalWidth > 0) {
+                    sk.classList.add('hidden');
+                } else {
+                    firstHeroImg.addEventListener('load', function() {
+                        sk.classList.add('hidden');
+                    }, { once: true });
+                    firstHeroImg.addEventListener('error', function() {
+                        sk.classList.add('hidden');
+                    }, { once: true });
+                }
+            }
+        }
+
+        // Process all images on page load
+        function processAll() {
+            document.querySelectorAll('img').forEach(wrapImage);
+            setupHeroSkeleton();
+        }
+
+        // Run immediately and also after DOM settles
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', processAll);
+        } else {
+            processAll();
+        }
+
+        // Also observe for dynamically inserted images
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType !== 1) return;
+                    if (node.tagName === 'IMG') {
+                        wrapImage(node);
+                    } else {
+                        node.querySelectorAll && node.querySelectorAll('img').forEach(wrapImage);
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+    })();
+    </script>
+
     @yield('scripts')
 </body>
 </html>
