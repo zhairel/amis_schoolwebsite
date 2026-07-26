@@ -246,6 +246,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('isal.halaqah') }}">Halaqah Online</a></li>
+                                <li><a href="{{ route('isal.halaqah-parents') }}">Halaqah Parents</a></li>
                             </ul>
                         </li>
                         <li>

@@ -40,6 +40,7 @@ Route::get('/calendar', [PageController::class, 'calendar'])->name('calendar.sho
 
 Route::prefix('isal')->name('isal.')->group(function () {
     Route::get('/halaqah', [PageController::class, 'halaqah'])->name('halaqah');
+    Route::get('/halaqah-parents', [PageController::class, 'halaqahParents'])->name('halaqah-parents');
 });
 
 Route::redirect('/academics/halaqah-online', '/isal/halaqah', 301);

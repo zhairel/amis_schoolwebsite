@@ -207,6 +207,14 @@ class PageController extends Controller
     }
 
     /**
+     * Display Halaqah Parents page.
+     */
+    public function halaqahParents()
+    {
+        return view('isal.halaqah_parents');
+    }
+
+    /**
      * Display Admissions page.
      */
     public function admissions()
