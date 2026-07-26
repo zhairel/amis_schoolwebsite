@@ -609,7 +609,10 @@
             <p class="hero-subtitle">{{ $heroSubtitle }}</p>
             <div class="hero-buttons" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
                 <a href="https://enrollment.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
-                <a href="{{ route('academics.calendar') }}" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.18); color: white; border-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px);">📅 School Calendar S.Y. 2026-2027</a>
+                <a href="{{ route('academics.calendar') }}" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.18); color: white; border-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px); display: inline-flex; align-items: center; gap: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    School Calendar S.Y. 2026-2027
+                </a>
             </div>
         </div>
     </div>
@@ -698,7 +701,8 @@
                 <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay up to date with the latest school programs, academic timelines, sports activities, and special events happening at Al Munawwara Islamic School.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
                     <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);" onmouseover="this.style.background='#047857'" onmouseout="this.style.background='#059669'">
-                        📅 View Calendar of Activities S.Y. 2026-2027 →
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        View Calendar of Activities S.Y. 2026-2027 →
                     </a>
                     <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All Events →</a>
                 </div>

@@ -53,7 +53,7 @@
         margin-top: 8px;
     }
 
-    /* TOP NOTICE BANNER */
+    /* TOP IMPORTANT NOTICE BANNER */
     .notice-banner-top {
         background: #eff6ff;
         border: 1px solid #bfdbfe;
@@ -99,7 +99,7 @@
         flex-wrap: wrap;
         gap: 15px;
         max-width: 1100px;
-        margin: 0 auto 25px;
+        margin: 0 auto 20px;
     }
     
     .mode-btn-group {
@@ -119,6 +119,9 @@
         color: #64748b;
         cursor: pointer;
         transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .mode-btn.active {
@@ -126,40 +129,12 @@
         color: white;
         box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
     }
-
-    /* MONTH SELECTION PILLS */
-    .month-pills-scroll {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        padding-bottom: 8px;
-        max-width: 1100px;
-        margin: 0 auto 25px;
-        scrollbar-width: thin;
-    }
-    
-    .month-pill {
-        background: white;
-        border: 1px solid #cbd5e1;
-        color: #475569;
-        padding: 7px 16px;
-        border-radius: 20px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        white-space: nowrap;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    
-    .month-pill:hover {
-        border-color: #059669;
-        color: #059669;
-    }
-    
-    .month-pill.active {
-        background: #059669;
-        border-color: #059669;
-        color: white;
+    .mode-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
     }
 
     /* VISUAL CALENDAR UI GRID */
@@ -176,39 +151,43 @@
     .calendar-ui-header {
         background: #059669;
         color: white;
-        padding: 20px 28px;
+        padding: 18px 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     
     .calendar-month-title {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: 800;
         letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        font-family: 'Outfit', sans-serif;
     }
 
     .nav-arrow-btn {
         background: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.3);
         color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
         transition: all 0.2s;
     }
     
     .nav-arrow-btn:hover {
         background: rgba(255, 255, 255, 0.35);
+        transform: scale(1.05);
+    }
+    .nav-arrow-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        fill: none;
     }
 
     .grid-days-header {
@@ -220,8 +199,8 @@
     }
     
     .grid-day-name {
-        padding: 12px 4px;
-        font-size: 0.78rem;
+        padding: 14px 4px;
+        font-size: 0.8rem;
         font-weight: 800;
         color: #475569;
         text-transform: uppercase;
@@ -235,39 +214,39 @@
     .grid-body {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        background: #e2e8f0;
+        background: #cbd5e1;
         gap: 1px;
     }
 
     .grid-cell {
         background: white;
-        min-height: 110px;
-        padding: 8px;
+        min-height: 135px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         transition: background 0.2s;
         position: relative;
     }
     
     .grid-cell.other-month {
         background: #f8fafc;
-        opacity: 0.5;
+        opacity: 0.45;
     }
     
     .grid-cell-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
     }
     
     .cell-day-num {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         font-weight: 800;
         color: #1e293b;
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -282,58 +261,59 @@
     .cell-events-list {
         display: flex;
         flex-direction: column;
-        gap: 3px;
-        overflow-y: auto;
-        max-height: 80px;
+        gap: 6px;
+        width: 100%;
+        flex-grow: 1;
     }
 
     .event-chip {
-        font-size: 0.72rem;
+        font-size: 0.78rem;
         font-weight: 700;
-        padding: 3px 6px;
-        border-radius: 6px;
-        line-height: 1.2;
+        padding: 7px 10px;
+        border-radius: 8px;
+        line-height: 1.35;
         cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: transform 0.15s;
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        word-break: break-word;
     }
     
     .event-chip:hover {
-        transform: scale(1.02);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Event Chip Types */
+    /* Solid Colorful Event Chips */
     .chip-exam {
         background: #fef08a;
         color: #854d0e;
-        border-left: 3px solid #eab308;
+        border-left: 4px solid #eab308;
     }
     .chip-holiday {
         background: #ffe4e6;
         color: #9f1239;
-        border-left: 3px solid #f43f5e;
+        border-left: 4px solid #f43f5e;
     }
     .chip-start {
         background: #dcfce7;
         color: #14532d;
-        border-left: 3px solid #22c55e;
+        border-left: 4px solid #22c55e;
     }
     .chip-event {
         background: #dbeafe;
         color: #1e40af;
-        border-left: 3px solid #3b82f6;
+        border-left: 4px solid #3b82f6;
     }
     .chip-break {
         background: #e0e7ff;
         color: #3730a3;
-        border-left: 3px solid #6366f1;
+        border-left: 4px solid #6366f1;
     }
     .chip-eosy {
         background: #f3e8ff;
         color: #6b21a8;
-        border-left: 3px solid #a855f7;
+        border-left: 4px solid #a855f7;
     }
 
     /* EVENT DETAIL MODAL */
@@ -365,10 +345,10 @@
         right: 18px;
         background: #f1f5f9;
         border: none;
-        width: 32px;
-        height: 32px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -381,18 +361,18 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 16px;
+        gap: 20px;
         background: #f8fafc;
-        padding: 14px 24px;
+        padding: 16px 24px;
         border-top: 1px solid #e2e8f0;
-        font-size: 0.8rem;
+        font-size: 0.82rem;
         font-weight: 700;
     }
     
     .legend-item {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
     
     .legend-dot {
@@ -458,11 +438,11 @@
     @media (max-width: 768px) {
         .page-hero h1 { font-size: 1.9rem; }
         .notice-banner-top { flex-direction: column; gap: 10px; padding: 16px; }
-        .view-switcher-bar { flex-direction: column; align-items: stretch; }
+        .view-switcher-bar { flex-direction: column; align-items: stroke; }
         .calendar-ui-header { padding: 14px 18px; }
-        .calendar-month-title { font-size: 1.15rem; }
-        .grid-cell { min-height: 80px; padding: 4px; }
-        .event-chip { font-size: 0.65rem; padding: 2px 4px; }
+        .calendar-month-title { font-size: 1.2rem; }
+        .grid-cell { min-height: 95px; padding: 6px; }
+        .event-chip { font-size: 0.7rem; padding: 4px 6px; }
     }
 </style>
 @endsection
@@ -497,44 +477,35 @@
 
         <!-- VIEW SWITCHER & CONTROLS -->
         <div class="view-switcher-bar">
-            <!-- Mode Buttons -->
+            <!-- Mode Buttons with SVG Icons -->
             <div class="mode-btn-group">
                 <button type="button" class="mode-btn active" id="btnModeVisual" onclick="switchView('visual')">
-                    📅 Visual Calendar UI
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Visual Calendar
                 </button>
                 <button type="button" class="mode-btn" id="btnModeList" onclick="switchView('list')">
-                    📋 List View Table
+                    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    List View Table
                 </button>
             </div>
 
-            <!-- Print / Export Hint -->
+            <!-- Hint -->
             <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">
-                <span>Click any event chip to view details</span>
+                <span>Click any event block to view full details</span>
             </div>
-        </div>
-
-        <!-- MONTH QUICK SELECTOR PILLS -->
-        <div class="month-pills-scroll" id="monthPillsContainer">
-            <button class="month-pill active" onclick="selectMonth(5, 2026, this)">Jun 2026</button>
-            <button class="month-pill" onclick="selectMonth(6, 2026, this)">Jul 2026</button>
-            <button class="month-pill" onclick="selectMonth(7, 2026, this)">Aug 2026</button>
-            <button class="month-pill" onclick="selectMonth(8, 2026, this)">Sep 2026</button>
-            <button class="month-pill" onclick="selectMonth(9, 2026, this)">Oct 2026</button>
-            <button class="month-pill" onclick="selectMonth(10, 2026, this)">Nov 2026</button>
-            <button class="month-pill" onclick="selectMonth(11, 2026, this)">Dec 2026</button>
-            <button class="month-pill" onclick="selectMonth(0, 2027, this)">Jan 2027</button>
-            <button class="month-pill" onclick="selectMonth(1, 2027, this)">Feb 2027</button>
-            <button class="month-pill" onclick="selectMonth(2, 2027, this)">Mar 2027</button>
-            <button class="month-pill" onclick="selectMonth(3, 2027, this)">Apr 2027</button>
         </div>
 
         <!-- 1. VISUAL CALENDAR UI CONTAINER -->
         <div id="visualCalendarContainer" class="visual-calendar-wrapper">
-            <!-- Header Controls -->
+            <!-- Header Controls with Arrow Icons -->
             <div class="calendar-ui-header">
-                <button class="nav-arrow-btn" onclick="navigateMonth(-1)" title="Previous Month">‹</button>
+                <button class="nav-arrow-btn" onclick="navigateMonth(-1)" title="Previous Month">
+                    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
                 <div class="calendar-month-title" id="currentMonthYearLabel">June 2026</div>
-                <button class="nav-arrow-btn" onclick="navigateMonth(1)" title="Next Month">›</button>
+                <button class="nav-arrow-btn" onclick="navigateMonth(1)" title="Next Month">
+                    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
             </div>
 
             <!-- Days of Week Row -->
@@ -578,7 +549,7 @@
             </div>
         </div>
 
-        <!-- 2. FULL LIST VIEW CONTAINER (HIDDEN BY DEFAULT OR SWITCHABLE) -->
+        <!-- 2. FULL LIST VIEW CONTAINER -->
         <div id="listViewContainer" style="display: none; max-width: 1100px; margin: 0 auto 40px;">
 
             <!-- OPENING BLOCK -->
@@ -791,9 +762,10 @@
         
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 20px;">
             <div style="font-size: 0.9rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px;">
-                <span>📅</span> <span id="modalDates">Date Range</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span id="modalDates">Date Range</span>
             </div>
-            <div style="font-size: 0.82rem; color: #64748b; margin-top: 4px;">
+            <div style="font-size: 0.82rem; color: #64748b; margin-top: 6px;">
                 School Year 2026-2027 • Al Munawwara Islamic School
             </div>
         </div>
@@ -989,14 +961,6 @@
         }
     }
 
-    function selectMonth(m, y, btn) {
-        currentMonth = m;
-        currentYear = y;
-        document.querySelectorAll('.month-pill').forEach(p => p.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-        renderVisualCalendar(currentMonth, currentYear);
-    }
-
     function navigateMonth(direction) {
         currentMonth += direction;
         if (currentMonth > 11) {
@@ -1015,17 +979,6 @@
             currentMonth = 3;
             currentYear = 2027;
         }
-
-        // Update pills selection
-        const pills = document.querySelectorAll('.month-pill');
-        pills.forEach(p => {
-            const pText = p.textContent;
-            if (pText.includes(monthNames[currentMonth].substring(0, 3))) {
-                p.classList.add('active');
-            } else {
-                p.classList.remove('active');
-            }
-        });
 
         renderVisualCalendar(currentMonth, currentYear);
     }
