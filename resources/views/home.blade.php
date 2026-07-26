@@ -708,76 +708,49 @@
                 </div>
             </div>
             
-            <!-- Right: Event List Column -->
-            <div style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Right: Current Month Events List Column -->
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="font-size: 0.85rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea;">
+                    <span>July 2026 Schedule & Activities</span>
+                    <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem;">Current Month</span>
+                </div>
+
                 @php
-                    $homepageEvents = \App\Models\Announcement::where(function ($query) {
-                            $query->whereNull('publish_date')
-                                  ->orWhere('publish_date', '<=', now());
-                        })
-                        ->where(function ($query) {
-                            $query->where('category', 'like', '%event%')
-                                  ->orWhere('category', 'like', '%sport%')
-                                  ->orWhere('category', 'like', '%activity%')
-                                  ->orWhere('category', 'like', '%program%');
-                        })
-                        ->orderBy('publish_date', 'desc')
-                        ->orderBy('created_at', 'desc')
-                        ->take(3)
-                        ->get();
+                    $julyEventsList = [
+                        ['month' => 'JUL', 'day' => '11', 'category' => 'Assembly', 'title' => 'PTA General Assembly and Election of Officers', 'badge_class' => 'background:#dbeafe;color:#1e40af;'],
+                        ['month' => 'JUL', 'day' => '18', 'category' => 'Student Activity', 'title' => 'JHS and SHS Get Together', 'badge_class' => 'background:#fce7f3;color:#be185d;'],
+                        ['month' => 'JUL', 'day' => '19-23', 'category' => 'Summative Test', 'title' => '1st Summative Test (Term 1)', 'badge_class' => 'background:#fef9c3;color:#854d0e;'],
+                        ['month' => 'JUL', 'day' => '20', 'category' => 'International Event', 'title' => '22nd Asia Youth International Model United Nations (AYIMUN) 2026', 'badge_class' => 'background:#dcfce7;color:#14532d;'],
+                        ['month' => 'JUL', 'day' => '21', 'category' => 'SSC Election', 'title' => 'SSC Filing of Candidacy', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
+                        ['month' => 'JUL', 'day' => '22-23', 'category' => 'SSC Election', 'title' => 'SSC Campaign Week', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
+                        ['month' => 'JUL', 'day' => '28', 'category' => 'Safety Drill', 'title' => 'Earthquake Drill (Davao)', 'badge_class' => 'background:#fee2e2;color:#991b1b;'],
+                        ['month' => 'JUL', 'day' => '29', 'category' => 'SSC Election', 'title' => 'SSC Election of Officers', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
+                        ['month' => 'JUL', 'day' => '30', 'category' => 'SSC Election', 'title' => 'SSC Induction of Officers', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
+                    ];
                 @endphp
-                
-                @if($homepageEvents->count() > 0)
-                    @foreach($homepageEvents as $evt)
-                        @php
-                            $evtDate = $evt->publish_date ?? $evt->created_at;
-                            $evtMonth = $evtDate ? $evtDate->format('M') : 'AN';
-                            $evtDay = $evtDate ? $evtDate->format('d') : '--';
-                        @endphp
-                        <a href="{{ route('announcement.show', $evt->uuid ?? $evt->id) }}" style="display: flex; align-items: center; gap: 20px; text-decoration: none; padding: 15px; border-radius: 12px; border: 1px solid #f1f5f9; transition: all 0.3s; background: white;" class="homepage-event-row" onmouseover="this.style.borderColor='#059669';this.style.background='#f8fafc'" onmouseout="this.style.borderColor='#f1f5f9';this.style.background='white'">
+
+                <div style="max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-right: 4px;">
+                    @foreach($julyEventsList as $evt)
+                        <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 14px 18px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
                             
-                            <!-- Calendar Date Overlay -->
-                            <div style="flex-shrink: 0; background: white; border: 1px solid #e2e8f0; border-radius: 10px; width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-                                <div style="background: #059669; color: white; width: 100%; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evtMonth }}</div>
-                                <div style="color: #0f172a; font-size: 1.2rem; font-weight: 800; line-height: 1.1;">{{ $evtDay }}</div>
+                            <!-- Calendar Date Box -->
+                            <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 56px; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                                <div style="background: #059669; color: white; width: 100%; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
+                                <div style="color: #0f172a; font-size: 1.15rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
                             </div>
                             
-                            <!-- Text Details -->
+                            <!-- Event Title & Category Tag -->
                             <div style="flex-grow: 1;">
-                                <div style="font-size: 0.75rem; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 4px;">{{ $evt->category ?? 'Event' }}</div>
-                                <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.35; margin-bottom: 4px;">{{ $evt->title }}</h3>
-                                
-                                @if($evt->event_dates || $evt->event_venue || $evt->is_online)
-                                    <div style="display: flex; flex-direction: column; gap: 2px; font-size: 0.8rem; color: #64748b; margin-top: 4px;">
-                                        @if($evt->event_dates)
-                                            <span style="display: flex; align-items: center; gap: 4px;">
-                                                <span>📅</span> {{ $evt->event_dates }}
-                                            </span>
-                                        @endif
-                                        @if($evt->is_online)
-                                            <span style="display: flex; align-items: center; gap: 4px; color: #059669; font-weight: 600;">
-                                                <span>💻</span> Online Class / Virtual
-                                            </span>
-                                        @elseif($evt->event_venue)
-                                            <span style="display: flex; align-items: center; gap: 4px;">
-                                                <span>📍</span> {{ $evt->event_venue }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                @endif
+                                <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
+                                    {{ $evt['category'] }}
+                                </span>
+                                <h3 style="font-size: 0.98rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.35;">{{ $evt['title'] }}</h3>
                             </div>
                             
-                            <!-- Arrow Indicator -->
-                            <div style="color: #cbd5e1; font-weight: bold; font-size: 1.2rem; padding-right: 5px;">→</div>
+                            <div style="color: #cbd5e1; font-weight: bold; font-size: 1.1rem;">→</div>
                         </a>
                     @endforeach
-                @else
-                    <div style="text-align: center; padding: 50px 30px; border: 1px dashed #e2e8f0; border-radius: 16px; background: #f8fafc;">
-                        <span style="font-size: 2rem;">📅</span>
-                        <h4 style="font-size: 1rem; color: #1e293b; margin: 10px 0 5px; font-weight: 700;">No Events Scheduled</h4>
-                        <p style="color: #64748b; font-size: 0.85rem; margin: 0;">Please check back soon for school calendar activities.</p>
-                    </div>
-                @endif
+                </div>
             </div>
             
         </div>
