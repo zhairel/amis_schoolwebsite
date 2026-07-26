@@ -190,12 +190,19 @@
         fill: none;
     }
 
+    .calendar-grid-scroll-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .grid-days-header {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         background: #f1f5f9;
         border-bottom: 1px solid #e2e8f0;
         text-align: center;
+        min-width: 680px;
     }
     
     .grid-day-name {
@@ -216,6 +223,7 @@
         grid-template-columns: repeat(7, 1fr);
         background: #cbd5e1;
         gap: 1px;
+        min-width: 680px;
     }
 
     .grid-cell {
@@ -276,7 +284,9 @@
         width: 100%;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         transition: all 0.2s;
-        word-break: break-word;
+        word-break: normal;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
     
     .event-chip:hover {
@@ -508,20 +518,23 @@
                 </button>
             </div>
 
-            <!-- Days of Week Row -->
-            <div class="grid-days-header">
-                <div class="grid-day-name weekend">SUN</div>
-                <div class="grid-day-name">MON</div>
-                <div class="grid-day-name">TUE</div>
-                <div class="grid-day-name">WED</div>
-                <div class="grid-day-name">THU</div>
-                <div class="grid-day-name">FRI</div>
-                <div class="grid-day-name weekend">SAT</div>
-            </div>
+            <!-- Horizontal Scroll Container for Mobile Responsiveness -->
+            <div class="calendar-grid-scroll-wrapper">
+                <!-- Days of Week Row -->
+                <div class="grid-days-header">
+                    <div class="grid-day-name weekend">SUN</div>
+                    <div class="grid-day-name">MON</div>
+                    <div class="grid-day-name">TUE</div>
+                    <div class="grid-day-name">WED</div>
+                    <div class="grid-day-name">THU</div>
+                    <div class="grid-day-name">FRI</div>
+                    <div class="grid-day-name weekend">SAT</div>
+                </div>
 
-            <!-- Calendar Days Grid Body -->
-            <div class="grid-body" id="calendarGridBody">
-                <!-- Dynamically rendered by JS -->
+                <!-- Calendar Days Grid Body -->
+                <div class="grid-body" id="calendarGridBody">
+                    <!-- Dynamically rendered by JS -->
+                </div>
             </div>
 
             <!-- Legend Footer -->
