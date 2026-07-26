@@ -43,6 +43,14 @@ Route::prefix('isal')->name('isal.')->group(function () {
     Route::get('/halaqah-parents', [PageController::class, 'halaqahParents'])->name('halaqah-parents');
 });
 
+use App\Http\Controllers\Admin\HalaqahRegistrationController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/halaqah-registrations', [HalaqahRegistrationController::class, 'index'])->name('halaqah.index');
+    Route::post('/halaqah-registrations/{id}/delete', [HalaqahRegistrationController::class, 'destroy'])->name('halaqah.delete');
+    Route::get('/halaqah-registrations/export', [HalaqahRegistrationController::class, 'exportCsv'])->name('halaqah.export');
+});
+
 Route::redirect('/academics/halaqah-online', '/isal/halaqah', 301);
 
 Route::get('/admissions', [PageController::class, 'admissions'])->name('admissions');

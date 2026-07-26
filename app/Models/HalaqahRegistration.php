@@ -8,11 +8,17 @@ class HalaqahRegistration extends Model
 {
     protected $fillable = [
         'name',
+        'age',
+        'sex',
+        'status',
+        'level',
+        'fb_account',
+        'mobile',
         'email',
+        'type',
         'phone',
         'address',
         'ms_teams',
-        'level',
         'grade_level',
         'message',
     ];

@@ -477,88 +477,156 @@
             <div class="register-container">
                 <div class="register-card">
                     <h3>Register for Halaqah Parents</h3>
-                    <p>Join our online learning sessions. Fill out the form below to enroll.</p>
+                    <p>Join our online learning sessions. Fill out the application form below.</p>
 
-                    <div id="formSuccessAlert" style="display: none; background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; padding: 16px; border-radius: 12px; font-weight: 700; text-align: center; margin-bottom: 24px;">
-                        JazakAllahu Khayran! Your registration for Halaqah Parents has been successfully submitted. Our ISAL Department coordinator will reach out to you shortly.
+                    <div style="background: #ecfdf5; border-left: 4px solid #059669; padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-size: 0.95rem; color: #065f46; text-align: left; line-height: 1.5; font-weight: 600;">
+                        ✨ <strong>Program Fee:</strong> The Halaqah Parents sessions are <strong>completely free of charge</strong>. For those who wish to earn blessings and support our school, voluntary <strong>Sadaqah (donations)</strong> are welcome and highly appreciated.
                     </div>
+                    
+                    @if(session('success'))
+                        <div style="background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; padding: 16px; border-radius: 12px; font-weight: 700; text-align: center; margin-bottom: 24px;">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                    <form id="parentsHalaqahForm" onsubmit="handleRegistrationSubmit(event)">
+                    @if($errors->any())
+                        <div style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; padding: 16px; border-radius: 12px; font-weight: 600; margin-bottom: 24px;">
+                            <ul style="margin: 0; padding-left: 20px;">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="subject" value="Halaqah Parents Registration" />
+                        
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label for="parent_name">Parent / Guardian Full Name *</label>
-                                <input type="text" id="parent_name" name="parent_name" required placeholder="e.g. FATIMA ZAHRA DIAZ">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="parent_category">Category *</label>
-                                <select id="parent_category" name="parent_category" required>
-                                    <option value="">Select Category</option>
-                                    <option value="Mother">Mother (Faslol Ummahat)</option>
-                                    <option value="Father">Father (Faslol Aba')</option>
-                                    <option value="Guardian">Legal Guardian</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="mobile_number">Mobile / WhatsApp Number *</label>
-                                <input type="tel" id="mobile_number" name="mobile_number" required placeholder="e.g. 09171234567">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="parent_email">Email Address</label>
-                                <input type="email" id="parent_email" name="parent_email" placeholder="e.g. parent@example.com">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="child_name">Child's Name (Student in AMIS)</label>
-                                <input type="text" id="child_name" name="child_name" placeholder="e.g. AHMAD DIAZ">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="child_grade">Child's Grade Level</label>
-                                <select id="child_grade" name="child_grade">
-                                    <option value="">Select Grade Level</option>
-                                    <option value="Kindergarten">Kindergarten</option>
-                                    <option value="Grade 1-3">Grade 1 - Grade 3</option>
-                                    <option value="Grade 4-6">Grade 4 - Grade 6</option>
-                                    <option value="Grade 7-10">Grade 7 - Grade 10 (JHS)</option>
-                                    <option value="Grade 11-12">Grade 11 - Grade 12 (SHS)</option>
-                                </select>
-                            </div>
-
+                            <!-- 1. Name -->
                             <div class="form-group full-width">
-                                <label for="remarks">Additional Notes or Questions (Optional)</label>
-                                <textarea id="remarks" name="remarks" rows="3" placeholder="Any specific Islamic topics or questions you would like to focus on..."></textarea>
+                                <label for="name">Name (Full Name) *</label>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="e.g. FATIMA ZAHRA DIAZ" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 2. Age -->
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" name="age" min="15" max="100" value="{{ old('age') }}" required placeholder="e.g. 35" />
+                            </div>
+
+                            <!-- 3. Sex -->
+                            <div class="form-group">
+                                <label for="sex">Sex *</label>
+                                <select id="sex" name="sex" required>
+                                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select Sex</option>
+                                    <option value="MALE" {{ old('sex') == 'MALE' ? 'selected' : '' }}>MALE</option>
+                                    <option value="FEMALE" {{ old('sex') == 'FEMALE' ? 'selected' : '' }}>FEMALE</option>
+                                </select>
+                            </div>
+
+                            <!-- 4. Status -->
+                            <div class="form-group">
+                                <label for="status">Status *</label>
+                                <select id="status" name="status" required>
+                                    <option value="" disabled {{ old('status') ? '' : 'selected' }}>Select Civil Status</option>
+                                    <option value="SINGLE" {{ old('status') == 'SINGLE' ? 'selected' : '' }}>SINGLE</option>
+                                    <option value="MARRIED" {{ old('status') == 'MARRIED' ? 'selected' : '' }}>MARRIED</option>
+                                    <option value="WIDOW / WIDOWER" {{ old('status') == 'WIDOW / WIDOWER' ? 'selected' : '' }}>WIDOW / WIDOWER</option>
+                                    <option value="SEPARATED" {{ old('status') == 'SEPARATED' ? 'selected' : '' }}>SEPARATED</option>
+                                </select>
+                            </div>
+
+                            <!-- 5. Level -->
+                            <div class="form-group">
+                                <label for="level">Level *</label>
+                                <select id="level" name="level" required>
+                                    <option value="" disabled {{ old('level') ? '' : 'selected' }}>Select Learning Level</option>
+                                    <option value="BEGINNER" {{ old('level') == 'BEGINNER' ? 'selected' : '' }}>BEGINNER</option>
+                                    <option value="ADVANCE" {{ old('level') == 'ADVANCE' ? 'selected' : '' }}>ADVANCE</option>
+                                </select>
+                            </div>
+
+                            <!-- 6. FB Account -->
+                            <div class="form-group full-width">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                                    <label for="fb_account" style="margin-bottom: 0;">FB Account (Facebook Profile Link) *</label>
+                                    <button type="button" onclick="openFbGuideModal()" style="background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font-family: inherit;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                        How to copy FB Link?
+                                    </button>
+                                </div>
+                                <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/zhaii97" />
+                            </div>
+
+                            <!-- 7. Mobile -->
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
+                            </div>
+
+                            <!-- 8. Email -->
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" />
                             </div>
                         </div>
-
-                        <button type="submit" class="btn-register" id="btnSubmitForm">Submit Registration</button>
+                        
+                        <button type="submit" class="btn-register">
+                            Submit Registration
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<!-- HOW TO COPY FB LINK MODAL GUIDE -->
+<div id="fbGuideModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65); backdrop-filter: blur(4px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;" onclick="closeFbGuideModal()">
+    <div style="background: white; border-radius: 20px; max-width: 480px; width: 100%; padding: 28px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;" onclick="event.stopPropagation()">
+        <button type="button" onclick="closeFbGuideModal()" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; color: #64748b; cursor: pointer; font-size: 1.1rem;">✕</button>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 42px; height: 42px; background: #1877f2; color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">f</div>
+            <div>
+                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">How to Copy your FB Profile Link</h4>
+                <p style="margin: 0; font-size: 0.8rem; color: #64748b;">Step-by-step guide for Facebook Mobile & Browser</p>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 20px; font-size: 0.88rem; color: #334155; line-height: 1.5;">
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">1</span>
+                <div>Open your <strong>Facebook App</strong> and tap your <strong>Profile picture</strong>.</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">2</span>
+                <div>Tap the <strong>3 Dots (...)</strong> button beside <em>Edit Profile</em>.</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">3</span>
+                <div>Tap <strong>Share Profile</strong> or scroll to <em>Your Profile Link</em>.</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">4</span>
+                <div>Tap <strong>Copy Link</strong> (e.g. <em>https://www.facebook.com/username</em>) and paste it into the form field!</div>
+            </div>
+        </div>
+
+        <button type="button" onclick="closeFbGuideModal()" style="width: 100%; background: #1877f2; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(24,119,242,0.25);">Got it, thanks!</button>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
 <script>
-    function handleRegistrationSubmit(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btnSubmitForm');
-        const alert = document.getElementById('formSuccessAlert');
-        const form = document.getElementById('parentsHalaqahForm');
-
-        btn.disabled = true;
-        btn.textContent = 'Submitting...';
-
-        setTimeout(() => {
-            btn.style.display = 'none';
-            alert.style.display = 'block';
-            form.reset();
-            alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 1000);
+    function openFbGuideModal() {
+        document.getElementById('fbGuideModal').style.display = 'flex';
+    }
+    function closeFbGuideModal() {
+        document.getElementById('fbGuideModal').style.display = 'none';
     }
 </script>
 @endsection

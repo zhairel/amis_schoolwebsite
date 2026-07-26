@@ -12,74 +12,68 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        // If this is a Halaqah registration, save to HalaqahRegistration model
-        if ($request->input('subject') === 'Halaqah Online Registration') {
-            $request->validate([
-                'first_name' => 'required|string|max:100',
-                'middle_name' => 'nullable|string|max:100',
-                'last_name' => 'required|string|max:100',
-            ]);
-
-            $firstName = trim((string) $request->input('first_name'));
-            $middleName = trim((string) $request->input('middle_name'));
-            $lastName = trim((string) $request->input('last_name'));
-
-            $fullName = $firstName;
-            if ($middleName !== '') {
-                $fullName .= ' ' . $middleName;
-            }
-            if ($lastName !== '') {
-                $fullName .= ' ' . $lastName;
-            }
-            $fullName = trim($fullName);
-
-            $request->merge(['name' => $fullName]);
-
+        // Handle Halaqah Online & Halaqah Parents registrations
+        if (in_array($request->input('subject'), ['Halaqah Online Registration', 'Halaqah Parents Registration'])) {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'nullable|email|max:255',
-                'phone' => 'nullable|string|max:50',
-                'address' => 'nullable|string',
-                'ms_teams' => 'nullable|string|max:255',
-                'level' => 'required|string|max:255',
-                'grade_level' => 'required|string|max:255',
-                'message' => 'nullable|string',
+                'age' => 'required|numeric|min:1|max:120',
+                'sex' => 'required|string|max:20',
+                'status' => 'required|string|max:50',
+                'level' => 'required|string|max:50',
+                'fb_account' => 'required|string|max:255',
+                'mobile' => 'required|string|max:50',
+                'email' => 'required|email|max:255',
             ]);
 
-            // Fill optional fields with empty strings to satisfy database constraints
-            $validated['email'] = $validated['email'] ?? '';
-            $validated['phone'] = $validated['phone'] ?? '';
-            $validated['address'] = $validated['address'] ?? '';
-            $validated['ms_teams'] = $validated['ms_teams'] ?? '';
-            $validated['level'] = $validated['level'] ?? '';
-            $validated['message'] = $validated['message'] ?? '';
+            $subjectTitle = $request->input('subject');
+            $fullName = mb_strtoupper(trim($validated['name']), 'UTF-8');
 
-            \App\Models\HalaqahRegistration::create($validated);
+            // Construct formatted message
+            $messageData = "Registration Type: {$subjectTitle}\n"
+                . "Name: {$fullName}\n"
+                . "Age: {$validated['age']}\n"
+                . "Sex: {$validated['sex']}\n"
+                . "Civil Status: {$validated['status']}\n"
+                . "Learning Level: {$validated['level']}\n"
+                . "FB Account Link: {$validated['fb_account']}\n"
+                . "Mobile Number: {$validated['mobile']}\n"
+                . "Email: {$validated['email']}\n";
 
-            // Auto-send notification email to agonzales.amis@gmail.com
             try {
-                $emailBody = "New Halaqah Online Registration received:\n\n"
-                    . "Name: " . $validated['name'] . "\n"
-                    . "Email: " . ($validated['email'] ?: 'N/A') . "\n"
-                    . "Phone: " . ($validated['phone'] ?: 'N/A') . "\n"
-                    . "Address: " . ($validated['address'] ?: 'N/A') . "\n"
-                    . "MS Teams Account: " . ($validated['ms_teams'] ?: 'N/A') . "\n"
-                    . "Grade Level: " . $validated['grade_level'] . "\n"
-                    . "Learning Level: " . ($validated['level'] ?: 'N/A') . "\n\n"
-                    . "Message/Goals:\n" . ($validated['message'] ?: 'N/A');
+                \App\Models\HalaqahRegistration::create([
+                    'name' => $fullName,
+                    'age' => (int) $validated['age'],
+                    'sex' => $validated['sex'],
+                    'status' => $validated['status'],
+                    'level' => $validated['level'],
+                    'fb_account' => $validated['fb_account'],
+                    'mobile' => $validated['mobile'],
+                    'email' => $validated['email'],
+                    'type' => $subjectTitle,
+                    'phone' => $validated['mobile'],
+                    'address' => "Age: {$validated['age']} | Sex: {$validated['sex']} | Status: {$validated['status']}",
+                    'ms_teams' => $validated['fb_account'],
+                    'grade_level' => $subjectTitle,
+                    'message' => $messageData,
+                ]);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Halaqah registration save failed: ' . $e->getMessage());
+            }
 
-                \Illuminate\Support\Facades\Mail::raw($emailBody, function ($message) use ($validated) {
+            // Send notification email to agonzales.amis@gmail.com
+            try {
+                \Illuminate\Support\Facades\Mail::raw("New {$subjectTitle}:\n\n" . $messageData, function ($message) use ($fullName, $subjectTitle, $validated) {
                     $message->to('agonzales.amis@gmail.com')
-                            ->subject('AMIS Halaqah Registration: ' . $validated['name']);
+                            ->subject("{$subjectTitle}: {$fullName}");
                     if (!empty($validated['email'])) {
-                        $message->replyTo($validated['email'], $validated['name']);
+                        $message->replyTo($validated['email'], $fullName);
                     }
                 });
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('Halaqah registration email failed: ' . $e->getMessage());
             }
 
-            return back()->with('success', 'Thank you! Your registration has been submitted successfully.');
+            return back()->with('success', 'JazakAllahu Khayran! Thank you for registering. Your details have been received successfully.');
         }
 
         $validated = $request->validate([
