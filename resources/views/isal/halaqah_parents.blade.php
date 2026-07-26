@@ -430,55 +430,6 @@
                             <p>Gain practical clarity on daily acts of worship, household ethics, Halal living, and prophetic traditions.</p>
                         </div>
                     </div>
-
-                    <!-- Timetable Card -->
-                    <div class="schedule-card">
-                        <div class="corner-ornament corner-top-left"></div>
-                        <div class="corner-ornament corner-top-right"></div>
-                        <div class="corner-ornament corner-bottom-left"></div>
-                        <div class="corner-ornament corner-bottom-right"></div>
-
-                        <div class="islamic-watermark">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="#d97706" stroke-width="1.2">
-                                <path d="M50 5 L63 37 L95 50 L63 63 L50 95 L37 63 L5 50 L37 37 Z" />
-                                <path d="M50 5 L78 22 L95 50 L78 78 L50 95 L22 78 L5 50 L22 22 Z" transform="rotate(45 50 50)" />
-                                <circle cx="50" cy="50" r="22" />
-                            </svg>
-                        </div>
-
-                        <h3>Halaqah Parents Timetable</h3>
-                        <div class="islamic-divider"><span class="divider-line"></span></div>
-
-                        <div class="halaqah-table-wrap">
-                            <table class="halaqah-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 22%">Session Day</th>
-                                        <th style="width: 20%">Schedule</th>
-                                        <th style="width: 18%">Group</th>
-                                        <th style="width: 20%">Focus Topic</th>
-                                        <th style="width: 20%">Lead Asaatidh</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="day-col">SATURDAY MORNING</td>
-                                        <td class="time-col">8:30 AM - 10:00 AM</td>
-                                        <td><span class="team-badge badge-ummahat">FASLOL UMMAHAT</span></td>
-                                        <td><strong class="subject-text">Tarbiya & Qur'an Tajweed</strong></td>
-                                        <td class="instructor-col">USTADZA & ISAL STAFF</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="day-col">SUNDAY EVENING</td>
-                                        <td class="time-col">7:30 PM - 9:00 PM</td>
-                                        <td><span class="team-badge badge-aba">FASLOL ABA'</span></td>
-                                        <td><strong class="subject-text">Family Fiqh & Character</strong></td>
-                                        <td class="instructor-col">USTADZ & ISAL FACULTY</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
