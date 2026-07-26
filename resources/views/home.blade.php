@@ -697,7 +697,7 @@
             <!-- Left: Title Column -->
             <div>
                 <span style="display: inline-block; background: #e6f4ea; color: #059669; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #a7f3d0;">Calendar</span>
-                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">Upcoming & Recent Events</h2>
+                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">AMIS Calendar of Activities</h2>
                 <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay up to date with the latest school programs, academic timelines, sports activities, and special events happening at Al Munawwara Islamic School.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
                     <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);" onmouseover="this.style.background='#047857'" onmouseout="this.style.background='#059669'">
