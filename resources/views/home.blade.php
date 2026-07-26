@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Al Munawwara Islamic School | Home')
+@section('title', 'Al Munawwara Islamic School')
 
 @section('styles')
 <style>
@@ -65,13 +65,11 @@
         font-weight: 800;
         margin-bottom: 20px;
         line-height: 1.2;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     }
     .hero-subtitle {
         font-size: 1.35rem;
         margin-bottom: 40px;
         opacity: 0.95;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     }
     .btn-hero {
         background: white;
@@ -125,7 +123,6 @@
     .facebook-balloon-container {
         background: white;
         border-radius: 24px;
-        box-shadow: 0 10px 40px rgba(5, 150, 105, 0.08);
         overflow: hidden;
         border: 2px solid rgba(5, 150, 105, 0.1);
         display: flex;
@@ -156,11 +153,13 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
         gap: 24px;
+        justify-content: center;
+        justify-items: center;
     }
     .news-card {
         background: white;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
         overflow: hidden;
         display: flex;
@@ -172,11 +171,11 @@
     }
     .news-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-color: var(--primary);
     }
     .news-image {
         width: 100%;
-        aspect-ratio: 4/3;
+        aspect-ratio: 1/1;
         background: #f3f4f6;
         overflow: hidden;
         position: relative;
@@ -187,7 +186,7 @@
     .news-image img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
     }
     .news-content {
         padding: 15px;
@@ -227,7 +226,7 @@
         margin: 40px auto;
         background: white;
         border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
         display: grid;
         grid-template-columns: 150px 1fr;
         height: 600px;
@@ -373,7 +372,7 @@
         padding: 32px;
         max-width: 500px;
         width: 100%;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 1px solid #cbd5e1;
         position: relative;
     }
     .event-modal-title {
@@ -415,7 +414,7 @@
         width: 100%;
         overflow: hidden;
         border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
     .album-slideshow {
         position: relative;
@@ -563,6 +562,20 @@
             grid-template-columns: 1fr;
         }
     }
+    
+    /* Homepage Events Layout Styling */
+    .events-split-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 50px;
+        align-items: start;
+    }
+    @media (max-width: 768px) {
+        .events-split-layout {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
 </style>
 @endsection
 
@@ -594,8 +607,9 @@
         <div class="hero-content">
             <h1 class="hero-title">{{ $heroTitle }}</h1>
             <p class="hero-subtitle">{{ $heroSubtitle }}</p>
-            <div class="hero-buttons">
-                <a href="{{ route('admissions') }}" class="btn btn-hero">Enroll Now</a>
+            <div class="hero-buttons" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                <a href="https://enrollment.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
+                <a href="{{ route('academics.calendar') }}" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.18); color: white; border-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px);">📅 School Calendar S.Y. 2026-2027</a>
             </div>
         </div>
     </div>
@@ -605,16 +619,31 @@
 <section class="section news-announcements">
     <div class="container">
         <h2 class="section-title">Latest News & Announcements</h2>
-        <p class="section-subtitle">Stay updated with the latest happenings at AMIS</p>
+        <p class="section-subtitle" style="margin-bottom: 8px;">Stay updated with the latest happenings at AMIS</p>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All News & Announcements →</a>
+        </div>
         
         <div class="news-layout">
             <!-- Live Paginated Announcement Grid -->
             @if($announcements->count() > 0)
                 <div class="announcements-column">
                     @foreach($announcements as $announcement)
-                        <a href="{{ route('announcement.show', $announcement->id) }}" class="news-card">
+                        <a href="{{ route('announcement.show', $announcement->uuid ?? $announcement->id) }}" class="news-card">
                             <div class="news-image">
-                                <img src="{{ $announcement->image ?? '/summer-class.png' }}" alt="{{ $announcement->title }}" loading="lazy">
+                                @php
+                                    $imgs = json_decode($announcement->image, true);
+                                    $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $announcement->image;
+                                @endphp
+                                @if(is_array($imgs) && count($imgs) > 1)
+                                    <div class="news-slideshow-container w-full h-full relative">
+                                        @foreach($imgs as $idx => $img)
+                                            <img src="{{ $img }}" alt="{{ $announcement->title }}" class="news-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ $idx === 0 ? 'opacity-100' : 'opacity-0' }}" loading="lazy">
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <img src="{{ $firstImg ?? '/summer-class.png' }}" alt="{{ $announcement->title }}" class="w-full h-full object-cover" loading="lazy">
+                                @endif
                             </div>
                             <div class="news-content">
                                 <div class="news-date">
@@ -657,123 +686,103 @@
     </div>
 </section>
 
-<!-- CALENDAR SECTION -->
-<section class="section calendar-section">
+<!-- UPCOMING EVENTS SECTION -->
+<section class="section homepage-events" style="background: white; border-top: 1px solid #e2e8f0; padding: 75px 0;">
     <div class="container">
-        <h2 class="section-title">DepEd School Year 2026 - 2027</h2>
-        <p class="section-subtitle">Academic Calendar - Term 1 (Terms 2 & 3 Coming Soon)</p>
-        
-        <div class="calendar-container">
-            <!-- Left: Month Vertical Sidebar -->
-            <div class="month-sidebar">
-                <div class="month-vertical" id="monthVertical">
-                    <!-- Letters seeded dynamically -->
-                </div>
-                <p class="month-year" id="monthYear">2026</p>
-                <div class="month-nav">
-                    <button class="nav-btn-small" id="prevMonthBtn">
-                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button class="nav-btn-small" id="nextMonthBtn">
-                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+        <div class="events-split-layout">
+            
+            <!-- Left: Title Column -->
+            <div>
+                <span style="display: inline-block; background: #e6f4ea; color: #059669; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #a7f3d0;">Calendar</span>
+                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">Upcoming & Recent Events</h2>
+                <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay up to date with the latest school programs, academic timelines, sports activities, and special events happening at Al Munawwara Islamic School.</p>
+                <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);" onmouseover="this.style.background='#047857'" onmouseout="this.style.background='#059669'">
+                        📅 View Calendar of Activities S.Y. 2026-2027 →
+                    </a>
+                    <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All Events →</a>
                 </div>
             </div>
             
-            <!-- Right: Calendar Grid -->
-            <div class="calendar-area">
-                <div class="calendar-wrapper">
-                    <div class="calendar-grid" id="calendarGrid">
-                        <!-- Days seeded dynamically -->
+            <!-- Right: Event List Column -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                @php
+                    $homepageEvents = \App\Models\Announcement::where(function ($query) {
+                            $query->whereNull('publish_date')
+                                  ->orWhere('publish_date', '<=', now());
+                        })
+                        ->where(function ($query) {
+                            $query->where('category', 'like', '%event%')
+                                  ->orWhere('category', 'like', '%sport%')
+                                  ->orWhere('category', 'like', '%activity%')
+                                  ->orWhere('category', 'like', '%program%');
+                        })
+                        ->orderBy('publish_date', 'desc')
+                        ->orderBy('created_at', 'desc')
+                        ->take(3)
+                        ->get();
+                @endphp
+                
+                @if($homepageEvents->count() > 0)
+                    @foreach($homepageEvents as $evt)
+                        @php
+                            $evtDate = $evt->publish_date ?? $evt->created_at;
+                            $evtMonth = $evtDate ? $evtDate->format('M') : 'AN';
+                            $evtDay = $evtDate ? $evtDate->format('d') : '--';
+                        @endphp
+                        <a href="{{ route('announcement.show', $evt->uuid ?? $evt->id) }}" style="display: flex; align-items: center; gap: 20px; text-decoration: none; padding: 15px; border-radius: 12px; border: 1px solid #f1f5f9; transition: all 0.3s; background: white;" class="homepage-event-row" onmouseover="this.style.borderColor='#059669';this.style.background='#f8fafc'" onmouseout="this.style.borderColor='#f1f5f9';this.style.background='white'">
+                            
+                            <!-- Calendar Date Overlay -->
+                            <div style="flex-shrink: 0; background: white; border: 1px solid #e2e8f0; border-radius: 10px; width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                                <div style="background: #059669; color: white; width: 100%; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evtMonth }}</div>
+                                <div style="color: #0f172a; font-size: 1.2rem; font-weight: 800; line-height: 1.1;">{{ $evtDay }}</div>
+                            </div>
+                            
+                            <!-- Text Details -->
+                            <div style="flex-grow: 1;">
+                                <div style="font-size: 0.75rem; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 4px;">{{ $evt->category ?? 'Event' }}</div>
+                                <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.35; margin-bottom: 4px;">{{ $evt->title }}</h3>
+                                
+                                @if($evt->event_dates || $evt->event_venue || $evt->is_online)
+                                    <div style="display: flex; flex-direction: column; gap: 2px; font-size: 0.8rem; color: #64748b; margin-top: 4px;">
+                                        @if($evt->event_dates)
+                                            <span style="display: flex; align-items: center; gap: 4px;">
+                                                <span>📅</span> {{ $evt->event_dates }}
+                                            </span>
+                                        @endif
+                                        @if($evt->is_online)
+                                            <span style="display: flex; align-items: center; gap: 4px; color: #059669; font-weight: 600;">
+                                                <span>💻</span> Online Class / Virtual
+                                            </span>
+                                        @elseif($evt->event_venue)
+                                            <span style="display: flex; align-items: center; gap: 4px;">
+                                                <span>📍</span> {{ $evt->event_venue }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Arrow Indicator -->
+                            <div style="color: #cbd5e1; font-weight: bold; font-size: 1.2rem; padding-right: 5px;">→</div>
+                        </a>
+                    @endforeach
+                @else
+                    <div style="text-align: center; padding: 50px 30px; border: 1px dashed #e2e8f0; border-radius: 16px; background: #f8fafc;">
+                        <span style="font-size: 2rem;">📅</span>
+                        <h4 style="font-size: 1rem; color: #1e293b; margin: 10px 0 5px; font-weight: 700;">No Events Scheduled</h4>
+                        <p style="color: #64748b; font-size: 0.85rem; margin: 0;">Please check back soon for school calendar activities.</p>
                     </div>
-                    <div style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-light); font-style: italic; border-top: 1px dashed #e5e7eb; padding-top: 15px;">
-                        * Calendar schedules and activities for succeeding terms are coming soon.
-                    </div>
-                </div>
+                @endif
             </div>
+            
         </div>
     </div>
 </section>
 
-<!-- Event info modal container -->
-<div class="event-modal" id="eventModal" style="display: none;">
-    <div class="event-modal-content">
-        <button class="close-btn" id="closeEventModal">✕</button>
-        <h3 class="event-modal-title" id="eventModalTitle">Date</h3>
-        <div class="event-list-modal" id="eventModalList">
-            <!-- Modal list items filled dynamically -->
-        </div>
-    </div>
-</div>
 
-<!-- PHOTO ALBUM SECTION -->
-<section class="photo-album">
-    <div class="container">
-        <h2 class="section-title">Life at AMIS</h2>
-        <p class="section-subtitle">Moments that define our journey</p>
-        
-        <div class="album-grid">
-            <!-- Album 1 -->
-            <div class="album-slideshow" data-album="0">
-                <img src="/albums/SportFest 2025/591753363_1378332790970238_4366905468227256693_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/SportFest 2025/594810255_1378340514302799_3937983275975124545_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/SportFest 2025/595229775_1378332614303589_8850257664654745554_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">SportFest 2025</h3>
-                </div>
-            </div>
-            <!-- Album 2 -->
-            <div class="album-slideshow" data-album="1">
-                <img src="/albums/Recognition Day/586393325_1371334605003390_6520786643361168505_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/Recognition Day/586405972_1371336098336574_1398916957616274054_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/Recognition Day/586434021_1371335625003288_3818678958531396199_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">Recognition Day</h3>
-                </div>
-            </div>
-            <!-- Album 3 -->
-            <div class="album-slideshow" data-album="2">
-                <img src="/albums/AMIS Health Assessment/556674742_1321397483330436_1853498844359200128_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/AMIS Health Assessment/557110048_1321396613330523_6346617683935954154_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/AMIS Health Assessment/557589849_1321396386663879_8754873903607782981_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">Health Assessment</h3>
-                </div>
-            </div>
-            <!-- Album 4 -->
-            <div class="album-slideshow" data-album="3">
-                <img src="/albums/AMISians join YMUN Korea XIII/587823096_1373163228153861_4039571029225953603_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/AMISians join YMUN Korea XIII/588322790_1373163481487169_3200445259471165563_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/AMISians join YMUN Korea XIII/588869895_1373163174820533_5208695980297783885_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">YMUN Korea XIII</h3>
-                </div>
-            </div>
-            <!-- Album 5 -->
-            <div class="album-slideshow" data-album="4">
-                <img src="/albums/Makasaysayan sa Pagkakaisa ng Bansa/534734549_1281575337312651_4408743598392564701_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/Makasaysayan sa Pagkakaisa ng Bansa/536633326_1281574800646038_1320401250326399751_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/Makasaysayan sa Pagkakaisa ng Bansa/536863135_1281353394001512_5883053672460982067_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">Pagkakaisa ng Bansa</h3>
-                </div>
-            </div>
-            <!-- Album 6 -->
-            <div class="album-slideshow" data-album="5">
-                <img src="/albums/SportFest 2025/595574610_1378333234303527_5885555887180984400_n.jpg" class="album-slide-img active" loading="lazy">
-                <img src="/albums/SportFest 2025/595376814_1378339567636227_7667497623519424210_n.jpg" class="album-slide-img" loading="lazy">
-                <img src="/albums/SportFest 2025/594810255_1378340514302799_3937983275975124545_n.jpg" class="album-slide-img" loading="lazy">
-                <div class="slide-overlay">
-                    <h3 class="album-title">Athletic Excellence</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+
 @endsection
 
 @section('scripts')
@@ -812,241 +821,44 @@
             }, 5000);
         }
 
-        // 2. Interactive Academic Calendar
-        const months = [
-            {
-                name: 'June 2026',
-                days: [
-                    { number: 1, events: [{ label: 'Brigada Eskwela', class: 'brigada' }] },
-                    { number: 2, events: [{ label: 'Brigada Eskwela', class: 'brigada' }] },
-                    { number: 3, events: [{ label: 'Brigada Eskwela', class: 'brigada' }] },
-                    { number: 4, events: [{ label: 'Brigada Eskwela', class: 'brigada' }] },
-                    { number: 5, events: [{ label: 'Brigada Eskwela', class: 'brigada' }, { label: 'Enrollment Period', class: 'brigada' }] },
-                    { number: 6 },
-                    { number: 7 },
-                    { number: 8, events: [{ label: 'Opening Block', class: 'opening' }] },
-                    { number: 9, events: [{ label: 'Opening Block', class: 'opening' }] },
-                    { number: 10, events: [{ label: 'Opening Block', class: 'opening' }] },
-                    { number: 11, events: [{ label: 'Start of Term 1', class: 'opening' }] },
-                    { number: 12, events: [{ label: 'Independence Day', class: 'holiday' }] },
-                    { number: 13 }, { number: 14 }, { number: 15 }, { number: 16 }, { number: 17 }, { number: 18 }, { number: 19 },
-                    { number: 20 }, { number: 21 }, { number: 22 }, { number: 23 }, { number: 24 }, { number: 25 }, { number: 26 },
-                    { number: 27 }, { number: 28 }, { number: 29 }, { number: 30 }
-                ]
-            },
-            {
-                name: 'July 2026',
-                days: [
-                    { number: '' }, { number: '' }, { number: '' },
-                    { number: 1 }, { number: 2 }, { number: 3 }, { number: 4 }, { number: 5 },
-                    { number: 6, events: [{ label: 'First Summative Test', class: 'test' }] },
-                    { number: 7 }, { number: 8 }, { number: 9 }, { number: 10 }, { number: 11 }, { number: 12 }, { number: 13 },
-                    { number: 14 }, { number: 15 }, { number: 16 }, { number: 17 }, { number: 18 }, { number: 19 }, { number: 20 },
-                    { number: 21 }, { number: 22 }, { number: 23 }, { number: 24 }, { number: 25 }, { number: 26 }, { number: 27 },
-                    { number: 28, events: [{ label: 'Second Summative Test', class: 'test' }] },
-                    { number: 29 }, { number: 30 }, { number: 31 }
-                ]
-            },
-            {
-                name: 'August 2026',
-                days: [
-                    { number: '' }, { number: '' }, { number: '' }, { number: '' }, { number: '' }, { number: '' }, { number: 1 },
-                    { number: 2 }, { number: 3 }, { number: 4 }, { number: 5 }, { number: 6 }, { number: 7 }, { number: 8 },
-                    { number: 9 }, { number: 10 }, { number: 11 }, { number: 12 }, { number: 13 }, { number: 14 }, { number: 15 },
-                    { number: 16 }, { number: 17 }, { number: 18 }, { number: 19 }, { number: 20 },
-                    { number: 21, events: [{ label: 'Exam Period', class: 'exam' }] },
-                    { number: 22 }, { number: 23 }, { number: 24 }, { number: 25 }, { number: 26 }, { number: 27 }, { number: 28 },
-                    { number: 29 }, { number: 30 },
-                    { number: 31, events: [{ label: 'Ninoy Aquino Day', class: 'holiday' }] }
-                ]
-            },
-            {
-                name: 'September 2026',
-                days: [
-                    { number: '' }, { number: '' },
-                    { number: 1, events: [{ label: 'Term 1 Exam', class: 'exam' }] },
-                    { number: 2, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 3, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 4, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 5, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 6, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 7, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 8, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 9, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 10, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 11, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 12, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 13, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 14, events: [{ label: 'End of Term Block', class: 'endterm' }] },
-                    { number: 15, events: [{ label: 'Term 1 Complete', class: 'endterm' }] },
-                    { number: 16 }, { number: 17 }, { number: 18 }, { number: 19 }, { number: 20 },
-                    { number: 21 }, { number: 22 }, { number: 23 }, { number: 24 }, { number: 25 }, { number: 26 }, { number: 27 },
-                    { number: 28 }, { number: 29 }, { number: 30 }
-                ]
-            },
-            {
-                name: 'October 2026',
-                isComingSoon: true
-            },
-            {
-                name: 'November 2026',
-                isComingSoon: true
-            },
-            {
-                name: 'December 2026',
-                isComingSoon: true
-            },
-            {
-                name: 'January 2027',
-                isComingSoon: true
-            },
-            {
-                name: 'February 2027',
-                isComingSoon: true
-            },
-            {
-                name: 'March 2027',
-                isComingSoon: true
-            }
-        ];
 
-        let currentMonthIdx = 0;
-        const monthVertical = document.getElementById('monthVertical');
-        const monthYear = document.getElementById('monthYear');
-        const prevMonthBtn = document.getElementById('prevMonthBtn');
-        const nextMonthBtn = document.getElementById('nextMonthBtn');
-        const calendarGrid = document.getElementById('calendarGrid');
-
-        const eventModal = document.getElementById('eventModal');
-        const eventModalTitle = document.getElementById('eventModalTitle');
-        const eventModalList = document.getElementById('eventModalList');
-        const closeEventModal = document.getElementById('closeEventModal');
-
-        function renderCalendar() {
-            const m = months[currentMonthIdx];
-            const nameParts = m.name.split(' ');
-            const monthName = nameParts[0];
-            const year = nameParts[1];
-
-            // Render side month name letters
-            monthVertical.innerHTML = monthName.split('').map(letter => `<span class="month-letter">${letter}</span>`).join('');
-            monthYear.textContent = year;
-
-            if (m.isComingSoon) {
-                calendarGrid.style.display = 'flex';
-                calendarGrid.style.justifyContent = 'center';
-                calendarGrid.style.alignItems = 'center';
-                calendarGrid.style.height = '100%';
-                calendarGrid.style.width = '100%';
-                calendarGrid.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-light); text-align: center; padding: 40px 20px;">
-                        <span style="font-size: 3.5rem; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">📅</span>
-                        <h3 style="font-size: 1.75rem; font-weight: 700; color: var(--primary); margin-bottom: 10px;">Coming Soon</h3>
-                        <p style="font-size: 1rem; max-width: 340px; line-height: 1.6; margin: 0; color: var(--text-light);">Academic calendar schedule for this month is currently being finalized. Please check back later.</p>
-                    </div>
-                `;
-            } else {
-                calendarGrid.style.display = 'grid';
-                // Render day headers
-                let gridHtml = `
-                    <div class="day-header">Sun</div>
-                    <div class="day-header">Mon</div>
-                    <div class="day-header">Tue</div>
-                    <div class="day-header">Wed</div>
-                    <div class="day-header">Thu</div>
-                    <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
-                `;
-
-                // Render days
-                m.days.forEach(day => {
-                    if (day.number === '') {
-                        gridHtml += `<div class="day-cell empty"></div>`;
-                    } else {
-                        const hasEv = day.events && day.events.length > 0;
-                        gridHtml += `
-                            <div class="day-cell ${hasEv ? 'has-events' : ''}">
-                                <span class="day-number">${day.number}</span>
-                                ${hasEv ? `
-                                    <button class="event-counter" data-day="${day.number}">
-                                        ${day.events.length}
-                                    </button>
-                                ` : ''}
-                            </div>
-                        `;
-                    }
-                });
-
-                calendarGrid.innerHTML = gridHtml;
-
-                // Attach event details trigger
-                const counters = calendarGrid.querySelectorAll('.event-counter');
-                counters.forEach(c => {
-                    c.addEventListener('click', function() {
-                        const dayNum = parseInt(this.getAttribute('data-day'));
-                        const dayObj = m.days.find(d => d.number === dayNum);
-                        if (dayObj && dayObj.events) {
-                            eventModalTitle.textContent = `${monthName} ${dayNum}, ${year}`;
-                            eventModalList.innerHTML = dayObj.events.map(ev => `
-                                <div class="event-item-modal ${ev.class}">
-                                    ${ev.label}
-                                </div>
-                            `).join('');
-                            eventModal.style.display = 'flex';
-                        }
-                    });
-                });
-            }
-
-        if (prevMonthBtn) prevMonthBtn.addEventListener('click', () => { if (currentMonthIdx > 0) { currentMonthIdx--; renderCalendar(); } });
-        if (nextMonthBtn) nextMonthBtn.addEventListener('click', () => { if (currentMonthIdx < months.length - 1) { currentMonthIdx++; renderCalendar(); } });
-        if (closeEventModal) closeEventModal.addEventListener('click', () => eventModal.style.display = 'none');
-        if (eventModal) eventModal.addEventListener('click', (e) => { if (e.target === eventModal) eventModal.style.display = 'none'; });
-
-        renderCalendar();
-
-        // 3. Life at AMIS Photo Album Slideshows with Loading indicator & skeleton
-        const slideshowContainers = document.querySelectorAll('.album-slideshow');
-        slideshowContainers.forEach((container, idx) => {
-            // Append center spinner HTML dynamically
-            const spinner = document.createElement('div');
-            spinner.className = 'album-spinner';
-            container.appendChild(spinner);
-
-            const imgs = container.querySelectorAll('.album-slide-img');
-            
-            // Function to check if image is loaded, then apply class
-            function markAsLoaded(img) {
-                img.classList.add('loaded');
-                if (img.classList.contains('active')) {
-                    container.classList.add('img-loaded');
-                }
-            }
-            
-            imgs.forEach(img => {
-                if (img.complete) {
-                    markAsLoaded(img);
-                } else {
-                    img.addEventListener('load', () => markAsLoaded(img));
-                }
-            });
-
-            if (imgs.length > 1) {
+        // Cycle news card slideshows automatically on homepage with seamless crossfade (NO white blink)
+        const cardSlideshows = document.querySelectorAll('.news-slideshow-container');
+        cardSlideshows.forEach(slideshow => {
+            const slides = Array.from(slideshow.querySelectorAll('.news-slide-img'));
+            if (slides.length > 1) {
                 let activeIdx = 0;
+
+                slideshow.style.background = '#e2e8f0';
+
+                slides.forEach((slide, i) => {
+                    slide.style.position = 'absolute';
+                    slide.style.inset = '0';
+                    slide.style.width = '100%';
+                    slide.style.height = '100%';
+                    slide.style.objectFit = 'cover';
+                    slide.style.transition = 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                    slide.style.opacity = i === 0 ? '1' : '0';
+                    slide.style.zIndex = i === 0 ? '2' : '1';
+                });
+
                 setInterval(() => {
-                    imgs[activeIdx].classList.remove('active');
-                    activeIdx = (activeIdx + 1) % imgs.length;
-                    
-                    const nextImg = imgs[activeIdx];
-                    nextImg.classList.add('active');
-                    
-                    // Check if next image is loaded to update the wrapper loaded state
-                    if (nextImg.classList.contains('loaded')) {
-                        container.classList.add('img-loaded');
-                    } else {
-                        container.classList.remove('img-loaded');
-                    }
-                }, 4000 + (idx * 500)); // stagger slideshow transitions
+                    const nextIdx = (activeIdx + 1) % slides.length;
+                    const currentSlide = slides[activeIdx];
+                    const nextSlide = slides[nextIdx];
+
+                    // Bring next slide on top and fade in
+                    nextSlide.style.zIndex = '3';
+                    nextSlide.style.opacity = '1';
+
+                    // After crossfade finishes, reset old slide position
+                    setTimeout(() => {
+                        currentSlide.style.opacity = '0';
+                        currentSlide.style.zIndex = '1';
+                        nextSlide.style.zIndex = '2';
+                        activeIdx = nextIdx;
+                    }, 1250);
+                }, 4000 + Math.random() * 1500);
             }
         });
     });
