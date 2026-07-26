@@ -729,25 +729,23 @@
                     ];
                 @endphp
 
-                <div style="max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-right: 4px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
                     @foreach($julyEventsList as $evt)
-                        <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 14px 18px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
+                        <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 15px rgba(5,150,105,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,0.02)'">
                             
                             <!-- Calendar Date Box -->
-                            <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 56px; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-                                <div style="background: #059669; color: white; width: 100%; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
-                                <div style="color: #0f172a; font-size: 1.15rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
+                            <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                                <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
+                                <div style="color: #0f172a; font-size: 1.1rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
                             </div>
                             
                             <!-- Event Title & Category Tag -->
                             <div style="flex-grow: 1;">
-                                <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
+                                <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
                                     {{ $evt['category'] }}
                                 </span>
-                                <h3 style="font-size: 0.98rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.35;">{{ $evt['title'] }}</h3>
+                                <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
                             </div>
-                            
-                            <div style="color: #cbd5e1; font-weight: bold; font-size: 1.1rem;">→</div>
                         </a>
                     @endforeach
                 </div>
