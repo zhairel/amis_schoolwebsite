@@ -62,9 +62,10 @@
     /* Pillars Grid */
     .pillars-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 24px;
-        margin: 40px 0 60px;
+        max-width: 750px;
+        margin: 40px auto 60px;
     }
     .pillar-card {
         background: white;
@@ -410,13 +411,6 @@
                     <div class="pillars-grid">
                         <div class="pillar-card">
                             <div class="pillar-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                            </div>
-                            <h3>Islamic Tarbiya</h3>
-                            <p>Learn Islamic principles of child rearing, character building, and nurturing faith in young hearts.</p>
-                        </div>
-                        <div class="pillar-card">
-                            <div class="pillar-icon">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                             </div>
                             <h3>Qur'an & Tajweed</h3>
@@ -424,10 +418,10 @@
                         </div>
                         <div class="pillar-card">
                             <div class="pillar-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                             </div>
-                            <h3>Family Fiqh & Sunnah</h3>
-                            <p>Gain practical clarity on daily acts of worship, household ethics, Halal living, and prophetic traditions.</p>
+                            <h3>Arabic Reading & Writing</h3>
+                            <p>Master Arabic alphabet pronunciation, reading fluency, and foundational writing skills for understanding Islamic texts.</p>
                         </div>
                     </div>
                 </div>
