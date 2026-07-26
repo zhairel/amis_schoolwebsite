@@ -14,6 +14,19 @@ class ContactController extends Controller
     {
         // Handle Halaqah Online & Halaqah Parents registrations
         if (in_array($request->input('subject'), ['Halaqah Online Registration', 'Halaqah Parents Registration'])) {
+            $firstName = trim((string) $request->input('first_name'));
+            $middleName = trim((string) $request->input('middle_name'));
+            $lastName = trim((string) $request->input('last_name'));
+
+            if ($firstName !== '' || $lastName !== '') {
+                $fullNameParts = array_filter([$firstName, $middleName, $lastName]);
+                $fullNameStr = implode(' ', $fullNameParts);
+            } else {
+                $fullNameStr = (string) $request->input('name');
+            }
+
+            $request->merge(['name' => mb_strtoupper(trim($fullNameStr), 'UTF-8')]);
+
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'age' => 'required|numeric|min:1|max:120',

@@ -302,7 +302,7 @@
                         <tr>
                             <th>Date / Type</th>
                             <th>Full Name</th>
-                            <th>Age / Sex / Status</th>
+                            <th>Age / Gender / Status</th>
                             <th>Level</th>
                             <th>FB Account</th>
                             <th>Mobile</th>

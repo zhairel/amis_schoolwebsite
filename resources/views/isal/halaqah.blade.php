@@ -503,6 +503,18 @@
         color: #721c24;
         border: 1px solid #f5c6cb;
     }
+    /* Hide number input spinners */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    .form-group input#email {
+        text-transform: none !important;
+    }
     @media (max-width: 968px) {
         .page-hero h1 { font-size: 2.75rem; }
         .halaqah-table-wrap { display: none; }
@@ -875,29 +887,41 @@
                         <input type="hidden" name="subject" value="Halaqah Online Registration" />
                         
                         <div class="form-grid">
-                            <!-- 1. Name -->
-                            <div class="form-group full-width">
-                                <label for="name">Name (Full Name) *</label>
-                                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="e.g. JUAN CARLOS DELA CRUZ" oninput="this.value = this.value.toUpperCase()" />
+                            <!-- 1. First Name -->
+                            <div class="form-group">
+                                <label for="first_name">First Name *</label>
+                                <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="e.g. JUAN" oninput="this.value = this.value.toUpperCase()" />
                             </div>
 
-                            <!-- 2. Age -->
+                            <!-- 2. Middle Name -->
+                            <div class="form-group">
+                                <label for="middle_name">Middle Name</label>
+                                <input type="text" id="middle_name" name="middle_name" value="{{ old('middle_name') }}" placeholder="e.g. SANTOS" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 3. Last Name -->
+                            <div class="form-group">
+                                <label for="last_name">Last Name *</label>
+                                <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="e.g. DELA CRUZ" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 4. Age -->
                             <div class="form-group">
                                 <label for="age">Age *</label>
                                 <input type="number" id="age" name="age" min="5" max="100" value="{{ old('age') }}" required placeholder="e.g. 25" />
                             </div>
 
-                            <!-- 3. Sex -->
+                            <!-- 5. Gender -->
                             <div class="form-group">
-                                <label for="sex">Sex *</label>
+                                <label for="sex">Gender *</label>
                                 <select id="sex" name="sex" required>
-                                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select Sex</option>
+                                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select Gender</option>
                                     <option value="MALE" {{ old('sex') == 'MALE' ? 'selected' : '' }}>MALE</option>
                                     <option value="FEMALE" {{ old('sex') == 'FEMALE' ? 'selected' : '' }}>FEMALE</option>
                                 </select>
                             </div>
 
-                            <!-- 4. Status -->
+                            <!-- 6. Status -->
                             <div class="form-group">
                                 <label for="status">Status *</label>
                                 <select id="status" name="status" required>
@@ -909,7 +933,7 @@
                                 </select>
                             </div>
 
-                            <!-- 5. Level -->
+                            <!-- 7. Level -->
                             <div class="form-group">
                                 <label for="level">Level *</label>
                                 <select id="level" name="level" required>
@@ -919,7 +943,13 @@
                                 </select>
                             </div>
 
-                            <!-- 6. FB Account -->
+                            <!-- 8. Mobile -->
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
+                            </div>
+
+                            <!-- 9. FB Account -->
                             <div class="form-group full-width">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
                                     <label for="fb_account" style="margin-bottom: 0;">FB Account (Facebook Profile Link) *</label>
@@ -928,19 +958,13 @@
                                         How to copy FB Link?
                                     </button>
                                 </div>
-                                <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/zhaii97" />
+                                <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/username" />
                             </div>
 
-                            <!-- 7. Mobile -->
-                            <div class="form-group">
-                                <label for="mobile">Mobile Number *</label>
-                                <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
-                            </div>
-
-                            <!-- 8. Email -->
-                            <div class="form-group">
+                            <!-- 10. Email -->
+                            <div class="form-group full-width">
                                 <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" />
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" style="text-transform: none !important;" />
                             </div>
                         </div>
                         
@@ -967,7 +991,7 @@
             </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 20px; font-size: 0.88rem; color: #334155; line-height: 1.5;">
+        <div style="display: flex; flex-direction: column; gap: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 16px; font-size: 0.88rem; color: #334155; line-height: 1.5;">
             <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">1</span>
                 <div>Open your <strong>Facebook App</strong> and tap your <strong>Profile picture</strong>.</div>
@@ -983,6 +1007,46 @@
             <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span style="background: #1877f2; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;">4</span>
                 <div>Tap <strong>Copy Link</strong> (e.g. <em>https://www.facebook.com/username</em>) and paste it into the form field!</div>
+            </div>
+        </div>
+
+        <!-- VISUAL TUTORIAL PREVIEW CARDS -->
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+            <!-- Step 1 & 2 Visual UI Card -->
+            <div style="background: linear-gradient(135deg, #1877f2 0%, #0d5bb5 100%); border-radius: 14px; padding: 14px; color: white; box-shadow: 0 4px 14px rgba(24,119,242,0.25);">
+                <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; opacity: 0.9; margin-bottom: 8px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Step 1 & 2: FB Profile Header</span>
+                    <span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 0.7rem;">Click 3 Dots</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: white; color: #1877f2; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem;">👤</div>
+                        <div>
+                            <div style="font-size: 0.85rem; font-weight: 800;">Your Name</div>
+                            <div style="font-size: 0.7rem; opacity: 0.85;">Edit profile</div>
+                        </div>
+                    </div>
+                    <!-- Highlighted 3 Dots Icon -->
+                    <div style="background: #fef08a; color: #854d0e; font-weight: 900; padding: 6px 14px; border-radius: 8px; font-size: 0.9rem; border: 2px solid #eab308; box-shadow: 0 0 12px rgba(250,204,21,0.8);">
+                        •••
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 & 4 Visual UI Card -->
+            <div style="background: #ffffff; border: 2px solid #3b82f6; border-radius: 14px; padding: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+                <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #1e40af; margin-bottom: 8px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Step 3 & 4: Profile Link Menu</span>
+                    <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 0.7rem;">Copy Link</span>
+                </div>
+                
+                <div style="background: #f8fafc; border: 1.5px dashed #93c5fd; border-radius: 10px; padding: 10px 12px;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 4px;">Your Profile Link</div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; background: white; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: #1d4ed8; word-break: break-all;">https://facebook.com/username</span>
+                        <span style="background: #2563eb; color: white; padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; box-shadow: 0 2px 6px rgba(37,99,235,0.3);">Copy link</span>
+                    </div>
+                </div>
             </div>
         </div>
 

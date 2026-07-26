@@ -363,6 +363,19 @@
         box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
     }
 
+    /* Hide number input spinners */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    .form-group input#email {
+        text-transform: none !important;
+    }
+
     @media (max-width: 968px) {
         .page-hero h1 { font-size: 2.75rem; }
         .pillars-grid { grid-template-columns: 1fr; }
@@ -504,29 +517,41 @@
                         <input type="hidden" name="subject" value="Halaqah Parents Registration" />
                         
                         <div class="form-grid">
-                            <!-- 1. Name -->
-                            <div class="form-group full-width">
-                                <label for="name">Name (Full Name) *</label>
-                                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="e.g. FATIMA ZAHRA DIAZ" oninput="this.value = this.value.toUpperCase()" />
+                            <!-- 1. First Name -->
+                            <div class="form-group">
+                                <label for="first_name">First Name *</label>
+                                <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required placeholder="e.g. FATIMA" oninput="this.value = this.value.toUpperCase()" />
                             </div>
 
-                            <!-- 2. Age -->
+                            <!-- 2. Middle Name -->
+                            <div class="form-group">
+                                <label for="middle_name">Middle Name</label>
+                                <input type="text" id="middle_name" name="middle_name" value="{{ old('middle_name') }}" placeholder="e.g. ZAHRA" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 3. Last Name -->
+                            <div class="form-group">
+                                <label for="last_name">Last Name *</label>
+                                <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required placeholder="e.g. DIAZ" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 4. Age -->
                             <div class="form-group">
                                 <label for="age">Age *</label>
                                 <input type="number" id="age" name="age" min="15" max="100" value="{{ old('age') }}" required placeholder="e.g. 35" />
                             </div>
 
-                            <!-- 3. Sex -->
+                            <!-- 5. Gender -->
                             <div class="form-group">
-                                <label for="sex">Sex *</label>
+                                <label for="sex">Gender *</label>
                                 <select id="sex" name="sex" required>
-                                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select Sex</option>
+                                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select Gender</option>
                                     <option value="MALE" {{ old('sex') == 'MALE' ? 'selected' : '' }}>MALE</option>
                                     <option value="FEMALE" {{ old('sex') == 'FEMALE' ? 'selected' : '' }}>FEMALE</option>
                                 </select>
                             </div>
 
-                            <!-- 4. Status -->
+                            <!-- 6. Status -->
                             <div class="form-group">
                                 <label for="status">Status *</label>
                                 <select id="status" name="status" required>
@@ -538,7 +563,7 @@
                                 </select>
                             </div>
 
-                            <!-- 5. Level -->
+                            <!-- 7. Level -->
                             <div class="form-group">
                                 <label for="level">Level *</label>
                                 <select id="level" name="level" required>
@@ -548,7 +573,13 @@
                                 </select>
                             </div>
 
-                            <!-- 6. FB Account -->
+                            <!-- 8. Mobile -->
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
+                            </div>
+
+                            <!-- 9. FB Account -->
                             <div class="form-group full-width">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
                                     <label for="fb_account" style="margin-bottom: 0;">FB Account (Facebook Profile Link) *</label>
@@ -557,19 +588,13 @@
                                         How to copy FB Link?
                                     </button>
                                 </div>
-                                <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/zhaii97" />
+                                <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/username" />
                             </div>
 
-                            <!-- 7. Mobile -->
-                            <div class="form-group">
-                                <label for="mobile">Mobile Number *</label>
-                                <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
-                            </div>
-
-                            <!-- 8. Email -->
-                            <div class="form-group">
+                            <!-- 10. Email -->
+                            <div class="form-group full-width">
                                 <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" />
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" style="text-transform: none !important;" />
                             </div>
                         </div>
                         
@@ -577,7 +602,7 @@
                             Submit Registration
                         </button>
                     </form>
-                </div>
+</div>
             </div>
         </div>
     </section>
