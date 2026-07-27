@@ -524,7 +524,13 @@
                                 <input type="tel" id="mobile" name="mobile" value="{{ old('mobile') }}" required placeholder="e.g. 09171234567" />
                             </div>
 
-                            <!-- 9. FB Account -->
+                            <!-- 9. Home Address -->
+                            <div class="form-group full-width">
+                                <label for="address">Home Address / Complete Address *</label>
+                                <input type="text" id="address" name="address" value="{{ old('address') }}" required placeholder="e.g. BUGAC MA-A ROAD, DAVAO CITY" oninput="this.value = this.value.toUpperCase()" />
+                            </div>
+
+                            <!-- 10. FB Account -->
                             <div class="form-group full-width">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
                                     <label for="fb_account" style="margin-bottom: 0;">FB Account (Facebook Profile Link) *</label>
@@ -536,7 +542,7 @@
                                 <input type="text" id="fb_account" name="fb_account" value="{{ old('fb_account') }}" required placeholder="e.g. https://www.facebook.com/username or facebook.com/username" />
                             </div>
 
-                            <!-- 10. Email -->
+                            <!-- 11. Email -->
                             <div class="form-group full-width">
                                 <label for="email">Email Address *</label>
                                 <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@example.com" style="text-transform: none !important;" />

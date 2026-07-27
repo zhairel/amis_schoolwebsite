@@ -22,6 +22,7 @@ class HalaqahRegistrationController extends Controller
                   ->orWhere('email', 'like', "%{$search}%")
                   ->orWhere('mobile', 'like', "%{$search}%")
                   ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%")
                   ->orWhere('fb_account', 'like', "%{$search}%")
                   ->orWhere('ms_teams', 'like', "%{$search}%");
             });
@@ -110,6 +111,7 @@ class HalaqahRegistrationController extends Controller
                 'Sex',
                 'Civil Status',
                 'Learning Level',
+                'Home Address',
                 'FB Account Link',
                 'Mobile Number',
                 'Email Address'
@@ -125,6 +127,7 @@ class HalaqahRegistrationController extends Controller
                     $reg->sex ?: 'N/A',
                     $reg->status ?: 'N/A',
                     $reg->level ?: 'N/A',
+                    $reg->address ?: 'N/A',
                     $reg->fb_account ?: ($reg->ms_teams ?: 'N/A'),
                     $reg->mobile ?: ($reg->phone ?: 'N/A'),
                     $reg->email ?: 'N/A',

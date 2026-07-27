@@ -729,6 +729,18 @@ main {
   font-size: 0.95rem;
 }
 
+.footer-logo {
+  height: 180px;
+  width: 180px;
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 768px) {
+  .footer-logo {
+    margin: 0 auto;
+  }
+}
+
 .footer-section ul {
   list-style: none;
 }
@@ -1164,3 +1176,172 @@ main {
   border-color: var(--primary);
   color: white;
 }
+
+/* ============================================================
+   SKELETON LOADING SYSTEM
+   Shimmer pulse animation for all images & lazy-loaded content
+   ============================================================ */
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+/* ── Image skeleton wrapper ── */
+.img-skeleton-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.img-skeleton-wrapper .skeleton-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  z-index: 2;
+  transition: opacity 0.45s ease;
+  border-radius: inherit;
+}
+
+.img-skeleton-wrapper img {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.img-skeleton-wrapper.loaded .skeleton-placeholder {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.img-skeleton-wrapper.loaded img {
+  opacity: 1;
+}
+
+/* ── Hero skeleton overlay ── */
+.hero-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+
+.hero-skeleton.hidden {
+  opacity: 0;
+}
+
+/* ── Skeleton line utility (text placeholders) ── */
+.sk-line {
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  border-radius: 6px;
+  height: 14px;
+}
+
+.sk-line.title  { height: 22px; }
+.sk-line.short  { width: 40%; }
+.sk-line.medium { width: 70%; }
+.sk-line.full   { width: 100%; }
+
+/* ── News card skeleton ── */
+.news-card-skeleton {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.news-card-skeleton .sk-img {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+.news-card-skeleton .sk-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── News list item skeleton ── */
+.news-item-skeleton {
+  display: flex;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 190px;
+}
+
+.news-item-skeleton .sk-thumb {
+  width: 280px;
+  flex-shrink: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+.news-item-skeleton .sk-content {
+  flex-grow: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* ── Page content fade-in ── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-fade-in {
+  animation: page-fade-in 0.45s ease both;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .news-item-skeleton {
+    flex-direction: column;
+    height: auto;
+  }
+  .news-item-skeleton .sk-thumb {
+    width: 100%;
+    height: 200px;
+  }
+}
+

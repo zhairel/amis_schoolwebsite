@@ -410,11 +410,15 @@
 @endsection
 
 @section('content')
+@if(request()->boolean('embed'))
+<style>.header,.footer{display:none!important}body{background:#f8fafc!important}</style>
+@endif
 <div class="relative min-h-[920px] pt-12 pb-32 sm:pt-16 sm:pb-40 px-6 bg-slate-50 overflow-hidden flex flex-col justify-center items-center"
      x-data="{
-         student_id: '',
-         full_name: '',
-         school_year: '2026-2027',
+         student_id: @js((string) request()->query('student_id', '')),
+         full_name: @js((string) request()->query('full_name', '')),
+         school_year: @js((string) request()->query('school_year', '2026-2027')),
+         autoShow: @js(request()->boolean('auto')),
          loading: false,
          errorMsg: '',
          success: false,
@@ -439,6 +443,9 @@
                        document.body.style.overflow = '';
                    }
                });
+               if (this.autoShow && this.student_id && this.full_name && this.school_year) {
+                   this.$nextTick(() => this.submitVerification());
+               }
            },
          
          getGradeColor(grade) {
@@ -505,6 +512,7 @@
                  if (response.ok && data.success) {
                      this.result = data;
                      this.success = true;
+                     if (this.autoShow) this.showIdCard = true;
                  } else {
                      this.errorMsg = data.message || 'An error occurred during verification.';
                  }

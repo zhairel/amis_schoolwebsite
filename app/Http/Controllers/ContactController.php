@@ -33,6 +33,7 @@ class ContactController extends Controller
                 'sex' => 'required|string|max:20',
                 'status' => 'required|string|max:50',
                 'level' => 'required|string|max:50',
+                'address' => 'required|string|max:500',
                 'fb_account' => 'required|string|max:255',
                 'mobile' => 'required|string|max:50',
                 'email' => 'required|email|max:255',
@@ -40,6 +41,7 @@ class ContactController extends Controller
 
             $subjectTitle = $request->input('subject');
             $fullName = mb_strtoupper(trim($validated['name']), 'UTF-8');
+            $address = mb_strtoupper(trim($validated['address']), 'UTF-8');
 
             // Construct formatted message
             $messageData = "Registration Type: {$subjectTitle}\n"
@@ -48,6 +50,7 @@ class ContactController extends Controller
                 . "Sex: {$validated['sex']}\n"
                 . "Civil Status: {$validated['status']}\n"
                 . "Learning Level: {$validated['level']}\n"
+                . "Home Address: {$address}\n"
                 . "FB Account Link: {$validated['fb_account']}\n"
                 . "Mobile Number: {$validated['mobile']}\n"
                 . "Email: {$validated['email']}\n";
@@ -59,12 +62,12 @@ class ContactController extends Controller
                     'sex' => $validated['sex'],
                     'status' => $validated['status'],
                     'level' => $validated['level'],
+                    'address' => $address,
                     'fb_account' => $validated['fb_account'],
                     'mobile' => $validated['mobile'],
                     'email' => $validated['email'],
                     'type' => $subjectTitle,
                     'phone' => $validated['mobile'],
-                    'address' => "Age: {$validated['age']} | Sex: {$validated['sex']} | Status: {$validated['status']}",
                     'ms_teams' => $validated['fb_account'],
                     'grade_level' => $subjectTitle,
                     'message' => $messageData,

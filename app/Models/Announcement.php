@@ -8,6 +8,7 @@ class Announcement extends Model
 {
     protected $fillable = [
         'admin_announcement_id',
+        'uuid',
         'title',
         'content',
         'category',
@@ -15,9 +16,13 @@ class Announcement extends Model
         'image',
         'publish_date',
         'author',
+        'event_dates',
+        'event_venue',
+        'is_online',
     ];
 
     protected $casts = [
         'publish_date' => 'datetime',
+        'is_online' => 'boolean',
     ];
 }

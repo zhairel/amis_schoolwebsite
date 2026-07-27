@@ -304,6 +304,7 @@
                             <th>Full Name</th>
                             <th>Age / Gender / Status</th>
                             <th>Level</th>
+                            <th>Home Address</th>
                             <th>FB Account</th>
                             <th>Mobile</th>
                             <th>Email</th>
@@ -346,6 +347,11 @@
                                     @else
                                         <span class="badge-type badge-level-beg">BEGINNER</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <div style="font-size: 0.85rem; font-weight: 600; color: #334155; max-width: 180px; word-break: break-word;">
+                                        {{ $reg->address ?: 'N/A' }}
+                                    </div>
                                 </td>
                                 <td>
                                     @if($fbUrl)
