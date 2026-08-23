@@ -218,7 +218,7 @@
             <div class="breadcrumb">
                 <a href="{{ route('home') }}">Home</a>
                 <span class="separator">/</span>
-                <a href="{{ route('about.index') }}">About Us</a>
+                <a href="{{ route('about.history') }}">About Us</a>
                 <span class="separator">/</span>
                 <span>School Location</span>
             </div>
@@ -304,18 +304,14 @@
                 </div>
 
                 <div class="info-card">
-                    <h3>School Hours</h3>
+                    <h3>Office Hours</h3>
                     <div class="hours-list">
                         <div class="hours-item">
-                            <span class="day">Monday - Friday</span>
-                            <span class="time">7:00 AM - 5:00 PM</span>
+                            <span class="day">Saturday - Thursday</span>
+                            <span class="time">8:00 AM - 4:00 PM</span>
                         </div>
                         <div class="hours-item">
-                            <span class="day">Saturday</span>
-                            <span class="time">8:00 AM - 12:00 PM</span>
-                        </div>
-                        <div class="hours-item">
-                            <span class="day">Sunday</span>
+                            <span class="day">Friday</span>
                             <span class="time">Closed</span>
                         </div>
                     </div>

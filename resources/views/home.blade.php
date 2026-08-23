@@ -576,6 +576,74 @@
             gap: 30px;
         }
     }
+
+    /* ASFI is promoted here only as a separate community foundation. */
+    .asfi-info-strip {
+        padding: 24px 0;
+        color: white;
+        background: #06382e;
+        border-top: 4px solid #e3b83c;
+    }
+    .asfi-info-inner {
+        display: grid;
+        grid-template-columns: 74px 1fr auto;
+        gap: 22px;
+        align-items: center;
+    }
+    .asfi-info-logo {
+        width: 74px;
+        height: 74px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+    .asfi-info-label {
+        display: block;
+        margin-bottom: 4px;
+        color: #f1d879;
+        font-size: .78rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+    .asfi-info-copy h2 {
+        margin: 0 0 4px;
+        color: white;
+        font-size: 1.45rem;
+        font-weight: 800;
+    }
+    .asfi-info-copy p {
+        margin: 0;
+        max-width: 720px;
+        color: #c8ddd5;
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+    .asfi-info-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 22px;
+        border-radius: 999px;
+        color: #173128;
+        background: #e3b83c;
+        font-size: .92rem;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: transform .2s ease, background .2s ease;
+    }
+    .asfi-info-link:hover {
+        color: #173128;
+        background: #f1d879;
+        transform: translateY(-2px);
+    }
+    @media (max-width: 768px) {
+        .asfi-info-strip { padding: 28px 0; }
+        .asfi-info-inner { grid-template-columns: 62px 1fr; gap: 16px; }
+        .asfi-info-logo { width: 62px; height: 62px; }
+        .asfi-info-link { grid-column: 1 / -1; width: 100%; margin-top: 5px; }
+    }
 </style>
 @endsection
 
@@ -608,7 +676,7 @@
             <h1 class="hero-title">{{ $heroTitle }}</h1>
             <p class="hero-subtitle">{{ $heroSubtitle }}</p>
             <div class="hero-buttons" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-                <a href="https://enrollment.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
+                <a href="https://aes.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
                 <a href="{{ route('academics.calendar') }}" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.18); color: white; border-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px); display: inline-flex; align-items: center; gap: 8px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     School Calendar S.Y. 2026-2027
@@ -617,6 +685,19 @@
         </div>
     </div>
 </section>
+
+<!-- ASFI INFORMATION PROMOTION — full content remains on the separate ASFI website -->
+<aside class="asfi-info-strip" aria-labelledby="asfi-info-title">
+    <div class="container asfi-info-inner">
+        <img class="asfi-info-logo" src="{{ asset('asfi-logo.png') }}" alt="ASFI Foundation logo" width="74" height="74" loading="lazy">
+        <div class="asfi-info-copy">
+            <span class="asfi-info-label">Community Foundation</span>
+            <h2 id="asfi-info-title">Meet AMIS Sadaqah Family Incorporated</h2>
+            <p>Discover ASFI’s Sadaqah-based programs, member support, and halal mutual-assistance initiatives on its official standalone website.</p>
+        </div>
+        <a class="asfi-info-link" href="https://asfi.amis.edu.ph" target="_blank" rel="noopener noreferrer">Visit the ASFI website →</a>
+    </div>
+</aside>
 
 <!-- ANNOUNCEMENTS & NEWS -->
 <section class="section news-announcements">

@@ -311,10 +311,10 @@
 
             <!-- ─ ENROLLMENT ─ -->
             <div class="portal-column rounded-3xl p-5 flex flex-col items-center text-center">
-                <a href="https://online.enrollment.amis.edu.ph" target="_blank" class="w-full flow-node node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1 transition">
+                <a href="https://aes.amis.edu.ph" target="_blank" class="w-full flow-node node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1 transition">
                     <i data-lucide="globe" class="w-5 h-5 text-teal-400"></i>
                     <span class="text-xs font-black text-slate-200">Enrollment Portal</span>
-                    <span class="text-[9px] text-slate-500 font-semibold">online.enrollment.amis.edu.ph</span>
+                    <span class="text-[9px] text-slate-500 font-semibold">aes.amis.edu.ph</span>
                 </a>
                 <div class="connector mx-auto my-1"><div class="pulse"></div></div>
                 <div class="w-full flow-node phase-card-sm node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
@@ -385,10 +385,10 @@
 
             <!-- ─ FACULTY ─ -->
             <div class="portal-column rounded-3xl p-5 flex flex-col items-center text-center">
-                <a href="https://teacher.amis.edu.ph" target="_blank" class="w-full flow-node node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1 transition">
+                <a href="https://faculty.amis.edu.ph" target="_blank" class="w-full flow-node node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1 transition">
                     <i data-lucide="globe" class="w-5 h-5 text-amber-400"></i>
                     <span class="text-xs font-black text-slate-200">Faculty Portal</span>
-                    <span class="text-[9px] text-slate-500 font-semibold">teacher.amis.edu.ph</span>
+                    <span class="text-[9px] text-slate-500 font-semibold">faculty.amis.edu.ph</span>
                 </a>
                 <div class="connector mx-auto my-1"><div class="pulse pulse-amber"></div></div>
                 <div class="w-full flow-node node-hidden p-3.5 rounded-2xl flex flex-col items-center gap-1.5">
@@ -514,7 +514,7 @@
             <div class="flex-shrink-0 bg-teal-950/40 border border-teal-500/20 rounded-2xl px-5 py-3 text-right">
                 <p class="text-[10px] font-black text-slate-500 uppercase tracking-wider">Enrollment Period</p>
                 <p class="text-base font-black text-teal-300 mt-0.5">Aug 1 – Sep 1, 2024</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">online.enrollment.amis.edu.ph</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">aes.amis.edu.ph</p>
             </div>
         </div>
 

@@ -188,7 +188,7 @@
                             <div class="contact-value"><a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a></div>
                         </div>
                         <div class="mobile-contact-item">
-                            <a href="https://enrollment.amis.edu.ph" class="pre-enrollment-btn">PRE-ENROLLMENT</a>
+                            <a href="https://aes.amis.edu.ph" class="pre-enrollment-btn">PRE-ENROLLMENT</a>
                         </div>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
                         </button>
                         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active-link' : '' }}">Home</a></li>
                         <li class="dropdown">
-                            <a href="{{ route('about.index') }}" class="{{ request()->routeIs('about.*') ? 'active-link' : '' }}">
+                            <a href="{{ route('about.history') }}" class="{{ request()->routeIs('about.*') ? 'active-link' : '' }}">
                                 About Us
                                 <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -221,6 +221,7 @@
                                 <li><a href="{{ route('about.why') }}">Why Islamic School?</a></li>
                                 <li><a href="{{ route('about.certifications') }}">Certifications & Recognition</a></li>
                                 <li><a href="{{ route('about.location') }}">School Location</a></li>
+                                <li><a href="{{ route('about.global-community') }}">Global AMIS Community</a></li>
                             </ul>
                         </li>
 
@@ -286,7 +287,8 @@
                     <div class="footer-section">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="{{ route('about.index') }}">About Us</a></li>
+                            <li><a href="{{ route('about.history') }}">About Us</a></li>
+                            <li><a href="{{ route('about.global-community') }}">Global AMIS Community</a></li>
                             <li><a href="{{ route('academics.calendar') }}">Calendar S.Y. 2026-2027</a></li>
                             <li><a href="{{ route('news.index') }}">News & Announcements</a></li>
                             <li><a href="{{ route('events.index') }}">Events</a></li>

@@ -122,7 +122,7 @@
             <div class="breadcrumb">
                 <a href="{{ route('home') }}">Home</a>
                 <span class="separator">/</span>
-                <a href="{{ route('about.index') }}">About Us</a>
+                <a href="{{ route('about.history') }}">About Us</a>
                 <span class="separator">/</span>
                 <span>Philosophy, Vision, Mission, and Goals</span>
             </div>

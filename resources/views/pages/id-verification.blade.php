@@ -663,7 +663,7 @@
             <!-- Separate Registration CTA -->
             <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col items-center justify-center text-center">
                 <p class="text-sm text-slate-500 mb-1.5">Don't have an AMIS ID yet?</p>
-                <a href="https://enrollment.amis.edu.ph/register"
+                <a href="https://aes.amis.edu.ph/register"
                    class="text-emerald-600 hover:text-emerald-700 font-bold text-sm hover:underline transition-colors duration-150">
                     Proceed to Register
                 </a>

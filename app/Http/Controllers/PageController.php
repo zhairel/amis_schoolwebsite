@@ -115,7 +115,7 @@ class PageController extends Controller
      */
     public function about()
     {
-        return view('about');
+        return redirect()->route('about.history', [], 301);
     }
 
     /**
@@ -228,5 +228,13 @@ class PageController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+
+    /**
+     * Display Global AMIS Community page.
+     */
+    public function globalCommunity()
+    {
+        return view('about.global_community');
     }
 }

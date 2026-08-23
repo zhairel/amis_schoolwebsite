@@ -28,6 +28,7 @@ Route::prefix('about')->name('about.')->group(function () {
     Route::get('/why-islamic-school', [PageController::class, 'why'])->name('why');
     Route::get('/certifications', [PageController::class, 'certifications'])->name('certifications');
     Route::get('/location', [PageController::class, 'location'])->name('location');
+    Route::get('/global-community', [PageController::class, 'globalCommunity'])->name('global-community');
 });
 
 Route::prefix('academics')->name('academics.')->group(function () {
