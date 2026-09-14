@@ -607,12 +607,8 @@
         <div class="hero-content">
             <h1 class="hero-title">{{ $heroTitle }}</h1>
             <p class="hero-subtitle">{{ $heroSubtitle }}</p>
-            <div class="hero-buttons" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+            <div class="hero-buttons">
                 <a href="https://aes.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
-                <a href="{{ route('academics.calendar') }}" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.18); color: white; border-color: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px); display: inline-flex; align-items: center; gap: 8px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    School Calendar S.Y. 2026-2027
-                </a>
             </div>
         </div>
     </div>
