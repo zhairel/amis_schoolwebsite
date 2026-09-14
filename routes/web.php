@@ -72,6 +72,7 @@ Route::get('/qr-code', [PublicVerificationController::class, 'generateQr'])->nam
 use App\Http\Controllers\StaffVerificationController;
 Route::get('/verify', [StaffVerificationController::class, 'index'])->name('staff.verify.index');
 Route::get('/verify/{slug}/qr/download', [StaffVerificationController::class, 'downloadQr'])->name('staff.verify.qr.download');
+Route::get('/verify/{slug}/card.svg', [StaffVerificationController::class, 'cardSvg'])->name('staff.verify.card.svg');
 Route::get('/verify/{slug}/card', [StaffVerificationController::class, 'callingCard'])->name('staff.verify.card');
 Route::get('/verify/{slug}', [StaffVerificationController::class, 'show'])->name('staff.verify.show');
 
