@@ -68,6 +68,13 @@ Route::get('/v/{student_number}', [PublicVerificationController::class, 'verifyS
 Route::get('/student-photo/{hash}.jpg', [PublicVerificationController::class, 'servePhoto'])->name('public.student.photo');
 Route::get('/qr-code', [PublicVerificationController::class, 'generateQr'])->name('qr.generate');
 
+// Staff & Faculty Verification Portal & Calling Card QR
+use App\Http\Controllers\StaffVerificationController;
+Route::get('/verify', [StaffVerificationController::class, 'index'])->name('staff.verify.index');
+Route::get('/verify/{slug}/qr/download', [StaffVerificationController::class, 'downloadQr'])->name('staff.verify.qr.download');
+Route::get('/verify/{slug}/card', [StaffVerificationController::class, 'callingCard'])->name('staff.verify.card');
+Route::get('/verify/{slug}', [StaffVerificationController::class, 'show'])->name('staff.verify.show');
+
 // Project Roadmap Portal
 Route::get('/roadmap', function () {
     return view('pages.roadmap');
