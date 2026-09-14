@@ -512,7 +512,7 @@
                 <button class="nav-arrow-btn" onclick="navigateMonth(-1)" title="Previous Month">
                     <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
-                <div class="calendar-month-title" id="currentMonthYearLabel">July 2026</div>
+                <div class="calendar-month-title" id="currentMonthYearLabel">{{ now()->format('F Y') }}</div>
                 <button class="nav-arrow-btn" onclick="navigateMonth(1)" title="Next Month">
                     <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
                 </button>

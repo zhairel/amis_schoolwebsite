@@ -44,7 +44,9 @@ class PageController extends Controller
         $heroTitle = Setting::getValue('hero_title', 'Al Munawwara Islamic School');
         $heroSubtitle = Setting::getValue('hero_subtitle', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira');
 
-        return view('home', compact('announcements', 'heroType', 'heroTitle', 'heroSubtitle'));
+        $calendarSchedule = \App\Services\SchoolCalendarService::getCurrentMonthSchedule();
+
+        return view('home', compact('announcements', 'heroType', 'heroTitle', 'heroSubtitle', 'calendarSchedule'));
     }
 
     /**

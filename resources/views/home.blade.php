@@ -709,27 +709,20 @@
             
             <!-- Right: Current Month Events List Column -->
             <div style="display: flex; flex-direction: column; gap: 16px;">
-                <div style="font-size: 0.85rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea;">
-                    <span>July 2026 Schedule & Activities</span>
-                    <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem;">Current Month</span>
-                </div>
-
                 @php
-                    $julyEventsList = [
-                        ['month' => 'JUL', 'day' => '11', 'category' => 'Assembly', 'title' => 'PTA General Assembly and Election of Officers', 'badge_class' => 'background:#dbeafe;color:#1e40af;'],
-                        ['month' => 'JUL', 'day' => '18', 'category' => 'Student Activity', 'title' => 'JHS and SHS Get Together', 'badge_class' => 'background:#fce7f3;color:#be185d;'],
-                        ['month' => 'JUL', 'day' => '19-23', 'category' => 'Summative Test', 'title' => '1st Summative Test (Term 1)', 'badge_class' => 'background:#fef9c3;color:#854d0e;'],
-                        ['month' => 'JUL', 'day' => '20', 'category' => 'International Event', 'title' => '22nd Asia Youth International Model United Nations (AYIMUN) 2026', 'badge_class' => 'background:#dcfce7;color:#14532d;'],
-                        ['month' => 'JUL', 'day' => '21', 'category' => 'SSC Election', 'title' => 'SSC Filing of Candidacy', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
-                        ['month' => 'JUL', 'day' => '22-23', 'category' => 'SSC Election', 'title' => 'SSC Campaign Week', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
-                        ['month' => 'JUL', 'day' => '28', 'category' => 'Safety Drill', 'title' => 'Earthquake Drill (Davao)', 'badge_class' => 'background:#fee2e2;color:#991b1b;'],
-                        ['month' => 'JUL', 'day' => '29', 'category' => 'SSC Election', 'title' => 'SSC Election of Officers', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
-                        ['month' => 'JUL', 'day' => '30', 'category' => 'SSC Election', 'title' => 'SSC Induction of Officers', 'badge_class' => 'background:#f3e8ff;color:#6b21a8;'],
-                    ];
+                    $calendarSchedule = $calendarSchedule ?? \App\Services\SchoolCalendarService::getCurrentMonthSchedule();
+                    $eventsList = $calendarSchedule['events'] ?? [];
                 @endphp
 
+                <div style="font-size: 0.85rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea;">
+                    <span>{{ $calendarSchedule['title'] }}</span>
+                    <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem;">
+                        {{ $calendarSchedule['is_current_month'] ? 'Current Month' : 'Upcoming Month' }}
+                    </span>
+                </div>
+
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
-                    @foreach($julyEventsList as $evt)
+                    @forelse($eventsList as $evt)
                         <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 15px rgba(5,150,105,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,0.02)'">
                             
                             <!-- Calendar Date Box -->
@@ -746,7 +739,11 @@
                                 <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
                             </div>
                         </a>
-                    @endforeach
+                    @empty
+                        <div style="grid-column: 1 / -1; padding: 30px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
+                            No scheduled activities for this month. <a href="{{ route('academics.calendar') }}" style="color: #059669; font-weight: 700;">View full school calendar →</a>
+                        </div>
+                    @endforelse
                 </div>
             </div>
             
