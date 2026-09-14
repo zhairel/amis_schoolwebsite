@@ -181,6 +181,34 @@
                                 <p>Monday - Friday: 8:00 AM - 4:00 PM<br>Saturday: 8:00 AM - 12:00 PM</p>
                             </div>
                         </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">📇</div>
+                            <div style="flex: 1;">
+                                <h4>Official Calling Cards</h4>
+                                <p style="margin-bottom: 12px; color: var(--text-light); font-size: 0.95rem;">
+                                    View digital calling cards and verify official school credentials:
+                                </p>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    @foreach($staffMembers ?? \App\Models\StaffVerification::active()->orderBy('id', 'asc')->get() as $staff)
+                                        <div style="background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                                            <div>
+                                                <div style="font-weight: 700; color: var(--text); font-size: 0.95rem;">{{ $staff->display_name }}</div>
+                                                <div style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">{{ $staff->position }}</div>
+                                                <div style="font-size: 0.75rem; color: #64748b; font-family: ui-monospace, monospace; margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                                    <a href="{{ route('staff.verify.show', ['slug' => $staff->slug]) }}" style="color: #059669; font-weight: 600; text-decoration: none;">/verify/{{ $staff->slug }}</a>
+                                                    <span style="color: #cbd5e1;">&bull;</span>
+                                                    <a href="{{ route('staff.verify.card', ['slug' => $staff->slug]) }}" style="color: #64748b; text-decoration: underline;" title="Direct Print / Card View">card</a>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('staff.verify.show', ['slug' => $staff->slug]) }}" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 700; color: #2e6930; background: #e8f2e9; padding: 6px 12px; border-radius: 6px; text-decoration: none; flex-shrink: 0; transition: background 0.2s;">
+                                                <span>View Card</span> &rarr;
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -191,7 +219,7 @@
                         </div>
                     @endif
 
-                    @if($errors->any())
+                    @if(isset($errors) && $errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach($errors->all() as $error)

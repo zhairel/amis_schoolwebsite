@@ -229,7 +229,8 @@ class PageController extends Controller
      */
     public function contact()
     {
-        return view('contact');
+        $staffMembers = \App\Models\StaffVerification::active()->orderBy('id', 'asc')->get();
+        return view('contact', compact('staffMembers'));
     }
 
     /**
