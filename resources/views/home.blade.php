@@ -692,60 +692,190 @@
             
             <!-- Left: Title Column -->
             <div>
-                <span style="display: inline-block; background: #e6f4ea; color: #059669; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #a7f3d0;">Calendar</span>
-                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">AMIS Calendar of Activities</h2>
-                <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay up to date with the latest school programs, academic timelines, sports activities, and special events happening at Al Munawwara Islamic School.</p>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <span style="display: inline-flex; align-items: center; gap: 6px; background: #e6f4ea; color: #059669; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border: 1px solid #a7f3d0;">
+                        <span style="display: inline-block; width: 7px; height: 7px; background: #059669; border-radius: 50%; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);"></span>
+                        Upcoming &amp; Incoming Events
+                    </span>
+                </div>
+                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">AMIS Calendar &amp; Activities</h2>
+                <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay informed with upcoming academic milestones, department events, STEM festivals, and official school activities at Al Munawwara Islamic School.</p>
+                
                 <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
-                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 12px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);" onmouseover="this.style.background='#047857'" onmouseout="this.style.background='#059669'">
+                    <a href="{{ route('events.index') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 13px 24px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);" onmouseover="this.style.background='#047857';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#059669';this.style.transform='translateY(0)'">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                        View Calendar of Activities S.Y. 2026-2027 →
+                        Explore All Events &amp; Programs →
+                    </a>
+                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; color: #334155; border: 1px solid #cbd5e1; padding: 11px 20px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0';this.style.borderColor='#94a3b8'" onmouseout="this.style.background='#f8fafc';this.style.borderColor='#cbd5e1'">
+                        View Full Calendar S.Y. 2026-2027 →
                     </a>
                 </div>
             </div>
             
-            <!-- Right: Current Month Events List Column -->
+            <!-- Right: Events Tabs & List Column -->
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 @php
                     $calendarSchedule = $calendarSchedule ?? \App\Services\SchoolCalendarService::getCurrentMonthSchedule();
-                    $eventsList = $calendarSchedule['events'] ?? [];
+                    $upcomingEvents = $upcomingEvents ?? \App\Services\SchoolCalendarService::getUpcomingEvents(8);
+                    $nextMonthSchedule = $nextMonthSchedule ?? \App\Services\SchoolCalendarService::getNextMonthSchedule();
+                    $currentMonthEvents = $calendarSchedule['events'] ?? [];
+                    $nextMonthEvents = $nextMonthSchedule['events'] ?? [];
                 @endphp
 
-                <div style="font-size: 0.85rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea;">
-                    <span>{{ $calendarSchedule['title'] }}</span>
-                    <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem;">
-                        {{ $calendarSchedule['is_current_month'] ? 'Current Month' : 'Upcoming Month' }}
-                    </span>
+                <!-- Segmented Tabs Switcher -->
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: #f1f5f9; padding: 5px; border-radius: 14px; width: fit-content;">
+                    <button type="button" class="event-tab-btn active" data-target="tab-upcoming" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s; background: #059669; color: white; box-shadow: 0 2px 6px rgba(5,150,105,0.2);">
+                        Upcoming &amp; Incoming
+                    </button>
+                    <button type="button" class="event-tab-btn" data-target="tab-current-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
+                        October 2026
+                    </button>
+                    <button type="button" class="event-tab-btn" data-target="tab-next-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
+                        November 2026
+                    </button>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
-                    @forelse($eventsList as $evt)
-                        <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 15px rgba(5,150,105,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,0.02)'">
-                            
-                            <!-- Calendar Date Box -->
-                            <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-                                <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
-                                <div style="color: #0f172a; font-size: 1.1rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
+                <!-- 1. Upcoming & Incoming View (Default) -->
+                <div id="tab-upcoming" class="events-tab-panel" style="display: block;">
+                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
+                        <span>Next Scheduled Activities &amp; Deadlines</span>
+                        <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">
+                            Live Timeline
+                        </span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+                        @forelse($upcomingEvents as $evt)
+                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 15px rgba(5,150,105,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,0.02)'">
+                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                                    <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
+                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
+                                </div>
+                                <div style="flex-grow: 1;">
+                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
+                                        {{ $evt['category'] }}
+                                    </span>
+                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
+                                </div>
+                            </a>
+                        @empty
+                            <div style="grid-column: 1 / -1; padding: 30px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
+                                No upcoming activities scheduled at this moment. <a href="{{ route('academics.calendar') }}" style="color: #059669; font-weight: 700;">View full school calendar →</a>
                             </div>
-                            
-                            <!-- Event Title & Category Tag -->
-                            <div style="flex-grow: 1;">
-                                <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
-                                    {{ $evt['category'] }}
-                                </span>
-                                <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
-                            </div>
-                        </a>
-                    @empty
-                        <div style="grid-column: 1 / -1; padding: 30px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
-                            No scheduled activities for this month. <a href="{{ route('academics.calendar') }}" style="color: #059669; font-weight: 700;">View full school calendar →</a>
-                        </div>
-                    @endforelse
+                        @endforelse
+                    </div>
                 </div>
+
+                <!-- 2. October 2026 View -->
+                <div id="tab-current-month" class="events-tab-panel" style="display: none;">
+                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
+                        <span>October 2026 Schedule &amp; Activities</span>
+                        <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Current Month</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+                        @forelse($currentMonthEvents as $evt)
+                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
+                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
+                                    <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
+                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
+                                </div>
+                                <div style="flex-grow: 1;">
+                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
+                                        {{ $evt['category'] }}
+                                    </span>
+                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
+                                </div>
+                            </a>
+                        @empty
+                            <div style="grid-column: 1 / -1; padding: 25px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">No events found.</div>
+                        @endforelse
+                    </div>
+                </div>
+
+                <!-- 3. November 2026 View -->
+                <div id="tab-next-month" class="events-tab-panel" style="display: none;">
+                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
+                        <span>November 2026 Schedule &amp; Activities</span>
+                        <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Upcoming Month</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+                        @forelse($nextMonthEvents as $evt)
+                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
+                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
+                                    <div style="background: #0369a1; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
+                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
+                                </div>
+                                <div style="flex-grow: 1;">
+                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
+                                        {{ $evt['category'] }}
+                                    </span>
+                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
+                                </div>
+                            </a>
+                        @empty
+                            <div style="grid-column: 1 / -1; padding: 25px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">No events found.</div>
+                        @endforelse
+                    </div>
+                </div>
+
             </div>
             
         </div>
+
+        <!-- Featured Upcoming Event Cards Showcase -->
+        @if(isset($featuredEvents) && $featuredEvents->count() > 0)
+            <div style="margin-top: 55px; padding-top: 45px; border-top: 1px solid #f1f5f9;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <span style="color: #059669; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Highlights</span>
+                        <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-top: 4px;">Featured Upcoming Events &amp; Programs</h3>
+                    </div>
+                    <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.92rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        View All Events →
+                    </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px;">
+                    @foreach($featuredEvents as $fEvt)
+                        @php
+                            $imgs = json_decode($fEvt->image, true);
+                            $fImg = is_array($imgs) ? ($imgs[0] ?? null) : $fEvt->image;
+                        @endphp
+                        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s;" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 25px rgba(0,0,0,0.06)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='none'">
+                            @if($fImg)
+                                <div style="height: 180px; width: 100%; position: relative; overflow: hidden; background: #f1f5f9;">
+                                    <img src="{{ $fImg }}" alt="{{ $fEvt->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <div style="position: absolute; top: 12px; left: 12px; background: rgba(5, 150, 105, 0.95); color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Upcoming Event
+                                    </div>
+                                </div>
+                            @endif
+                            <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    @if($fEvt->event_dates)
+                                        <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
+                                            📅 {{ $fEvt->event_dates }}
+                                        </div>
+                                    @endif
+                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 10px;">{{ $fEvt->title }}</h4>
+                                    <p style="font-size: 0.86rem; color: #64748b; line-height: 1.6; margin-bottom: 16px;">{{ Str::limit(strip_tags($fEvt->content), 100, '...') }}</p>
+                                </div>
+                                <div style="border-top: 1px solid #f1f5f9; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 0.75rem; color: #94a3b8;">{{ $fEvt->event_venue ?: 'AMIS Campus' }}</span>
+                                    <a href="{{ route('announcement.show', $fEvt->uuid ?? $fEvt->id) }}" style="color: #059669; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                                        Event Details →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
     </div>
 </section>
+
 
 
 
@@ -828,6 +958,32 @@
                 }, 4000 + Math.random() * 1500);
             }
         });
+
+        // 3. Calendar & Events Tab Switcher
+        const eventTabBtns = document.querySelectorAll('.event-tab-btn');
+        const eventTabPanels = document.querySelectorAll('.events-tab-panel');
+        eventTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                eventTabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'transparent';
+                    b.style.color = '#475569';
+                    b.style.boxShadow = 'none';
+                    b.style.fontWeight = '700';
+                });
+                this.classList.add('active');
+                this.style.background = '#059669';
+                this.style.color = 'white';
+                this.style.boxShadow = '0 2px 6px rgba(5,150,105,0.2)';
+                this.style.fontWeight = '800';
+
+                eventTabPanels.forEach(p => p.style.display = 'none');
+                const activePanel = document.getElementById(targetId);
+                if (activePanel) activePanel.style.display = 'block';
+            });
+        });
     });
 </script>
 @endsection
+

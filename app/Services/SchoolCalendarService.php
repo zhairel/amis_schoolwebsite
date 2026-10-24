@@ -180,4 +180,52 @@ class SchoolCalendarService
             'all_months' => array_keys($all),
         ];
     }
+
+    /**
+     * Get upcoming events starting from today or current active month into future months.
+     */
+    public static function getUpcomingEvents(int $limit = 8): array
+    {
+        $all = self::getAllEventsByMonth();
+        $now = now();
+        $currentMonthKey = $now->format('Y-m');
+        $currentDay = (int)$now->format('j');
+
+        $upcoming = [];
+
+        foreach ($all as $monthKey => $events) {
+            if ($monthKey < $currentMonthKey) {
+                continue;
+            }
+
+            foreach ($events as $evt) {
+                if ($monthKey === $currentMonthKey) {
+                    $dayStr = (string)$evt['day'];
+                    $endDay = (int)preg_replace('/^.*[–-]/', '', $dayStr);
+                    if ($endDay < $currentDay && !str_contains($dayStr, (string)$currentDay)) {
+                        continue;
+                    }
+                }
+
+                $evt['month_key'] = $monthKey;
+                $upcoming[] = $evt;
+                if (count($upcoming) >= $limit) {
+                    return $upcoming;
+                }
+            }
+        }
+
+        return $upcoming;
+    }
+
+    /**
+     * Get the schedule for the next calendar month.
+     */
+    public static function getNextMonthSchedule(): array
+    {
+        $now = now();
+        $next = $now->copy()->addMonth();
+        return self::getCurrentMonthSchedule((int)$next->format('Y'), (int)$next->format('n'));
+    }
 }
+

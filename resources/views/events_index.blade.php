@@ -277,6 +277,13 @@
                         $dateObj = $event->publish_date ?? $event->created_at;
                         $monthAbbr = $dateObj ? $dateObj->format('M') : 'AN';
                         $dayNum = $dateObj ? $dateObj->format('d') : '--';
+
+                        if (!empty($event->event_dates)) {
+                            if (preg_match('/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+([0-9]+(?:[–-][0-9]+)?)/i', $event->event_dates, $m)) {
+                                $monthAbbr = strtoupper(substr($m[1], 0, 3));
+                                $dayNum = $m[2];
+                            }
+                        }
                         
                         $plainText = strip_tags($event->content);
                         

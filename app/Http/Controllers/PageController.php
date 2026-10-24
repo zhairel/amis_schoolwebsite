@@ -45,8 +45,34 @@ class PageController extends Controller
         $heroSubtitle = Setting::getValue('hero_subtitle', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira');
 
         $calendarSchedule = \App\Services\SchoolCalendarService::getCurrentMonthSchedule();
+        $upcomingEvents = \App\Services\SchoolCalendarService::getUpcomingEvents(8);
+        $nextMonthSchedule = \App\Services\SchoolCalendarService::getNextMonthSchedule();
 
-        return view('home', compact('announcements', 'heroType', 'heroTitle', 'heroSubtitle', 'calendarSchedule'));
+        $featuredEvents = Announcement::where(function ($query) {
+                $query->where('category', 'like', '%event%')
+                      ->orWhere('category', 'like', '%sport%')
+                      ->orWhere('category', 'like', '%activity%')
+                      ->orWhere('category', 'like', '%program%');
+            })
+            ->where(function ($query) {
+                $query->whereNull('publish_date')
+                      ->orWhere('publish_date', '<=', now());
+            })
+            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('home', compact(
+            'announcements',
+            'heroType',
+            'heroTitle',
+            'heroSubtitle',
+            'calendarSchedule',
+            'upcomingEvents',
+            'nextMonthSchedule',
+            'featuredEvents'
+        ));
     }
 
     /**
