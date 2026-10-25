@@ -823,55 +823,25 @@
         </div>
 
         <!-- Featured Upcoming Event Cards Showcase -->
-        @if(isset($featuredEvents) && $featuredEvents->count() > 0)
-            <div style="margin-top: 55px; padding-top: 45px; border-top: 1px solid #f1f5f9;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
-                    <div>
-                        <span style="color: #059669; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Highlights</span>
-                        <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-top: 4px;">Featured Upcoming Events &amp; Programs</h3>
-                    </div>
-                    <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.92rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        View All Events →
-                    </a>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px;">
-                    @foreach($featuredEvents as $fEvt)
-                        @php
-                            $imgs = json_decode($fEvt->image, true);
-                            $fImg = is_array($imgs) ? ($imgs[0] ?? null) : $fEvt->image;
-                        @endphp
-                        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s;" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 25px rgba(0,0,0,0.06)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                            @if($fImg)
-                                <div style="height: 180px; width: 100%; position: relative; overflow: hidden; background: #f1f5f9;">
-                                    <img src="{{ $fImg }}" alt="{{ $fEvt->title }}" style="width: 100%; height: 100%; object-fit: cover;">
-                                    <div style="position: absolute; top: 12px; left: 12px; background: rgba(5, 150, 105, 0.95); color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-                                        Upcoming Event
-                                    </div>
-                                </div>
-                            @endif
-                            <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
-                                <div>
-                                    @if($fEvt->event_dates)
-                                        <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
-                                            📅 {{ $fEvt->event_dates }}
-                                        </div>
-                                    @endif
-                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 10px;">{{ $fEvt->title }}</h4>
-                                    <p style="font-size: 0.86rem; color: #64748b; line-height: 1.6; margin-bottom: 16px;">{{ Str::limit(strip_tags($fEvt->content), 100, '...') }}</p>
-                                </div>
-                                <div style="border-top: 1px solid #f1f5f9; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 0.75rem; color: #94a3b8;">{{ $fEvt->event_venue ?: 'AMIS Campus' }}</span>
-                                    <a href="{{ route('announcement.show', $fEvt->uuid ?? $fEvt->id) }}" style="color: #059669; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
-                                        Event Details →
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+        <div style="margin-top: 55px; padding-top: 45px; border-top: 1px solid #f1f5f9;">
+            <div style="margin-bottom: 24px;">
+                <span style="color: #059669; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Highlights</span>
+                <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-top: 4px;">Featured Upcoming Events &amp; Programs</h3>
             </div>
-        @endif
+
+            <div style="background: white; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 52px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                <div style="width: 58px; height: 58px; border-radius: 50%; background: #ecfdf5; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #059669;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+                <h4 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; letter-spacing: 2px; margin-bottom: 8px;">COMING SOON...</h4>
+                <p style="font-size: 0.95rem; color: #64748b; margin: 0; max-width: 480px; line-height: 1.6;">Stay tuned! We are currently preparing exciting upcoming events and school programs for our students and community.</p>
+            </div>
+        </div>
 
     </div>
 </section>
