@@ -82,10 +82,10 @@
     }
     </script>
     
-    <!-- Google Fonts: Outfit & Inter -->
+    <!-- Google Fonts: Outfit, Inter, and Amiri (Arabic Calligraphy) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -125,150 +125,368 @@
 </head>
 <body class="bg-gray-50">
     <div class="app">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="main-header" id="mainHeader">
-                <div class="top-bar">
-                    <div class="top-bar-row container">
-                        <div class="social-links">
-                            <a href="https://www.facebook.com/almunawwaraislamicschool" target="_blank" class="social-link" aria-label="Facebook">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <!-- MODERN REDESIGNED HEADER -->
+        <header class="site-header" id="siteHeader">
+            <!-- 1. Sleek Utility Topbar -->
+            <div class="top-utility-bar">
+                <div class="container top-utility-content">
+                    <div class="utility-left">
+                        <a href="tel:+639272991833" class="utility-item">
+                            <svg class="utility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+63 927 299 1833</span>
+                        </a>
+                        <span class="utility-divider"></span>
+                        <a href="mailto:inquiries@amis.edu.ph" class="utility-item">
+                            <svg class="utility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>inquiries@amis.edu.ph</span>
+                        </a>
+                        <span class="utility-divider"></span>
+                        <div class="utility-social">
+                            <a href="https://www.facebook.com/almunawwaraislamicschool" target="_blank" rel="noopener noreferrer" class="utility-social-link" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
                             </a>
-                            <a href="https://www.youtube.com/@amistv3214" target="_blank" class="social-link" aria-label="YouTube">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="https://www.youtube.com/@amistv3214" target="_blank" rel="noopener noreferrer" class="utility-social-link" aria-label="YouTube">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                                 </svg>
                             </a>
                         </div>
-                        <!-- Removed top-links -->
+                    </div>
+                    <div class="utility-right">
+                        <span class="utility-accreditation">
+                            <span class="accreditation-dot"></span>
+                            DepEd Recognized & ESC Participating School
+                        </span>
+                        <a href="https://student.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="utility-portal-link">
+                            <svg class="portal-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                            </svg>
+                            Student Portal
+                        </a>
+                        <a href="https://faculty.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="utility-portal-link">
+                            <svg class="portal-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            Faculty
+                        </a>
                     </div>
                 </div>
-                
-                <nav class="nav container">
-                    <a href="{{ route('home') }}" class="logo">
-                        <img src="/logo.png" alt="AMIS Logo" class="logo-img" onerror="this.src='https://amis.edu.ph/logo.png'" />
-                        <div class="logo-text-wrapper">
-                            <span class="logo-text-arabic">المدرسة المنورة الإسلامية</span>
-                            <span class="logo-text">AL MUNAWWARA ISLAMIC SCHOOL</span>
-                            <span class="logo-tagline">Enabling Our Students to Learn in Fid Dunya Wal Akhira</span>
+            </div>
+
+            <!-- 2. Main Navigation Bar (Unified & Sticky) -->
+            <div class="main-navbar" id="mainNavbar">
+                <div class="container navbar-container">
+                    <!-- Brand / Logo Area -->
+                    <a href="{{ route('home') }}" class="brand-link" title="Al Munawwara Islamic School Home">
+                        <img src="/logo.png" alt="AMIS Official Seal" class="brand-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <div class="brand-text-stack">
+                            <span class="brand-arabic">المدرسة المنورة الإسلامية</span>
+                            <span class="brand-title">AL MUNAWWARA ISLAMIC SCHOOL</span>
+                            <span class="brand-tagline">Enabling Our Students to Learn in Fid Dunya Wal Akhira</span>
                         </div>
                     </a>
-                    <div class="contact-info-right">
-                        <div class="contact-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+
+                    <!-- Desktop Nav Links -->
+                    <nav class="desktop-nav" aria-label="Main Navigation">
+                        <ul class="nav-links-list">
+                            <li>
+                                <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'nav-link-active' : '' }}">
+                                    Home
+                                </a>
+                            </li>
+
+                            <!-- About Us Dropdown -->
+                            <li class="nav-dropdown">
+                                <button type="button" class="nav-link nav-dropdown-trigger {{ request()->routeIs('about.*') ? 'nav-link-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+                                    About Us
+                                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div class="nav-dropdown-card">
+                                    <div class="dropdown-arrow"></div>
+                                    <div class="dropdown-inner">
+                                        <a href="{{ route('about.history') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">School History</span>
+                                                <span class="item-desc">Founding roots & development</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.philosophy') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Philosophy, Vision & Mission</span>
+                                                <span class="item-desc">Core Islamic education values</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.logo') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">AMIS Emblem & Seal</span>
+                                                <span class="item-desc">Symbolism & official crest</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.why') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Why Islamic School?</span>
+                                                <span class="item-desc">Integrated Dunya & Akhira learning</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.certifications') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Certifications & Accreditations</span>
+                                                <span class="item-desc">DepEd recognition & government permits</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.location') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Campus Location</span>
+                                                <span class="item-desc">Ma-a, Davao City campus map</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('about.global-community') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Global AMIS Community</span>
+                                                <span class="item-desc">Worldwide students & alumni</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Academics Dropdown -->
+                            <li class="nav-dropdown">
+                                <button type="button" class="nav-link nav-dropdown-trigger {{ request()->routeIs('academics.*') ? 'nav-link-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+                                    Academics
+                                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div class="nav-dropdown-card">
+                                    <div class="dropdown-arrow"></div>
+                                    <div class="dropdown-inner">
+                                        <a href="{{ route('academics.basic-education') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Basic Education</span>
+                                                <span class="item-desc">Kindergarten to Junior & Senior High</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('academics.calendar') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Calendar S.Y. 2026-2027</span>
+                                                <span class="item-desc">Academic terms & event schedules</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- ISAL Department Dropdown -->
+                            <li class="nav-dropdown">
+                                <button type="button" class="nav-link nav-dropdown-trigger {{ request()->routeIs('isal.*') ? 'nav-link-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+                                    ISAL Department
+                                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div class="nav-dropdown-card">
+                                    <div class="dropdown-arrow"></div>
+                                    <div class="dropdown-inner">
+                                        <a href="{{ route('isal.halaqah') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Halaqah Online</span>
+                                                <span class="item-desc">Quranic recitation & Tajweed program</span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('isal.halaqah-parents') }}" class="dropdown-item">
+                                            <span class="item-bullet"></span>
+                                            <div class="item-text">
+                                                <span class="item-title">Halaqah Parents</span>
+                                                <span class="item-desc">Islamic studies session for guardians</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('news.index') }}" class="nav-link {{ request()->routeIs('news.index') ? 'nav-link-active' : '' }}">
+                                    News
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('events.index') }}" class="nav-link {{ request()->routeIs('events.index') ? 'nav-link-active' : '' }}">
+                                    Events
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'nav-link-active' : '' }}">
+                                    Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Nav Actions & Mobile Toggle -->
+                    <div class="nav-actions">
+                        <a href="https://aes.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="btn-enroll-cta">
+                            <span>Pre-Enrollment</span>
+                            <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
-                            <span>+63 927 299 1833</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a>
-                        </div>
-                    </div>
-                </nav>
-                
-                <div class="mobile-contact-bar">
-                    <div class="mobile-contact-row">
-                        <div class="mobile-contact-item">
-                            <div class="contact-label">CALL SUPPORT</div>
-                            <div class="contact-value">+63 927 299 1833</div>
-                        </div>
-                        <div class="mobile-contact-item">
-                            <div class="contact-label">LOCATION</div>
-                            <div class="contact-value">Ma-a, Davao City</div>
-                        </div>
-                    </div>
-                    <div class="mobile-contact-row">
-                        <div class="mobile-contact-item">
-                            <div class="contact-label">EMAIL SUPPORT</div>
-                            <div class="contact-value"><a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a></div>
-                        </div>
-                        <div class="mobile-contact-item">
-                            <a href="https://aes.amis.edu.ph" class="pre-enrollment-btn">PRE-ENROLLMENT</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="white-bar">
-                <div class="white-bar-content container">
-                    <button class="mobile-menu-toggle" id="menuToggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span class="menu-hint" id="menuHint">← Click here for menu</span>
-                    <ul class="nav-menu" id="navMenu">
-                        <button class="menu-close" id="menuClose">
-                            <span>✕</span>
+                        </a>
+
+                        <!-- Mobile Hamburger Button -->
+                        <button class="mobile-toggle-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu" aria-expanded="false">
+                            <span class="hamburger-bar"></span>
+                            <span class="hamburger-bar"></span>
+                            <span class="hamburger-bar"></span>
                         </button>
-                        <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active-link' : '' }}">Home</a></li>
-                        <li class="dropdown">
-                            <a href="{{ route('about.history') }}" class="{{ request()->routeIs('about.*') ? 'active-link' : '' }}">
-                                About Us
-                                <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('about.history') }}">History</a></li>
-                                <li><a href="{{ route('about.philosophy') }}">Philosophy, Vision, Mission, and Goals</a></li>
-                                <li><a href="{{ route('about.logo') }}">AMIS Logo</a></li>
-                                <li><a href="{{ route('about.why') }}">Why Islamic School?</a></li>
-                                <li><a href="{{ route('about.certifications') }}">Certifications & Recognition</a></li>
-                                <li><a href="{{ route('about.location') }}">School Location</a></li>
-                                <li><a href="{{ route('about.global-community') }}">Global AMIS Community</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="{{ route('academics.index') }}" class="{{ request()->routeIs('academics.*') ? 'active-link' : '' }}">
-                                Academics
-                                <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('academics.basic-education') }}">Basic Education</a></li>
-                                <li><a href="{{ route('academics.calendar') }}">Calendar of Activities 2026-2027</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" onclick="event.preventDefault()">
-                                ISAL Department
-                                <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('isal.halaqah') }}">Halaqah Online</a></li>
-                                <li><a href="{{ route('isal.halaqah-parents') }}">Halaqah Parents</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ route('news.index') }}" class="{{ request()->routeIs('news.index') ? 'active-link' : '' }}">
-                                News
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('events.index') }}" class="{{ request()->routeIs('events.index') ? 'active-link' : '' }}">
-                                Events
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active-link' : '' }}">
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
+                    </div>
                 </div>
             </div>
-            <div class="menu-overlay" id="menuOverlay"></div>
+
+            <!-- 3. Mobile Slide-Over Drawer Navigation -->
+            <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+            <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation Drawer">
+                <div class="drawer-header">
+                    <div class="drawer-brand">
+                        <img src="/logo.png" alt="AMIS Logo" class="drawer-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <div>
+                            <span class="drawer-title">AL MUNAWWARA</span>
+                            <span class="drawer-subtitle">ISLAMIC SCHOOL</span>
+                        </div>
+                    </div>
+                    <button class="drawer-close-btn" id="mobileDrawerClose" aria-label="Close Menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="drawer-quick-actions">
+                    <a href="https://aes.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="drawer-cta-btn">
+                        <span>Pre-Enrollment Portal</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                    <div class="drawer-portal-grid">
+                        <a href="https://student.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="drawer-portal-pill">
+                            🎓 Student Portal
+                        </a>
+                        <a href="https://faculty.amis.edu.ph" target="_blank" rel="noopener noreferrer" class="drawer-portal-pill">
+                            👨‍🏫 Faculty
+                        </a>
+                    </div>
+                </div>
+
+                <div class="drawer-body">
+                    <nav class="drawer-nav">
+                        <a href="{{ route('home') }}" class="drawer-link {{ request()->routeIs('home') ? 'drawer-link-active' : '' }}">
+                            <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Home
+                        </a>
+
+                        <!-- Drawer Accordion: About Us -->
+                        <div class="drawer-accordion">
+                            <button type="button" class="drawer-accordion-btn {{ request()->routeIs('about.*') ? 'active-parent' : '' }}" aria-expanded="false">
+                                <span class="accordion-title-wrap">
+                                    <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    About Us
+                                </span>
+                                <svg class="drawer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="drawer-accordion-content">
+                                <a href="{{ route('about.history') }}">School History</a>
+                                <a href="{{ route('about.philosophy') }}">Philosophy, Vision, Mission & Goals</a>
+                                <a href="{{ route('about.logo') }}">AMIS Official Emblem</a>
+                                <a href="{{ route('about.why') }}">Why Islamic School?</a>
+                                <a href="{{ route('about.certifications') }}">Certifications & DepEd Recognition</a>
+                                <a href="{{ route('about.location') }}">Campus Location</a>
+                                <a href="{{ route('about.global-community') }}">Global AMIS Community</a>
+                            </div>
+                        </div>
+
+                        <!-- Drawer Accordion: Academics -->
+                        <div class="drawer-accordion">
+                            <button type="button" class="drawer-accordion-btn {{ request()->routeIs('academics.*') ? 'active-parent' : '' }}" aria-expanded="false">
+                                <span class="accordion-title-wrap">
+                                    <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                    Academics
+                                </span>
+                                <svg class="drawer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="drawer-accordion-content">
+                                <a href="{{ route('academics.basic-education') }}">Basic Education (K to 12)</a>
+                                <a href="{{ route('academics.calendar') }}">Calendar S.Y. 2026-2027</a>
+                            </div>
+                        </div>
+
+                        <!-- Drawer Accordion: ISAL Dept -->
+                        <div class="drawer-accordion">
+                            <button type="button" class="drawer-accordion-btn {{ request()->routeIs('isal.*') ? 'active-parent' : '' }}" aria-expanded="false">
+                                <span class="accordion-title-wrap">
+                                    <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                    ISAL Department
+                                </span>
+                                <svg class="drawer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div class="drawer-accordion-content">
+                                <a href="{{ route('isal.halaqah') }}">Halaqah Online</a>
+                                <a href="{{ route('isal.halaqah-parents') }}">Halaqah Parents</a>
+                            </div>
+                        </div>
+
+                        <a href="{{ route('news.index') }}" class="drawer-link {{ request()->routeIs('news.index') ? 'drawer-link-active' : '' }}">
+                            <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                            News
+                        </a>
+                        <a href="{{ route('events.index') }}" class="drawer-link {{ request()->routeIs('events.index') ? 'drawer-link-active' : '' }}">
+                            <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            Events
+                        </a>
+                        <a href="{{ route('contact') }}" class="drawer-link {{ request()->routeIs('contact') ? 'drawer-link-active' : '' }}">
+                            <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Contact
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="drawer-footer">
+                    <div class="drawer-contact-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <a href="tel:+639272991833">+63 927 299 1833</a>
+                    </div>
+                    <div class="drawer-contact-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a>
+                    </div>
+                    <div class="drawer-social-row">
+                        <a href="https://www.facebook.com/almunawwaraislamicschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/@amistv3214" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </aside>
         </header>
 
         <!-- MAIN CONTENT -->
@@ -406,34 +624,71 @@
     <!-- UI Interaction Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Mobile Menu Toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const menuClose = document.getElementById('menuClose');
-            const navMenu = document.getElementById('navMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const menuHint = document.getElementById('menuHint');
+            // 1. Modern Mobile Drawer Navigation
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileDrawer = document.getElementById('mobileDrawer');
+            const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
+            const mobileDrawerClose = document.getElementById('mobileDrawerClose');
+            const mainNavbar = document.getElementById('mainNavbar');
 
-            function toggleMenu(open) {
+            function toggleDrawer(open) {
                 if (open) {
-                    navMenu.classList.add('open');
-                    menuOverlay.classList.add('open');
-                    if (menuHint) menuHint.style.display = 'none';
+                    mobileDrawer.classList.add('open');
+                    mobileDrawerBackdrop.classList.add('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
                 } else {
-                    navMenu.classList.remove('open');
-                    menuOverlay.classList.remove('open');
+                    mobileDrawer.classList.remove('open');
+                    mobileDrawerBackdrop.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
                 }
             }
 
-            if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu(true));
-            if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
-            if (menuOverlay) menuOverlay.addEventListener('click', () => toggleMenu(false));
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => toggleDrawer(true));
+            if (mobileDrawerClose) mobileDrawerClose.addEventListener('click', () => toggleDrawer(false));
+            if (mobileDrawerBackdrop) mobileDrawerBackdrop.addEventListener('click', () => toggleDrawer(false));
 
-            // Hide menu hint after 5 seconds
-            if (menuHint) {
-                setTimeout(() => {
-                    menuHint.style.display = 'none';
-                }, 5000);
+            // Accordion dropdown toggles inside drawer
+            const accordionButtons = document.querySelectorAll('.drawer-accordion-btn');
+            accordionButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const accordion = this.closest('.drawer-accordion');
+                    const isOpen = accordion.classList.contains('open');
+                    
+                    // Close other accordions
+                    document.querySelectorAll('.drawer-accordion').forEach(a => {
+                        if (a !== accordion) a.classList.remove('open');
+                    });
+
+                    if (isOpen) {
+                        accordion.classList.remove('open');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        accordion.classList.add('open');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
+            // Close drawer on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('open')) {
+                    toggleDrawer(false);
+                }
+            });
+
+            // Smart Sticky Navbar Scrolled Style
+            function updateNavbarScroll() {
+                if (window.scrollY > 15) {
+                    mainNavbar.classList.add('navbar-scrolled');
+                } else {
+                    mainNavbar.classList.remove('navbar-scrolled');
+                }
             }
+            window.addEventListener('scroll', updateNavbarScroll, { passive: true });
+            updateNavbarScroll();
 
             // 2. Scroll to Top Behavior
             const scrollTopBtn = document.getElementById('scrollTopBtn');
