@@ -172,7 +172,7 @@
                 <div class="container navbar-container">
                     <!-- Brand / Logo Area -->
                     <a href="{{ route('home') }}" class="brand-link" title="Al Munawwara Islamic School Home">
-                        <img src="/logo.png" alt="AMIS Official Seal" class="brand-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <img src="/logo.png" alt="AMIS Official Seal" class="brand-logo" width="68" height="68" style="width: 68px !important; height: 68px !important; max-width: 68px !important; max-height: 68px !important; object-fit: contain !important; flex-shrink: 0 !important; display: block;" onerror="this.src='https://amis.edu.ph/logo.png'">
                         <div class="brand-text-stack">
                             <span class="brand-arabic">المدرسة المنورة الإسلامية</span>
                             <span class="brand-title">AL MUNAWWARA ISLAMIC SCHOOL</span>
@@ -355,7 +355,7 @@
             <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation Drawer">
                 <div class="drawer-header">
                     <div class="drawer-brand">
-                        <img src="/logo.png" alt="AMIS Logo" class="drawer-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <img src="/logo.png" alt="AMIS Logo" class="drawer-logo" width="40" height="40" style="width: 40px !important; height: 40px !important; max-width: 40px !important; max-height: 40px !important; object-fit: contain !important; flex-shrink: 0 !important; display: block;" onerror="this.src='https://amis.edu.ph/logo.png'">
                         <div>
                             <span class="drawer-title">AL MUNAWWARA</span>
                             <span class="drawer-subtitle">ISLAMIC SCHOOL</span>
@@ -478,7 +478,7 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-section">
-                        <img src="/logo.png" alt="AMIS Logo" class="footer-logo" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <img src="/logo.png" alt="AMIS Logo" class="footer-logo" width="160" height="160" style="width: 160px !important; height: 160px !important; max-width: 160px !important; max-height: 160px !important; object-fit: contain !important; display: block;" onerror="this.src='https://amis.edu.ph/logo.png'">
                     </div>
                     
                     <div class="footer-section">
