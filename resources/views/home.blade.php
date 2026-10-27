@@ -824,27 +824,192 @@
 
         <!-- Featured Upcoming Event Cards Showcase -->
         <div style="margin-top: 55px; padding-top: 45px; border-top: 1px solid #f1f5f9;">
-            <div style="margin-bottom: 24px;">
-                <span style="color: #059669; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Highlights</span>
-                <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-top: 4px;">Featured Upcoming Events &amp; Programs</h3>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <span style="color: #059669; font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #059669; display: inline-block;"></span>
+                        Highlights
+                    </span>
+                    <h3 style="font-size: 1.7rem; font-weight: 800; color: #0f172a; margin-top: 6px; letter-spacing: -0.5px;">Featured Upcoming Events &amp; Programs</h3>
+                </div>
+                <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.92rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; background: #ecfdf5; border: 1px solid #a7f3d0; transition: all 0.2s;" onmouseover="this.style.background='#059669';this.style.color='#ffffff';" onmouseout="this.style.background='#ecfdf5';this.style.color='#059669';">
+                    View All School Events
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
             </div>
 
-            <div style="background: white; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 52px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-                <div style="width: 58px; height: 58px; border-radius: 50%; background: #ecfdf5; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: #059669;">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                
+                <!-- Highlight 1: DTI Consumer Whiz Bee 2026 -->
+                <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
+                    <div style="position: relative; height: 230px; overflow: hidden; background: #0f172a; cursor: pointer;" onclick="openHighlightModal('dtiModal')">
+                        <img src="/images/highlights/dti-consumer-whiz-bee-2026.png" alt="DTI Davao City Consumer Whiz Bee 2026" style="width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
+                        <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
+                            <span style="background: rgba(5, 150, 105, 0.95); backdrop-filter: blur(4px); color: white; padding: 5px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Competition
+                            </span>
+                            <span style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); color: white; padding: 5px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700;">
+                                DTI • LPU
+                            </span>
+                        </div>
+                        <div style="position: absolute; bottom: 12px; right: 14px; background: rgba(255, 255, 255, 0.92); color: #0f172a; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            View Full Photo
+                        </div>
+                    </div>
+                    <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                <span>📅 October 2026</span>
+                                <span>•</span>
+                                <span>Consumer Welfare Month</span>
+                            </div>
+                            <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
+                                DTI Davao City Consumer Whiz Bee 2026: AMIS Contestants
+                            </h4>
+                            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 18px;">
+                                Al Munawwara Islamic School proudly represented our community at the DTI Davao City Consumer Whiz Bee 2026 in partnership with Lyceum of the Philippines University (LPU) Davao.
+                            </p>
+                        </div>
+                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
+                                📍 LPU Davao City
+                            </span>
+                            <button type="button" onclick="openHighlightModal('dtiModal')" style="background: none; border: none; padding: 0; color: #059669; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                                Event Details →
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <h4 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; letter-spacing: 2px; margin-bottom: 8px;">COMING SOON...</h4>
-                <p style="font-size: 0.95rem; color: #64748b; margin: 0; max-width: 480px; line-height: 1.6;">Stay tuned! We are currently preparing exciting upcoming events and school programs for our students and community.</p>
+
+                <!-- Highlight 2: ASAD Gentle Reminder -->
+                <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
+                    <div style="position: relative; height: 230px; overflow: hidden; background: #064e3b; cursor: pointer;" onclick="openHighlightModal('asadModal')">
+                        <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
+                        <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
+                            <span style="background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); color: white; padding: 5px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Shariah Advisory
+                            </span>
+                            <span style="background: rgba(6, 78, 59, 0.85); backdrop-filter: blur(4px); color: #a7f3d0; padding: 5px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700;">
+                                ASAD
+                            </span>
+                        </div>
+                        <div style="position: absolute; bottom: 12px; right: 14px; background: rgba(255, 255, 255, 0.92); color: #0f172a; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            View Advisory
+                        </div>
+                    </div>
+                    <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 0.78rem; font-weight: 700; color: #d97706; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                <span>🕌 AMIS Shariah Advisory Dept.</span>
+                                <span>•</span>
+                                <span>Official Advisory</span>
+                            </div>
+                            <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
+                                Gentle Reminder: Preserving Islamic Identity &amp; Values
+                            </h4>
+                            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 18px;">
+                                Official advisory from the AMIS Shariah Advisory Department (ASAD) reminding our Muslim community to uphold the teachings of the Qur'an and Sunnah with kindness, courtesy, and respect.
+                            </p>
+                        </div>
+                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
+                                📖 Qur'an 5:48 &amp; Sunnah
+                            </span>
+                            <button type="button" onclick="openHighlightModal('asadModal')" style="background: none; border: none; padding: 0; color: #059669; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                                Read Advisory →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Highlight 3: COMING SOON... -->
+                <div style="background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%); border: 2px dashed #cbd5e1; border-radius: 18px; padding: 36px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.02); min-height: 380px;">
+                    <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; border: 1px solid #a7f3d0; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Next Programs</span>
+                    <h4 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; letter-spacing: 1.5px; margin-bottom: 10px;">COMING SOON...</h4>
+                    <p style="font-size: 0.92rem; color: #64748b; margin: 0 0 20px 0; max-width: 280px; line-height: 1.6;">
+                        Stay tuned! We are currently preparing exciting upcoming events and school programs for our students and community.
+                    </p>
+                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: white; color: #059669; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all 0.2s;" onmouseover="this.style.borderColor='#059669';this.style.color='#047857';" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#059669';">
+                        📅 Check Academic Calendar
+                    </a>
+                </div>
+
             </div>
         </div>
 
     </div>
 </section>
+
+<!-- HIGHLIGHT DETAIL MODALS -->
+<!-- 1. DTI Modal -->
+<div id="dtiModal" class="highlight-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto;" onclick="if(event.target === this) closeHighlightModal('dtiModal')">
+    <div style="background: white; border-radius: 20px; max-width: 800px; width: 100%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; margin: auto;">
+        <button type="button" onclick="closeHighlightModal('dtiModal')" aria-label="Close modal" style="position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(15, 23, 42, 0.7); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#0f172a'" onmouseout="this.style.background='rgba(15, 23, 42, 0.7)'">
+            ✕
+        </button>
+        <div style="max-height: 60vh; background: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img src="/images/highlights/dti-consumer-whiz-bee-2026.png" alt="DTI Davao City Consumer Whiz Bee 2026" style="width: 100%; max-height: 60vh; object-fit: contain;">
+        </div>
+        <div style="padding: 28px 24px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <span style="background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Academic Competition</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">DTI Philippines • LPU Davao</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">Consumer Welfare Month 2026</span>
+            </div>
+            <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 12px;">
+                DTI Davao City Consumer Whiz Bee 2026: AMIS Contestants
+            </h3>
+            <p style="font-size: 0.95rem; color: #475569; line-height: 1.7; margin-bottom: 16px;">
+                Al Munawwara Islamic School (AMIS) delegates proudly participated as official contestants in the <strong>DTI Davao City Consumer Whiz Bee 2026</strong>, held in partnership with Lyceum of the Philippines University (LPU) Davao during Consumer Welfare Month. AMIS continues to encourage our students to excel in national academic contests, develop consumer literacy, and proudly represent Islamic education across Davao City and beyond.
+            </p>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.85rem; color: #64748b;">
+                <span>📍 Venue: LPU Davao City / DTI Region 11</span>
+                <span>🏆 Category: Consumer Welfare Month Interschool Competition</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. ASAD Modal -->
+<div id="asadModal" class="highlight-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto;" onclick="if(event.target === this) closeHighlightModal('asadModal')">
+    <div style="background: white; border-radius: 20px; max-width: 800px; width: 100%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; margin: auto;">
+        <button type="button" onclick="closeHighlightModal('asadModal')" aria-label="Close modal" style="position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(15, 23, 42, 0.7); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#0f172a'" onmouseout="this.style.background='rgba(15, 23, 42, 0.7)'">
+            ✕
+        </button>
+        <div style="max-height: 65vh; background: #064e3b; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" style="width: 100%; max-height: 65vh; object-fit: contain;">
+        </div>
+        <div style="padding: 28px 24px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <span style="background: #fef3c7; color: #b45309; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Shariah Advisory</span>
+                <span style="background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">AMIS Shariah Advisory Department (ASAD)</span>
+                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">Year-End Guidance</span>
+            </div>
+            <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 12px;">
+                Gentle Reminder: Preserving Islamic Identity &amp; Moral Values
+            </h3>
+            <p style="font-size: 0.95rem; color: #475569; line-height: 1.7; margin-bottom: 16px;">
+                As the year-end holiday season approaches, the <strong>AMIS Shariah Advisory Department (ASAD)</strong> respectfully reminds all Muslim students and employees to preserve their Islamic identity, uphold the guidance of the Qur'an and Sunnah, and refrain from participating in religious practices that contradict Islamic teachings — while always maintaining kindness, courtesy, and peaceful coexistence with people of other faiths.
+            </p>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                <strong>📖 Qur'anic Verse:</strong> <em>"And do not follow their desires away from the truth that has come to you."</em> (Surah Al-Ma'idah 5:48)<br>
+                <strong>🕌 Hadith:</strong> <em>"Man tashabbaha biqawmin fahuwa minhum."</em> ("Whoever imitates a people is one of them.")
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -952,6 +1117,32 @@
                 const activePanel = document.getElementById(targetId);
                 if (activePanel) activePanel.style.display = 'block';
             });
+        });
+
+        // 4. Highlight Details Modals
+        window.openHighlightModal = function(id) {
+            const m = document.getElementById(id);
+            if (m) {
+                m.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.closeHighlightModal = function(id) {
+            const m = document.getElementById(id);
+            if (m) {
+                m.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        };
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.highlight-modal').forEach(m => {
+                    m.style.display = 'none';
+                });
+                document.body.style.overflow = '';
+            }
         });
     });
 </script>
