@@ -240,7 +240,7 @@
 
                 @if(!empty($imgs))
                     <!-- Gallery View Container -->
-                    <div class="gallery-container">
+                    <div class="gallery-container" @if(count($imgs) <= 1) style="padding-right: 0;" @endif>
                         <!-- Main Viewport (Left) -->
                         <div class="main-gallery-viewport group">
                             <!-- Slides -->

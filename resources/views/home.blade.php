@@ -840,53 +840,10 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
                 
-                <!-- Highlight 1: DTI Consumer Whiz Bee 2026 -->
-                <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
-                    <div style="position: relative; height: 230px; overflow: hidden; background: #0f172a; cursor: pointer;" onclick="openHighlightModal('dtiModal')">
-                        <img src="/images/highlights/dti-consumer-whiz-bee-2026.png" alt="DTI Davao City Consumer Whiz Bee 2026" style="width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
-                        <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
-                            <span style="background: rgba(5, 150, 105, 0.95); backdrop-filter: blur(4px); color: white; padding: 5px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Competition
-                            </span>
-                            <span style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); color: white; padding: 5px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700;">
-                                DTI • LPU
-                            </span>
-                        </div>
-                        <div style="position: absolute; bottom: 12px; right: 14px; background: rgba(255, 255, 255, 0.92); color: #0f172a; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            View Full Photo
-                        </div>
-                    </div>
-                    <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
-                        <div>
-                            <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                                <span>📅 October 2026</span>
-                                <span>•</span>
-                                <span>Consumer Welfare Month</span>
-                            </div>
-                            <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
-                                DTI Davao City Consumer Whiz Bee 2026: AMIS Contestants
-                            </h4>
-                            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 18px;">
-                                Al Munawwara Islamic School proudly represented our community at the DTI Davao City Consumer Whiz Bee 2026 in partnership with Lyceum of the Philippines University (LPU) Davao.
-                            </p>
-                        </div>
-                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
-                                📍 LPU Davao City
-                            </span>
-                            <button type="button" onclick="openHighlightModal('dtiModal')" style="background: none; border: none; padding: 0; color: #059669; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-                                Event Details →
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Highlight 2: ASAD Gentle Reminder -->
+                <!-- Highlight 1: ASAD Gentle Reminder -->
                 <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
                     <div style="position: relative; height: 230px; overflow: hidden; background: #064e3b; cursor: pointer;" onclick="openHighlightModal('asadModal')">
-                        <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
+                        <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" class="skip-skeleton" data-no-skeleton="true" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
                         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
                         <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
                             <span style="background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); color: white; padding: 5px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -926,7 +883,7 @@
                     </div>
                 </div>
 
-                <!-- Highlight 3: COMING SOON... -->
+                <!-- Highlight 2: COMING SOON... -->
                 <div style="background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%); border: 2px dashed #cbd5e1; border-radius: 18px; padding: 36px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.02); min-height: 380px;">
                     <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; border: 1px solid #a7f3d0; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);">
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -953,34 +910,6 @@
 </section>
 
 <!-- HIGHLIGHT DETAIL MODALS -->
-<!-- 1. DTI Modal -->
-<div id="dtiModal" class="highlight-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto;" onclick="if(event.target === this) closeHighlightModal('dtiModal')">
-    <div style="background: white; border-radius: 20px; max-width: 800px; width: 100%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; margin: auto;">
-        <button type="button" onclick="closeHighlightModal('dtiModal')" aria-label="Close modal" style="position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(15, 23, 42, 0.7); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#0f172a'" onmouseout="this.style.background='rgba(15, 23, 42, 0.7)'">
-            ✕
-        </button>
-        <div style="max-height: 60vh; background: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            <img src="/images/highlights/dti-consumer-whiz-bee-2026.png" alt="DTI Davao City Consumer Whiz Bee 2026" style="width: 100%; max-height: 60vh; object-fit: contain;">
-        </div>
-        <div style="padding: 28px 24px;">
-            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-                <span style="background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Academic Competition</span>
-                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">DTI Philippines • LPU Davao</span>
-                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">Consumer Welfare Month 2026</span>
-            </div>
-            <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 12px;">
-                DTI Davao City Consumer Whiz Bee 2026: AMIS Contestants
-            </h3>
-            <p style="font-size: 0.95rem; color: #475569; line-height: 1.7; margin-bottom: 16px;">
-                Al Munawwara Islamic School (AMIS) delegates proudly participated as official contestants in the <strong>DTI Davao City Consumer Whiz Bee 2026</strong>, held in partnership with Lyceum of the Philippines University (LPU) Davao during Consumer Welfare Month. AMIS continues to encourage our students to excel in national academic contests, develop consumer literacy, and proudly represent Islamic education across Davao City and beyond.
-            </p>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.85rem; color: #64748b;">
-                <span>📍 Venue: LPU Davao City / DTI Region 11</span>
-                <span>🏆 Category: Consumer Welfare Month Interschool Competition</span>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- 2. ASAD Modal -->
 <div id="asadModal" class="highlight-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto;" onclick="if(event.target === this) closeHighlightModal('asadModal')">

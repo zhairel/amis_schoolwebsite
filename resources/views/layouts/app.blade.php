@@ -872,9 +872,14 @@
             '.hero-image',
             '.news-slideshow-container img',
             '.album-slide-img',
+            '.highlight-card img',
+            '.highlight-modal img',
+            '.skip-skeleton',
+            '[data-no-skeleton]',
         ];
 
         function shouldSkip(img) {
+            if (img.hasAttribute('data-no-skeleton') || img.classList.contains('skip-skeleton') || img.dataset.skeletonWrapped) return true;
             for (const sel of SKIP_SELECTORS) {
                 if (img.closest(sel.split(' ')[0]) || img.matches(sel)) return true;
             }
