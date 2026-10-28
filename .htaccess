@@ -1,3 +1,27 @@
+# Disable directory listing
+Options -Indexes
+
+# Block sensitive files from web access
+RedirectMatch 403 /\.(env|git|gitignore|gitattributes|env\..*)$
+RedirectMatch 403 /(composer\.json|composer\.lock|package\.json|package-lock\.json|webpack\.mix\.js|vite\.config\.js)$
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Block MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Strict-Transport-Security (HSTS)
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -8,3 +32,10 @@
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
