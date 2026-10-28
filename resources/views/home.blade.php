@@ -861,8 +861,6 @@
                     <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
                         <div>
                             <div style="font-size: 0.78rem; font-weight: 700; color: #d97706; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                                <span>🕌 AMIS Shariah Advisory Dept.</span>
-                                <span>•</span>
                                 <span>Official Advisory</span>
                             </div>
                             <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
