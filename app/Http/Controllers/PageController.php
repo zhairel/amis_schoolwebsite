@@ -266,4 +266,13 @@ class PageController extends Controller
     {
         return view('about.global_community');
     }
+
+    /**
+     * Display the dedicated Shariah Advisory page (ASAD Gentle Reminder).
+     */
+    public function shariahAdvisoryReminder()
+    {
+        return view('pages.shariah-advisory-reminder');
+    }
 }
+

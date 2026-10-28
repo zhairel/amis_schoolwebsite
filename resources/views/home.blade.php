@@ -842,7 +842,7 @@
                 
                 <!-- Highlight 1: ASAD Gentle Reminder -->
                 <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
-                    <div style="position: relative; height: 230px; overflow: hidden; background: #064e3b; cursor: pointer;" onclick="openHighlightModal('asadModal')">
+                    <a href="{{ route('advisories.gentle-reminder') }}" style="text-decoration: none; display: block; position: relative; height: 230px; overflow: hidden; background: #064e3b;">
                         <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" class="skip-skeleton" data-no-skeleton="true" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
                         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
                         <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
@@ -857,7 +857,7 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                             View Advisory
                         </div>
-                    </div>
+                    </a>
                     <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
                         <div>
                             <div style="font-size: 0.78rem; font-weight: 700; color: #d97706; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
@@ -866,7 +866,9 @@
                                 <span>Official Advisory</span>
                             </div>
                             <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
-                                Gentle Reminder: Preserving Islamic Identity &amp; Values
+                                <a href="{{ route('advisories.gentle-reminder') }}" style="color: #0f172a; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#059669'" onmouseout="this.style.color='#0f172a'">
+                                    Gentle Reminder: Preserving Islamic Identity &amp; Values
+                                </a>
                             </h4>
                             <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 18px;">
                                 Official advisory from the AMIS Shariah Advisory Department (ASAD) reminding our Muslim community to uphold the teachings of the Qur'an and Sunnah with kindness, courtesy, and respect.
@@ -876,9 +878,9 @@
                             <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
                                 📖 Qur'an 5:48 &amp; Sunnah
                             </span>
-                            <button type="button" onclick="openHighlightModal('asadModal')" style="background: none; border: none; padding: 0; color: #059669; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                            <a href="{{ route('advisories.gentle-reminder') }}" style="color: #059669; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">
                                 Read Advisory →
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -908,37 +910,6 @@
 
     </div>
 </section>
-
-<!-- HIGHLIGHT DETAIL MODALS -->
-
-<!-- 2. ASAD Modal -->
-<div id="asadModal" class="highlight-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto;" onclick="if(event.target === this) closeHighlightModal('asadModal')">
-    <div style="background: white; border-radius: 20px; max-width: 800px; width: 100%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; margin: auto;">
-        <button type="button" onclick="closeHighlightModal('asadModal')" aria-label="Close modal" style="position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: rgba(15, 23, 42, 0.7); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 16px; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#0f172a'" onmouseout="this.style.background='rgba(15, 23, 42, 0.7)'">
-            ✕
-        </button>
-        <div style="max-height: 65vh; background: #064e3b; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" style="width: 100%; max-height: 65vh; object-fit: contain;">
-        </div>
-        <div style="padding: 28px 24px;">
-            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-                <span style="background: #fef3c7; color: #b45309; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Shariah Advisory</span>
-                <span style="background: #ecfdf5; color: #047857; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">AMIS Shariah Advisory Department (ASAD)</span>
-                <span style="background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">Year-End Guidance</span>
-            </div>
-            <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 12px;">
-                Gentle Reminder: Preserving Islamic Identity &amp; Moral Values
-            </h3>
-            <p style="font-size: 0.95rem; color: #475569; line-height: 1.7; margin-bottom: 16px;">
-                As the year-end holiday season approaches, the <strong>AMIS Shariah Advisory Department (ASAD)</strong> respectfully reminds all Muslim students and employees to preserve their Islamic identity, uphold the guidance of the Qur'an and Sunnah, and refrain from participating in religious practices that contradict Islamic teachings — while always maintaining kindness, courtesy, and peaceful coexistence with people of other faiths.
-            </p>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
-                <strong>📖 Qur'anic Verse:</strong> <em>"And do not follow their desires away from the truth that has come to you."</em> (Surah Al-Ma'idah 5:48)<br>
-                <strong>🕌 Hadith:</strong> <em>"Man tashabbaha biqawmin fahuwa minhum."</em> ("Whoever imitates a people is one of them.")
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

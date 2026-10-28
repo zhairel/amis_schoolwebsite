@@ -20,6 +20,13 @@ Route::get('/news', [PageController::class, 'newsIndex'])->name('news.index');
 Route::get('/events', [PageController::class, 'eventsIndex'])->name('events.index');
 Route::get('/announcement/{id}', [PageController::class, 'announcementShow'])->name('announcement.show');
 
+// Dedicated Shariah Advisory Page
+Route::get('/advisories/gentle-reminder-islamic-identity', [PageController::class, 'shariahAdvisoryReminder'])->name('advisories.gentle-reminder');
+Route::redirect('/advisory/gentle-reminder', '/advisories/gentle-reminder-islamic-identity', 301);
+Route::redirect('/shariah-advisory', '/advisories/gentle-reminder-islamic-identity', 301);
+Route::redirect('/shariah-advisory/gentle-reminder', '/advisories/gentle-reminder-islamic-identity', 301);
+
+
 Route::prefix('about')->name('about.')->group(function () {
     Route::get('/', [PageController::class, 'about'])->name('index');
     Route::get('/history', [PageController::class, 'history'])->name('history');
