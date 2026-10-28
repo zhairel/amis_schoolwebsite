@@ -559,11 +559,21 @@
                     <div class="form-group">
                         <label>How would you rate our website?</label>
                         <div class="rating-stars" id="starRating">
-                            <button type="button" class="star-btn" data-star="1">★</button>
-                            <button type="button" class="star-btn" data-star="2">★</button>
-                            <button type="button" class="star-btn" data-star="3">★</button>
-                            <button type="button" class="star-btn" data-star="4">★</button>
-                            <button type="button" class="star-btn" data-star="5">★</button>
+                            <button type="button" class="star-btn" data-star="1" aria-label="1 star">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg>
+                            </button>
+                            <button type="button" class="star-btn" data-star="2" aria-label="2 stars">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg>
+                            </button>
+                            <button type="button" class="star-btn" data-star="3" aria-label="3 stars">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg>
+                            </button>
+                            <button type="button" class="star-btn" data-star="4" aria-label="4 stars">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg>
+                            </button>
+                            <button type="button" class="star-btn" data-star="5" aria-label="5 stars">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd"/></svg>
+                            </button>
                         </div>
                         <input type="hidden" name="rating" id="ratingInput" value="0">
                     </div>
@@ -822,7 +832,7 @@
                 translations: {
                     en: {
                         consentModal: {
-                            title: '🍪 We value your privacy',
+                            title: 'We value your privacy',
                             description: 'Al Munawwara Islamic School uses cookies to enhance your browsing experience and analyze site traffic. You can choose which cookies to allow.',
                             acceptAllBtn: 'Accept All',
                             acceptNecessaryBtn: 'Reject All',

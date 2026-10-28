@@ -740,49 +740,49 @@
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2018</div>
-                            <div class="timeline-country">USA (Yale MUN) 🇺🇸</div>
+                            <div class="timeline-country">USA (Yale MUN)</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="KR" data-index="1">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2018</div>
-                            <div class="timeline-country">Korea (YMUN) 🇰🇷</div>
+                            <div class="timeline-country">Korea (YMUN)</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="AE" data-index="2">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2023</div>
-                            <div class="timeline-country">UAE (ASD MUN) 🇦🇪</div>
+                            <div class="timeline-country">UAE (ASD MUN)</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="SG" data-index="3">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2023</div>
-                            <div class="timeline-country">Singapore 🇸🇬</div>
+                            <div class="timeline-country">Singapore</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="MY" data-index="4">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2024</div>
-                            <div class="timeline-country">Malaysia (ADNI) 🇲🇾</div>
+                            <div class="timeline-country">Malaysia (ADNI)</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="JP" data-index="5">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2025</div>
-                            <div class="timeline-country">Japan (WJMUN) 🇯🇵</div>
+                            <div class="timeline-country">Japan (WJMUN)</div>
                         </div>
                     </div>
                     <div class="timeline-item" data-code="QA" data-index="6">
                         <div class="timeline-node"></div>
                         <div class="timeline-text text-center">
                             <div class="timeline-year">2026</div>
-                            <div class="timeline-country">Qatar (YMUN) 🇶🇦</div>
+                            <div class="timeline-country">Qatar (YMUN)</div>
                         </div>
                     </div>
                 </div>
@@ -839,7 +839,7 @@
                 visits: "2x Visited",
                 year: 2026,
                 date: "2018 / Feb 2026",
-                flag: "🇺🇸",
+                flag: "",
                 description: "AMIS youth delegates traveled to the United States for Yale Model United Nations (Linsley Chittenden Hall, Yale University, Connecticut) and Harvard Model United Nations (Boston, MA). Delegates engaged in Islamic studies, international seminars, and high-level debates with student leaders worldwide.",
                 video: "",
                 images: [
@@ -855,7 +855,7 @@
                 visits: "2x Visited",
                 year: 2025,
                 date: "2018 / Nov 28 – Dec 1, 2025",
-                flag: "🇰🇷",
+                flag: "",
                 description: "AMISians proudly participated in Yale Model United Nations Korea in Gyeonggi-do (2018) and YMUN Korea XIII in Seoul (2025). Represented by delegates Prince Kashmir Buisan, Ommie Huniy Bandigan, and Abigail Maryam Salam under advisors Teacher Anna Marie Bonsadan and Teacher Jessa Mae Recla.",
                 video: "",
                 images: [
@@ -876,7 +876,7 @@
                 visits: "2x Visited",
                 year: 2026,
                 date: "Sept 1–5, 2024 / July 2026",
-                flag: "🇲🇾",
+                flag: "",
                 description: "AMIS delegates joined the ADNI International Students Conference at Eastin Hotel, Kuala Lumpur in 2024 and 2026. Delegate Joric Abdul Haqq Cabrera won two major honors — Best Speaker Award and Best Innovative Award! We also commend Sharif Ilmas Lepail and Teacher Ethel Lorraine Justiniane.",
                 video: "",
                 images: [
@@ -893,7 +893,7 @@
                 visits: "2x Visited",
                 year: 2025,
                 date: "April 11–13, 2025 / Nov 2025",
-                flag: "🇯🇵",
+                flag: "",
                 description: "AMIS student delegates represented the school and the Philippines at West Japan Model United Nations (WJMUN 2025) in Fukuoka, Japan. Under the theme 'Empowering Muslim Youth Through Faith and Knowledge: Strengthening Iman, Inspiring Leadership, Uniting the Ummah'.",
                 video: "",
                 images: [
@@ -909,7 +909,7 @@
                 visits: "1x Visited",
                 year: 2023,
                 date: "April 7–9, 2023",
-                flag: "🇦🇪",
+                flag: "",
                 description: "Al Munawwara Islamic School delegates represented Davao City and the Philippines at the American School of Dubai Model United Nations (ASD MUN VIII) in Al Barsha 1, Dubai, U.A.E. This prestigious conference brought together young Muslim leaders across ASEAN and the Middle East.",
                 video: "",
                 images: [
@@ -925,7 +925,7 @@
                 visits: "1x Visited",
                 year: 2021,
                 date: "2021",
-                flag: "🇩🇿",
+                flag: "",
                 description: "AMIS International Youth Delegation 2021 represented by distinguished student delegate Hayah C. Mama, participating in global educational and leadership exchange programs.",
                 video: "",
                 images: [
@@ -941,7 +941,7 @@
                 visits: "1x Visited",
                 year: 2021,
                 date: "2021",
-                flag: "🇴🇲",
+                flag: "",
                 description: "AMIS International Youth Delegation 2021 represented by delegate Nadene Yaera S. Balilo, connecting young Muslim leaders across Middle Eastern and ASEAN educational forums.",
                 video: "",
                 images: [
@@ -957,7 +957,7 @@
                 visits: "1x Visited",
                 year: 2021,
                 date: "2021",
-                flag: "🇬🇧",
+                flag: "",
                 description: "AMIS International Youth Delegation 2021 represented by delegates Eman M. Silongan and Mashaell P. Deligos, promoting global academic exchange and diplomatic relations.",
                 video: "",
                 images: [
@@ -973,7 +973,7 @@
                 visits: "1x Visited",
                 year: 2021,
                 date: "2021",
-                flag: "🇨🇳",
+                flag: "",
                 description: "AMIS International Youth Delegation 2021 represented by delegates Shakir A. Daham and Helena M. Sabandal, participating in East Asian international student forums.",
                 video: "",
                 images: [
@@ -989,7 +989,7 @@
                 visits: "1x Visited",
                 year: 2021,
                 date: "2021",
-                flag: "🇪🇬",
+                flag: "",
                 description: "AMIS International Youth Delegation 2021 represented by delegate Renz P. Benamira, engaging in Islamic scholarship and cultural exchange programs.",
                 video: "",
                 images: [
@@ -1005,7 +1005,7 @@
                 visits: "1x Visited",
                 year: 2026,
                 date: "January 2026",
-                flag: "🇶🇦",
+                flag: "",
                 description: "AMIS students traveled to Doha, Qatar, to participate in the Youth Model United Nations, discussing global challenges, developing leadership skills, and building international friendships.",
                 video: "",
                 images: [
@@ -1021,7 +1021,7 @@
                 visits: "1x Visited",
                 year: 2023,
                 date: "October 2023",
-                flag: "🇸🇬",
+                flag: "",
                 description: "AMIS students competed in the regional STEM and Innovation Challenge held in Singapore. Our team presented creative solutions for urban sustainability.",
                 video: "",
                 images: [
@@ -1037,7 +1037,7 @@
                 visits: "1x Visited",
                 year: 2024,
                 date: "May 2024",
-                flag: "🇹🇷",
+                flag: "",
                 description: "AMIS student delegates represented Davao City at the International Youth Leadership Summit in Istanbul, Turkey, exploring historic Islamic heritage sites and ASEAN youth leadership.",
                 video: "",
                 images: [
@@ -1053,7 +1053,7 @@
                 visits: "1x Visited",
                 year: 2024,
                 date: "August 2024",
-                flag: "🇱🇾",
+                flag: "",
                 description: "AMIS student leaders connected with youth delegates across North Africa in Tripoli, Libya, participating in global workshops focused on youth empowerment and Islamic governance.",
                 video: "",
                 images: [
@@ -1069,7 +1069,7 @@
                 visits: "1x Visited",
                 year: 2025,
                 date: "March 2025",
-                flag: "🇬🇷",
+                flag: "",
                 description: "AMIS delegates represented the Philippines at the Mediterranean International Model United Nations in Athens, Greece, engaging in maritime diplomacy.",
                 video: "",
                 images: [
@@ -1085,7 +1085,7 @@
                 visits: "1x Visited",
                 year: 2024,
                 date: "October 2024",
-                flag: "🇦🇫",
+                flag: "",
                 description: "AMIS student leaders joined Central and South Asian student representatives in an international conference advocating for educational access and youth mentorship.",
                 video: "",
                 images: [
@@ -1101,7 +1101,7 @@
                 visits: "1x Visited",
                 year: 2025,
                 date: "June 2025",
-                flag: "🇨🇷",
+                flag: "",
                 description: "AMIS delegates traveled to San José, Costa Rica, for the Global Youth Environmental Summit, presenting eco-friendly green technology proposals.",
                 video: "",
                 images: [
@@ -1117,7 +1117,7 @@
                 visits: "1x Visited",
                 year: 2023,
                 date: "November 2023",
-                flag: "🇧🇭",
+                flag: "",
                 description: "AMIS delegates joined fellow youth diplomats at the Gulf International Youth Leadership Conference in Manama, Bahrain.",
                 video: "",
                 images: [
@@ -1133,7 +1133,7 @@
                 visits: "1x Visited",
                 year: 2025,
                 date: "September 2025",
-                flag: "🇰🇵",
+                flag: "",
                 description: "AMIS student representatives participated in the East Asia Youth Peace Forum, promoting youth diplomacy and regional harmony.",
                 video: "",
                 images: [
@@ -1272,7 +1272,7 @@
             destinations.forEach(dest => {
                 const el = mapSvg.getElementById(dest.code.toLowerCase());
                 if (el) {
-                    el.addEventListener('mouseenter', (e) => showTooltip(e, `<strong>${dest.country} ${dest.flag}</strong> <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.5 rounded ml-1">${dest.visits || '1x Visited'}</span><br>${dest.event}`));
+                    el.addEventListener('mouseenter', (e) => showTooltip(e, `<strong>${dest.country}</strong> <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.5 rounded ml-1">${dest.visits || '1x Visited'}</span><br>${dest.event}`));
                     el.addEventListener('mousemove', positionTooltip);
                     el.addEventListener('mouseleave', hideTooltip);
                 }
@@ -1283,7 +1283,7 @@
                 const code = pin.getAttribute('data-code');
                 const dest = destinations.find(d => d.code === code);
                 if (dest) {
-                    pin.addEventListener('mouseenter', (e) => showTooltip(e, `<strong>${dest.country} ${dest.flag}</strong> <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.5 rounded ml-1">${dest.visits || '1x Visited'}</span><br>${dest.event}`));
+                    pin.addEventListener('mouseenter', (e) => showTooltip(e, `<strong>${dest.country}</strong> <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.5 rounded ml-1">${dest.visits || '1x Visited'}</span><br>${dest.event}`));
                     pin.addEventListener('mousemove', positionTooltip);
                     pin.addEventListener('mouseleave', hideTooltip);
                 }

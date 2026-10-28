@@ -241,7 +241,9 @@
 <section class="section philosophy-section">
     <div class="container">
         <div class="content-card">
-            <div class="card-icon">📚</div>
+            <div class="card-icon" style="display: flex; justify-content: center; align-items: center; color: var(--primary);">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 2v20"/></svg>
+            </div>
             <h2>Our Philosophy</h2>
             <p>At Al Munawwara Islamic School, we believe in nurturing the whole child - mind, body, and soul. Our educational philosophy is rooted in Islamic values while embracing modern pedagogical approaches. We strive to create an environment where students develop strong moral character, critical thinking skills, and a deep connection to their faith. We recognize that each student is unique and deserves personalized attention to reach their full potential in both worldly and spiritual matters.</p>
         </div>
@@ -253,12 +255,16 @@
     <div class="container">
         <div class="vm-grid">
             <div class="vm-card vision-card">
-                <div class="vm-icon">🌟</div>
+                <div class="vm-icon" style="display: flex; justify-content: center; align-items: center;">
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
                 <h2>Our Vision</h2>
                 <p>To be a leading Islamic educational institution that produces well-rounded individuals who excel academically, embody Islamic values, and contribute positively to society. We envision a community of learners who are confident, compassionate, and committed to lifelong learning and service to humanity.</p>
             </div>
             <div class="vm-card mission-card">
-                <div class="vm-icon">🎯</div>
+                <div class="vm-icon" style="display: flex; justify-content: center; align-items: center;">
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="2"/></svg>
+                </div>
                 <h2>Our Mission</h2>
                 <p>To provide quality Islamic education that integrates academic excellence with spiritual development. We are committed to fostering a nurturing environment where students develop strong character, critical thinking skills, and a deep understanding of Islamic principles. Our mission is to prepare students to be responsible citizens who contribute meaningfully to their communities while maintaining their Islamic identity.</p>
             </div>
@@ -312,7 +318,9 @@
         <div class="location-content">
             <div class="location-info">
                 <div class="location-item">
-                    <div class="location-icon">📍</div>
+                    <div class="location-icon" style="display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
                     <div>
                         <h3>Address</h3>
                         <p>Al Munawwara Islamic School<br>
@@ -321,7 +329,9 @@
                     </div>
                 </div>
                 <div class="location-item">
-                    <div class="location-icon">📞</div>
+                    <div class="location-icon" style="display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
                     <div>
                         <h3>Contact Details</h3>
                         <p>Phone: +63 927 299 1833<br>
@@ -329,7 +339,9 @@
                     </div>
                 </div>
                 <div class="location-item">
-                    <div class="location-icon">🕐</div>
+                    <div class="location-icon" style="display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
                     <div>
                         <h3>Office Hours</h3>
                         <p>Monday - Friday: 8:00 AM - 4:00 PM<br>

@@ -769,8 +769,9 @@
 
 <!-- EVENT POPUP MODAL -->
 <div class="modal-overlay" id="eventModal" style="display: none;" onclick="closeEventModal()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <button class="modal-close-btn" onclick="closeEventModal()">✕</button>
+        <button class="modal-close-btn" onclick="closeEventModal()" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
         <div style="font-size: 0.78rem; font-weight: 800; color: #059669; text-transform: uppercase; margin-bottom: 6px;" id="modalCategory">AMIS ACTIVITY</div>
         <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; line-height: 1.3;" id="modalTitle">Event Title</h3>
         

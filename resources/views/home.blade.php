@@ -873,8 +873,9 @@
                             </p>
                         </div>
                         <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 4px;">
-                                📖 Qur'an 5:48 &amp; Sunnah
+                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 2v20"/></svg>
+                                Qur'an 5:48 &amp; Sunnah
                             </span>
                             <a href="{{ route('advisories.gentle-reminder') }}" style="color: #059669; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">
                                 Read Advisory →
@@ -899,7 +900,8 @@
                         Stay tuned! We are currently preparing exciting upcoming events and school programs for our students and community.
                     </p>
                     <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: white; color: #059669; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all 0.2s;" onmouseover="this.style.borderColor='#059669';this.style.color='#047857';" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#059669';">
-                        📅 Check Academic Calendar
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        Check Academic Calendar
                     </a>
                 </div>
 

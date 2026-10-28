@@ -268,19 +268,27 @@
                 <p>Al Munawwara Islamic School maintains the highest standards of educational excellence. Our international accreditations from QAHE and ACTD, along with DepEd recognition, reflect our dedication to providing quality Islamic education that meets and exceeds national and international standards.</p>
                 <div class="accred-badges">
                     <div class="badge">
-                        <div class="badge-icon">✓</div>
+                        <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
                         <div class="badge-text">QAHE Accredited</div>
                     </div>
                     <div class="badge">
-                        <div class="badge-icon">✓</div>
+                        <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
                         <div class="badge-text">ACTD Certified</div>
                     </div>
                     <div class="badge">
-                        <div class="badge-icon">✓</div>
+                        <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
                         <div class="badge-text">DepEd Recognized</div>
                     </div>
                     <div class="badge">
-                        <div class="badge-icon">✓</div>
+                        <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
                         <div class="badge-text">K-12 Compliant</div>
                     </div>
                 </div>
@@ -291,7 +299,9 @@
     <!-- Certificate Zoom Modal -->
     <div class="zoom-modal" id="zoomModal" style="display: none;">
         <div class="zoom-modal-content">
-            <button class="zoom-close" id="closeZoom">✕</button>
+            <button class="zoom-close" id="closeZoom" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
             <img src="" id="zoomImage" alt="Certificate Zoom" />
         </div>
     </div>

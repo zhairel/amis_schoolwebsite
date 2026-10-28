@@ -390,11 +390,16 @@
                 <!-- Event Details Information Card -->
                 @if($announcement->event_dates || $announcement->event_venue || $announcement->is_online)
                     <div style="margin: 20px auto 30px; max-width: 700px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 12px; text-align: left;">
-                        <h3 style="font-size: 0.9rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.5px; margin: 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">📅 Event Details</h3>
+                        <h3 style="font-size: 0.9rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.5px; margin: 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            Event Details
+                        </h3>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
                             @if($announcement->event_dates)
                                 <div style="display: flex; align-items: start; gap: 10px;">
-                                    <span style="font-size: 1.25rem; line-height: 1;">📅</span>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                    </div>
                                     <div>
                                         <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Event Date(s)</div>
                                         <div style="font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-top: 2px;">{{ $announcement->event_dates }}</div>
@@ -403,7 +408,9 @@
                             @endif
                             @if($announcement->is_online)
                                 <div style="display: flex; align-items: start; gap: 10px;">
-                                    <span style="font-size: 1.25rem; line-height: 1;">💻</span>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                                    </div>
                                     <div>
                                         <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Venue / Location</div>
                                         <div style="font-size: 0.95rem; font-weight: 700; color: #059669; margin-top: 2px;">Online Class / Virtual Event</div>
@@ -412,7 +419,9 @@
                             @endif
                             @if(!$announcement->is_online && $announcement->event_venue)
                                 <div style="display: flex; align-items: start; gap: 10px;">
-                                    <span style="font-size: 1.25rem; line-height: 1;">📍</span>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #fef2f2; color: #dc2626; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                    </div>
                                     <div>
                                         <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Venue / Location</div>
                                         <div style="font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-top: 2px;">{{ $announcement->event_venue }}</div>

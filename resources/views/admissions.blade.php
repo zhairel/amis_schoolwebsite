@@ -85,6 +85,9 @@
         padding: 0;
     }
     .req-card li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         padding: 12px 0;
         border-bottom: 1px solid var(--border);
         color: var(--text-light);
@@ -94,10 +97,14 @@
         border-bottom: none;
     }
     .req-card li::before {
-        content: "✓ ";
-        color: var(--primary);
-        font-weight: 700;
-        margin-right: 8px;
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background-color: var(--primary);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z' clip-rule='evenodd'/%3E%3C/svg%3E") no-repeat center / contain;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z' clip-rule='evenodd'/%3E%3C/svg%3E") no-repeat center / contain;
     }
     .cta-box {
         background: white;
@@ -176,7 +183,10 @@
             
             <div class="requirements">
                 <div class="req-card">
-                    <h3>📄 Required Documents</h3>
+                    <h3 style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                        Required Documents
+                    </h3>
                     <ul>
                         <li>PSA Birth Certificate (Original & Photocopy)</li>
                         <li>Report Card / Form 138 (from previous school)</li>
@@ -186,7 +196,10 @@
                 </div>
                 
                 <div class="req-card">
-                    <h3>📝 Student Profile Details</h3>
+                    <h3 style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        Student Profile Details
+                    </h3>
                     <ul>
                         <li>Student personal information</li>
                         <li>Parent / Guardian occupation & contact details</li>

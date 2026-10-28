@@ -236,7 +236,7 @@
         <!-- Header Info Card -->
         <div class="advisory-header-card">
             <div class="advisory-badges">
-                <span class="badge-shariah">🕌 Official Shariah Advisory</span>
+                <span class="badge-shariah"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; vertical-align: -2px;"><path d="m12 3-8 5v13h16V8l-8-5z"/><path d="M12 14v7"/><path d="M9 21v-4a3 3 0 0 1 6 0v4"/></svg>Official Shariah Advisory</span>
                 <span class="badge-dept">AMIS Shariah Advisory Department (ASAD)</span>
                 <span class="badge-sy">Academic Year 2026 - 2027</span>
             </div>
@@ -251,8 +251,8 @@
 
             <div class="advisory-meta-row">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #ecfdf5; color: #059669; font-weight: 800; font-size: 0.8rem;">
-                        ✓
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #ecfdf5; color: #059669; font-weight: 800;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                     </span>
                     <strong style="color: #0f172a;">AMIS Shariah Advisory Department</strong>
                 </div>
@@ -260,7 +260,8 @@
                 <div>Al Munawwara Islamic School</div>
                 <div>•</div>
                 <div style="display: flex; align-items: center; gap: 6px;">
-                    <span>📅</span> October 2026
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    October 2026
                 </div>
             </div>
         </div>
@@ -319,7 +320,9 @@
             <!-- Sunnah Guidance Box -->
             <div class="arabic-callout-card">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                    <span style="background: #059669; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 800;">📖</span>
+                    <span style="background: #059669; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 2v20"/></svg>
+                    </span>
                     <strong style="color: #064e3b; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">Guidance from the Noble Sunnah</strong>
                 </div>
 
@@ -341,7 +344,9 @@
             <!-- Qur'anic Guidance Box -->
             <div class="arabic-callout-card" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-color: #fde68a;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                    <span style="background: #d97706; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 800;">✨</span>
+                    <span style="background: #d97706; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                    </span>
                     <strong style="color: #92400e; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">Guidance from the Holy Qur'an</strong>
                 </div>
 
@@ -364,15 +369,24 @@
 
             <div class="key-principles-grid">
                 <div class="principle-item">
-                    <h4><span>🤝</span> Kindness &amp; Courtesy</h4>
+                    <h4>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        Kindness &amp; Courtesy
+                    </h4>
                     <p>Islam commands kindness, fairness, and peaceful interaction with non-Muslims in school, workplace, and the neighborhood.</p>
                 </div>
                 <div class="principle-item">
-                    <h4><span>🛡️</span> Religious Boundary</h4>
+                    <h4>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                        Religious Boundary
+                    </h4>
                     <p>Refrain from wearing costumes, setting up religious decorations, or participating in festivities tied to other faiths' theological beliefs.</p>
                 </div>
                 <div class="principle-item">
-                    <h4><span>🌱</span> Positive Representation</h4>
+                    <h4>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+                        Positive Representation
+                    </h4>
                     <p>Be an exemplary ambassador of Islam through high moral character (akhlaq), honesty, empathy, and academic excellence.</p>
                 </div>
             </div>
@@ -398,11 +412,13 @@
 
             <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
                 <a href="{{ route('events.index') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; font-weight: 700; font-size: 0.92rem; text-decoration: none;">
-                    📅 All Events &amp; Programs
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    All Events &amp; Programs
                 </a>
                 <span style="color: #cbd5e1;">•</span>
                 <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; font-weight: 700; font-size: 0.92rem; text-decoration: none;">
-                    🗓️ Academic Calendar
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                    Academic Calendar
                 </a>
             </div>
         </div>

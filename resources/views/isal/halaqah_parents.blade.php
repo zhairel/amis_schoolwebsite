@@ -437,8 +437,9 @@
                     <h3>Register for Halaqah Parents</h3>
                     <p>Join our online learning sessions. Fill out the application form below.</p>
 
-                    <div style="background: #ecfdf5; border-left: 4px solid #059669; padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-size: 0.95rem; color: #065f46; text-align: left; line-height: 1.5; font-weight: 600;">
-                        ✨ <strong>Program Fee:</strong> The Halaqah Parents sessions are <strong>completely free of charge</strong>. For those who wish to earn blessings and support our school, voluntary <strong>Sadaqah (donations)</strong> are welcome and highly appreciated.
+                    <div style="background: #ecfdf5; border-left: 4px solid #059669; padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-size: 0.95rem; color: #065f46; text-align: left; line-height: 1.5; font-weight: 600; display: flex; align-items: flex-start; gap: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                        <div><strong>Program Fee:</strong> The Halaqah Parents sessions are <strong>completely free of charge</strong>. For those who wish to earn blessings and support our school, voluntary <strong>Sadaqah (donations)</strong> are welcome and highly appreciated.</div>
                     </div>
                     
                     @if(session('success'))
@@ -562,7 +563,9 @@
 <!-- HOW TO COPY FB LINK MODAL GUIDE -->
 <div id="fbGuideModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65); backdrop-filter: blur(4px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;" onclick="closeFbGuideModal()">
     <div style="background: white; border-radius: 20px; max-width: 480px; width: 100%; padding: 28px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;" onclick="event.stopPropagation()">
-        <button type="button" onclick="closeFbGuideModal()" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; color: #64748b; cursor: pointer; font-size: 1.1rem;">✕</button>
+        <button type="button" onclick="closeFbGuideModal()" aria-label="Close" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
 
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
             <div style="width: 42px; height: 42px; background: #1877f2; color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">f</div>

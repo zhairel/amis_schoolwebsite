@@ -314,24 +314,33 @@
         <div class="portal-links-title">Other Active AMIS Portals &amp; Services</div>
         <div class="portals-grid">
             <a href="https://asfi.amis.edu.ph" class="portal-link" target="_blank">
-                <span>💚</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                 <span>ASFI Takaful Portal</span>
             </a>
             <a href="https://student.amis.edu.ph" class="portal-link" target="_blank">
-                <span>🎓</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 <span>Student Portal</span>
             </a>
             <a href="https://teacher.amis.edu.ph" class="portal-link" target="_blank">
-                <span>📋</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
                 <span>Teacher Portal</span>
             </a>
         </div>
 
         <!-- Contact Support -->
         <div class="contact-box">
-            <div>📞 <strong>Call Support:</strong> <a href="tel:+639272991833">+63 927 299 1833</a></div>
-            <div>✉️ <strong>Email:</strong> <a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a></div>
-            <div>🌐 <strong>Facebook:</strong> <a href="https://www.facebook.com/almunawwaraislamicschool" target="_blank">AMIS Official Page</a></div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span><strong>Call Support:</strong> <a href="tel:+639272991833">+63 927 299 1833</a></span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span><strong>Email:</strong> <a href="mailto:inquiries@amis.edu.ph">inquiries@amis.edu.ph</a></span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                <span><strong>Facebook:</strong> <a href="https://www.facebook.com/almunawwaraislamicschool" target="_blank">AMIS Official Page</a></span>
+            </div>
         </div>
     </div>
 

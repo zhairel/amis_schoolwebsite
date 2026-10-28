@@ -337,16 +337,19 @@
                                     <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: #64748b; margin: 8px 0 12px; padding: 10px; background: #f8fafc; border-radius: 10px; border: 1px solid #f1f5f9;">
                                         @if($event->event_dates)
                                             <span style="display: flex; align-items: center; gap: 6px;">
-                                                <span>📅</span> <strong>Date:</strong> {{ $event->event_dates }}
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#059669; flex-shrink:0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                                <strong>Date:</strong> {{ $event->event_dates }}
                                             </span>
                                         @endif
                                         @if($event->is_online)
                                             <span style="display: flex; align-items: center; gap: 6px; color: #059669; font-weight: 700;">
-                                                <span>💻</span> <strong>Mode:</strong> Online Class / Virtual
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                                                <strong>Mode:</strong> Online Class / Virtual
                                             </span>
                                         @elseif($event->event_venue)
                                             <span style="display: flex; align-items: center; gap: 6px;">
-                                                <span>📍</span> <strong>Venue:</strong> {{ $event->event_venue }}
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#dc2626; flex-shrink:0;"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                                <strong>Venue:</strong> {{ $event->event_venue }}
                                             </span>
                                         @endif
                                     </div>
@@ -357,8 +360,9 @@
                             
                             <!-- Card Footer info -->
                             <div class="event-card-footer">
-                                <span class="event-author">
-                                    👤 {{ $event->author ?? 'AMIS' }}
+                                <span class="event-author" style="display: inline-flex; align-items: center; gap: 5px;">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    {{ $event->author ?? 'AMIS' }}
                                 </span>
                                 <a href="{{ route('announcement.show', $event->uuid ?? $event->id) }}" class="event-card-link">
                                     Details <span>→</span>
@@ -396,7 +400,9 @@
             @endif
         @else
             <div style="text-align: center; padding: 100px 40px; background: white; border-radius: 16px; border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
-                <div style="font-size: 4rem; margin-bottom: 20px;">📅</div>
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                </div>
                 <h3 style="font-size: 1.5rem; color: #1e293b; margin-bottom: 10px; font-weight: 700;">No Events Scheduled Yet</h3>
                 <p style="color: #64748b;">Please check back later for school activities and event schedules.</p>
             </div>
