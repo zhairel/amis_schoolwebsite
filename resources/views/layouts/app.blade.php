@@ -40,7 +40,7 @@
     <meta property="og:title" content="@yield('og_title', View::yieldContent('title', 'Al Munawwara Islamic School'))">
     <meta property="og:description" content="@yield('meta_description', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira. Al Munawwara Islamic School offers high-quality Islamic education in Davao City.')">
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:url" content="@yield('canonical_url', url()->current())">
+    <meta property="og:url" content="@yield('og_url', View::yieldContent('canonical_url', url()->current()))">
     <meta property="og:image" content="@yield('og_image', asset('hero1.png'))">
     <meta property="og:image:secure_url" content="@yield('og_image', asset('hero1.png'))">
     @yield('extra_og_tags')

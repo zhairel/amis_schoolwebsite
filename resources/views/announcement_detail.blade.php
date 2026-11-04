@@ -59,6 +59,7 @@
 @section('og_type', 'article')
 @section('og_image', $shareImage)
 @section('canonical_url', $canonicalUrl)
+@section('og_url', url()->full())
 
 @section('extra_og_tags')
     <meta property="og:image:width" content="{{ $imageWidth }}">

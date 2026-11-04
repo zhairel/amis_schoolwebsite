@@ -154,7 +154,9 @@ class PageController extends Controller
         } else {
             $announcement = Announcement::where('uuid', $id)->firstOrFail();
         }
-        return view('announcement_detail', compact('announcement'));
+        return response()
+            ->view('announcement_detail', compact('announcement'))
+            ->header('Cache-Control', 'public, max-age=3600');
     }
 
     /**
