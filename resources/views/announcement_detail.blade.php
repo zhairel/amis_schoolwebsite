@@ -1,6 +1,48 @@
 @extends('layouts.app')
 
-@section('title', ($announcement->title ?? 'Announcement') . ' | AMIS')
+@php
+    $pageTitle = ($announcement->title ?? 'Announcement') . ' | AMIS';
+    
+    // Clean, plain-text excerpt for social sharing description
+    $plainText = strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />', '</tr>', '</th>', '</td>', '</li>'], ' ', $announcement->content ?? ''));
+    $plainText = trim(preg_replace('/\s+/', ' ', $plainText));
+    $shareDescription = Str::limit($plainText, 180, '...');
+    if (empty($shareDescription)) {
+        $shareDescription = 'Official school announcement and advisory from Al Munawwara Islamic School (AMIS), Davao City.';
+    }
+
+    // Determine the best sharing image (first real uploaded image or default school banner)
+    $rawImgs = json_decode($announcement->image, true);
+    if (!is_array($rawImgs)) {
+        $rawImgs = $announcement->image ? [$announcement->image] : [];
+    }
+    $validImgs = array_values(array_filter($rawImgs, function($img) {
+        return !empty($img) && !str_contains($img, 'coming-soon');
+    }));
+
+    if (!empty($validImgs)) {
+        $firstImgPath = $validImgs[0];
+        $shareImage = str_starts_with($firstImgPath, 'http') ? $firstImgPath : url($firstImgPath);
+    } else {
+        $shareImage = url('/hero1.png');
+    }
+    
+    $canonicalUrl = route('announcement.show', $announcement->uuid ?? $announcement->id);
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $shareDescription)
+@section('og_title', $announcement->title ?? 'Announcement')
+@section('og_type', 'article')
+@section('og_image', $shareImage)
+@section('canonical_url', $canonicalUrl)
+
+@section('extra_og_tags')
+    <meta property="article:published_time" content="{{ optional($announcement->publish_date ?? $announcement->created_at)->toIso8601String() }}">
+    <meta property="article:author" content="{{ $announcement->author ?: 'AMIS Administration' }}">
+    <meta property="article:section" content="{{ $announcement->category ?: 'School Announcements' }}">
+    <meta property="og:image:alt" content="{{ $announcement->title ?? 'Announcement' }}">
+@endsection
 
 @section('styles')
 <style>
