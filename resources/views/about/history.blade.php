@@ -98,7 +98,7 @@
 
                 <p>Initially, the school offered Kindergarten, Preparatory, and Grade 1 levels for the School Year 2008-2009 and the Summer of 2009. The school provided an 8-week curriculum on Early Childhood Learning in preparation for Grade 1 and an Accelerated Islamic Studies Learning Program for transfer students who did not have Islamic Studies in their previous schools.</p>
 
-                <p>As of now, the Al Munawwara Islamic School (AMIS) completely offers Basic Education from Kindergarten 1 to Grade 12 with the Department of Education's K-12 Curriculum and Revised K-10 Curriculum plus a refined standard Madrasah Curriculum. AMIS has also received international accreditation from QAHE in 2025 and ACTD USA.</p>
+                <p>As of now, the Al Munawwara Islamic School (AMIS) completely offers Basic Education from Kindergarten 1 to Grade 12 with the Department of Education's K-12 Curriculum and Revised K-10 Curriculum plus a refined standard Madrasah Curriculum. AMIS has also received international accreditation from QAHE and ACTD USA, alongside PEAC ESC Certified Status for its Junior High School Program.</p>
 
                 <p>Al Munawwara Islamic School believes that the "Islamic Development Approach" leads to academic excellence, it produces the sphere of creativity, ingenuity of one's mind, and well-rounded student development. Our commitment to quality learning and extensive educational exposure aims to equip students to meet global demands and achieve a brighter future. While emphasizing physical, social, and intellectual development, we prioritize Islamic values and beliefs based on the Qur'an and Sunnah as the core of our educational integrity.</p>
             </div>

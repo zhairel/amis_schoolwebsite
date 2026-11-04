@@ -175,9 +175,9 @@
     }
     .accred-badges {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 20px;
-        max-width: 900px;
+        max-width: 1050px;
         margin: 0 auto;
     }
     .badge {
@@ -239,16 +239,19 @@
 
             <div class="main-accreditations">
                 <div class="accred-section">
-                    <h2 class="accred-title">QAHE - Quality Assurance in Higher Education</h2>
-                    <div class="accred-images-grid">
-                        <div class="accred-img-card zoomable" data-image="/accre/QAHE_cert1.jpg">
-                            <img src="/accre/QAHE_cert1.jpg" alt="QAHE Certificate 1" loading="lazy" />
+                    <h2 class="accred-title">QAHE - Quality Assurance in Pre-Tertiary &amp; Higher Education</h2>
+                    <div class="accred-images-grid single">
+                        <div class="accred-img-card large zoomable" data-image="/accre/QAHE_cert.png">
+                            <img src="/accre/QAHE_cert.png" alt="QAHE Full Accreditation Certificate" loading="lazy" />
                         </div>
-                        <div class="accred-img-card zoomable" data-image="/accre/QAHE_cert2.jpg">
-                            <img src="/accre/QAHE_cert2.jpg" alt="QAHE Certificate 2" loading="lazy" />
-                        </div>
-                        <div class="accred-img-card zoomable" data-image="/accre/QAHE_cert3.jpg">
-                            <img src="/accre/QAHE_cert3.jpg" alt="QAHE Certificate 3" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="accred-section">
+                    <h2 class="accred-title">DepEd &amp; PEAC - Private Education Assistance Committee</h2>
+                    <div class="accred-images-grid single">
+                        <div class="accred-img-card large zoomable" data-image="/accre/PEAC_cert.png">
+                            <img src="/accre/PEAC_cert.png" alt="DepEd &amp; PEAC ESC Certified Status Certificate" loading="lazy" />
                         </div>
                     </div>
                 </div>
@@ -265,13 +268,19 @@
 
             <div class="info-box">
                 <h2>Our Commitment to Quality</h2>
-                <p>Al Munawwara Islamic School maintains the highest standards of educational excellence. Our international accreditations from QAHE and ACTD, along with DepEd recognition, reflect our dedication to providing quality Islamic education that meets and exceeds national and international standards.</p>
+                <p>Al Munawwara Islamic School maintains the highest standards of educational excellence. Our national certifications from DepEd and PEAC, along with international accreditations from QAHE and ACTD, reflect our dedication to providing quality Islamic education that meets and exceeds national and international standards.</p>
                 <div class="accred-badges">
                     <div class="badge">
                         <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
                             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                         </div>
                         <div class="badge-text">QAHE Accredited</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </div>
+                        <div class="badge-text">PEAC / ESC Certified</div>
                     </div>
                     <div class="badge">
                         <div class="badge-icon" style="display: flex; justify-content: center; align-items: center;">
