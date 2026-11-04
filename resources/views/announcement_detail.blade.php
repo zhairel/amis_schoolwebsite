@@ -236,6 +236,10 @@
                     if (!is_array($imgs)) {
                         $imgs = $announcement->image ? [$announcement->image] : [];
                     }
+                    // Filter out coming-soon or placeholder images
+                    $imgs = array_values(array_filter($imgs, function($img) {
+                        return !empty($img) && !str_contains($img, 'coming-soon');
+                    }));
                 @endphp
 
                 @if(!empty($imgs))
