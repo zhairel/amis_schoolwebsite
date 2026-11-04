@@ -161,16 +161,6 @@
                             </a>
                         </div>
                     </div>
-                    <div class="utility-right">
-                        <button type="button" class="utility-prayer-pill" id="openPrayerModalBtn" aria-label="View Davao City Prayer Times">
-                            <span class="prayer-pulse-dot"></span>
-                            <span>{{ $prayerStatus['next_name'] ?? 'Salah' }}: <strong>{{ $prayerStatus['next_time'] ?? '' }}</strong></span>
-                            <span class="prayer-badge-time">in {{ $prayerStatus['countdown'] ?? '' }}</span>
-                            <svg class="utility-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -380,14 +370,6 @@
                         <span>Pre-Enrollment Portal</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
-                    <button type="button" class="drawer-prayer-pill" id="openMobilePrayerBtn">
-                        <span class="prayer-pulse-dot"></span>
-                        <div class="drawer-prayer-text">
-                            <span class="drawer-prayer-main">{{ $prayerStatus['next_name'] ?? 'Salah' }}: {{ $prayerStatus['next_time'] ?? '' }} (in {{ $prayerStatus['countdown'] ?? '' }})</span>
-                            <span class="drawer-prayer-hijri">Davao Prayer Times</span>
-                        </div>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                    </button>
                 </div>
 
                 <div class="drawer-body">
@@ -616,9 +598,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Prayer Times Schedule Modal -->
-        @includeIf('partials.prayer-modal')
 
         <!-- Scroll to Top Button -->
         <button class="scroll-to-top" id="scrollTopBtn" style="display: none;" aria-label="Scroll to top">
@@ -816,47 +795,6 @@
                     });
                 });
             }
-
-            // 4. Prayer Times Modal Logic
-            const prayerModal = document.getElementById('prayerModal');
-            const openPrayerBtn = document.getElementById('openPrayerModalBtn');
-            const openMobilePrayerBtn = document.getElementById('openMobilePrayerBtn');
-            const closePrayerBtn = document.getElementById('closePrayerModal');
-
-            function openPrayerTimes() {
-                if (prayerModal) {
-                    prayerModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-
-            function closePrayerTimes() {
-                if (prayerModal) {
-                    prayerModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }
-            }
-
-            if (openPrayerBtn) openPrayerBtn.addEventListener('click', openPrayerTimes);
-            if (openMobilePrayerBtn) {
-                openMobilePrayerBtn.addEventListener('click', function() {
-                    toggleDrawer(false);
-                    openPrayerTimes();
-                });
-            }
-            if (closePrayerBtn) closePrayerBtn.addEventListener('click', closePrayerTimes);
-            if (prayerModal) {
-                prayerModal.addEventListener('click', function(e) {
-                    if (e.target === prayerModal) {
-                        closePrayerTimes();
-                    }
-                });
-            }
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && prayerModal && prayerModal.style.display === 'flex') {
-                    closePrayerTimes();
-                }
-            });
         });
     </script>
     <!-- CookieConsent JS -->

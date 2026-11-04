@@ -16,10 +16,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        view()->composer('*', function ($view) {
-            $view->with('prayerStatus', \App\Services\IslamicPrayerService::getActivePrayerStatus());
-            $view->with('hijriDate', \App\Services\IslamicPrayerService::getHijriDate());
-            $view->with('dailyAyah', \App\Services\IslamicPrayerService::getDailyAyah());
-        });
+        //
     }
 }
