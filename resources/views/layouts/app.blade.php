@@ -35,6 +35,7 @@
 
     <!-- Canonical & Open Graph Meta Tags -->
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    <meta property="fb:app_id" content="966242223397117">
     <meta property="og:site_name" content="Al Munawwara Islamic School">
     <meta property="og:title" content="@yield('og_title', View::yieldContent('title', 'Al Munawwara Islamic School'))">
     <meta property="og:description" content="@yield('meta_description', 'Enabling Our Students to Learn in Fid Dunya Wal Akhira. Al Munawwara Islamic School offers high-quality Islamic education in Davao City.')">

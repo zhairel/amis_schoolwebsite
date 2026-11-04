@@ -27,6 +27,12 @@
 
     if (!empty($validImgs)) {
         $firstImgPath = $validImgs[0];
+        // Check if a dedicated 1200x630 OpenGraph landscape banner exists (e.g. sm-2627-031-og.png)
+        $ogBannerCandidate = preg_replace('/-page\d+\.(png|jpg|jpeg)$/i', '-og.$1', $firstImgPath);
+        if ($ogBannerCandidate !== $firstImgPath && file_exists(public_path(ltrim(parse_url($ogBannerCandidate, PHP_URL_PATH), '/')))) {
+            $firstImgPath = $ogBannerCandidate;
+        }
+
         $shareImage = str_starts_with($firstImgPath, 'http') ? $firstImgPath : url($firstImgPath);
         $localPath = public_path(ltrim(parse_url($firstImgPath, PHP_URL_PATH), '/'));
         if (file_exists($localPath)) {
