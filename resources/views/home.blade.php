@@ -570,10 +570,137 @@
         gap: 50px;
         align-items: start;
     }
+    /* School Notices Section CSS */
+    .school-notices {
+        background: white;
+    }
+    .school-notices-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        align-items: stretch;
+    }
+    .notice-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 26px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+    .notice-card:hover {
+        transform: translateY(-4px);
+        border-color: #059669 !important;
+        box-shadow: 0 12px 28px rgba(5, 150, 105, 0.09) !important;
+    }
+    .notice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .notice-badge {
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .notice-date {
+        font-size: 0.78rem;
+        color: #64748b;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .notice-title {
+        font-size: 1.22rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.35;
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+    }
+    .notice-title a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    .notice-title a:hover {
+        color: #059669;
+    }
+    .notice-excerpt {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.65;
+        margin: 0 0 20px 0;
+    }
+    .notice-footer {
+        border-top: 1px solid #f1f5f9;
+        padding-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+    }
+    .notice-author {
+        font-size: 0.76rem;
+        color: #94a3b8;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .notice-read-more {
+        color: #059669;
+        font-weight: 800;
+        font-size: 0.86rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.2s ease;
+    }
+    .notice-read-more:hover {
+        color: #047857;
+        transform: translateX(3px);
+    }
+    .notice-empty-state {
+        background: #f8fafc;
+        border: 2px dashed #cbd5e1;
+        border-radius: 18px;
+        padding: 50px 24px;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .notice-empty-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        color: #059669;
+    }
     @media (max-width: 768px) {
-        .events-split-layout {
+        .school-notices-grid {
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 16px;
         }
     }
 </style>
@@ -611,6 +738,113 @@
                 <a href="https://aes.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- 1. SCHOOL NOTICES -->
+<section class="section school-notices" style="padding: 70px 0; border-bottom: 1px solid #e2e8f0;">
+    <div class="container">
+        <div style="text-align: center; max-width: 720px; margin: 0 auto 40px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #059669; padding: 5px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border: 1px solid #a7f3d0;">
+                    <span style="display: inline-block; width: 7px; height: 7px; background: #059669; border-radius: 50%; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);"></span>
+                    Official School Bulletin
+                </span>
+            </div>
+            <h2 class="section-title" style="margin-bottom: 10px; font-size: 2.25rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">School Notices</h2>
+            <p class="section-subtitle" style="color: #64748b; font-size: 1.02rem; margin: 0; line-height: 1.6;">Official school advisories, administrative notices, important reminders, and school-wide announcements</p>
+        </div>
+
+        @if(isset($schoolNotices) && $schoolNotices->count() > 0)
+            <div class="school-notices-grid">
+                @foreach($schoolNotices as $notice)
+                    @php
+                        $categoryLower = strtolower($notice->category ?? '');
+                        $isAdvisory = str_contains($categoryLower, 'advisory');
+                        $isReminder = str_contains($categoryLower, 'reminder');
+                        $isUrgent = in_array(strtolower($notice->priority ?? ''), ['high', 'urgent']);
+                        
+                        // Badge & accent colors based on notice category and priority
+                        if ($isUrgent || str_contains($categoryLower, 'important')) {
+                            $accentColor = '#e11d48';
+                            $badgeBg = '#ffe4e6';
+                            $badgeColor = '#9f1239';
+                            $badgeBorder = '#fecdd3';
+                        } elseif ($isAdvisory) {
+                            $accentColor = '#d97706';
+                            $badgeBg = '#fef3c7';
+                            $badgeColor = '#92400e';
+                            $badgeBorder = '#fde68a';
+                        } elseif ($isReminder) {
+                            $accentColor = '#2563eb';
+                            $badgeBg = '#eff6ff';
+                            $badgeColor = '#1e40af';
+                            $badgeBorder = '#bfdbfe';
+                        } else {
+                            $accentColor = '#059669';
+                            $badgeBg = '#ecfdf5';
+                            $badgeColor = '#065f46';
+                            $badgeBorder = '#a7f3d0';
+                        }
+                    @endphp
+                    <div class="notice-card" style="border-top: 4px solid {{ $accentColor }};">
+                        <div>
+                            <!-- Header: Category & Publication Date -->
+                            <div class="notice-header">
+                                <span class="notice-badge" style="background: {{ $badgeBg }}; color: {{ $badgeColor }}; border: 1px solid {{ $badgeBorder }};">
+                                    @if($isAdvisory)
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                    @elseif($isReminder)
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                    @else
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                    @endif
+                                    {{ $notice->category ?: 'Official Notice' }}
+                                </span>
+
+                                <span class="notice-date">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                    {{ optional($notice->publish_date ?? $notice->created_at)->format('F d, Y') }}
+                                </span>
+                            </div>
+
+                            <!-- Notice Title -->
+                            <h3 class="notice-title">
+                                <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}">
+                                    {{ $notice->title }}
+                                </a>
+                            </h3>
+
+                            <!-- Short Description / Excerpt -->
+                            <p class="notice-excerpt">
+                                {{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], ' ', $notice->content)))), 140, '...') }}
+                            </p>
+                        </div>
+
+                        <!-- Card Footer: Author & Read More Link -->
+                        <div class="notice-footer">
+                            <span class="notice-author">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                {{ $notice->author ?: 'AMIS Administration' }}
+                            </span>
+                            <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}" class="notice-read-more">
+                                <span>Read More</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <!-- Proper Empty State -->
+            <div class="notice-empty-state">
+                <div class="notice-empty-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h4 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">No Active School Notices</h4>
+                <p style="font-size: 0.92rem; color: #64748b; margin: 0; line-height: 1.6;">There are currently no official school advisories or administrative notices published. Please check back regularly for updates.</p>
+            </div>
+        @endif
     </div>
 </section>
 
@@ -821,93 +1055,6 @@
             </div>
             
         </div>
-
-        <!-- Featured Upcoming Event Cards Showcase -->
-        <div style="margin-top: 55px; padding-top: 45px; border-top: 1px solid #f1f5f9;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 12px;">
-                <div>
-                    <span style="color: #059669; font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; display: inline-flex; align-items: center; gap: 6px;">
-                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #059669; display: inline-block;"></span>
-                        Highlights
-                    </span>
-                    <h3 style="font-size: 1.7rem; font-weight: 800; color: #0f172a; margin-top: 6px; letter-spacing: -0.5px;">Featured Upcoming Events &amp; Programs</h3>
-                </div>
-                <a href="{{ route('events.index') }}" style="color: #059669; font-weight: 700; font-size: 0.92rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; background: #ecfdf5; border: 1px solid #a7f3d0; transition: all 0.2s;" onmouseover="this.style.background='#059669';this.style.color='#ffffff';" onmouseout="this.style.background='#ecfdf5';this.style.color='#059669';">
-                    View All School Events
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
-                
-                <!-- Highlight 1: ASAD Gentle Reminder -->
-                <div class="highlight-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.3s ease;">
-                    <a href="{{ route('advisories.gentle-reminder') }}" style="text-decoration: none; display: block; position: relative; height: 230px; overflow: hidden; background: #064e3b;">
-                        <img src="/images/highlights/asad-gentle-reminder-2026.jpg" alt="ASAD Gentle Reminder - Islamic Values" class="skip-skeleton" data-no-skeleton="true" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);"></div>
-                        <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
-                            <span style="background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); color: white; padding: 5px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Shariah Advisory
-                            </span>
-                            <span style="background: rgba(6, 78, 59, 0.85); backdrop-filter: blur(4px); color: #a7f3d0; padding: 5px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700;">
-                                ASAD
-                            </span>
-                        </div>
-                        <div style="position: absolute; bottom: 12px; right: 14px; background: rgba(255, 255, 255, 0.92); color: #0f172a; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            View Advisory
-                        </div>
-                    </a>
-                    <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
-                        <div>
-                            <div style="font-size: 0.78rem; font-weight: 700; color: #d97706; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                                <span>Official Advisory</span>
-                            </div>
-                            <h4 style="font-size: 1.18rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px;">
-                                <a href="{{ route('advisories.gentle-reminder') }}" style="color: #0f172a; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#059669'" onmouseout="this.style.color='#0f172a'">
-                                    Gentle Reminder: Preserving Islamic Identity &amp; Values
-                                </a>
-                            </h4>
-                            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin-bottom: 18px;">
-                                Official advisory from the AMIS Shariah Advisory Department (ASAD) reminding our Muslim community to uphold the teachings of the Qur'an and Sunnah with kindness, courtesy, and respect.
-                            </p>
-                        </div>
-                        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.78rem; color: #64748b; display: inline-flex; align-items: center; gap: 6px;">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 2v20"/></svg>
-                                Qur'an 5:48 &amp; Sunnah
-                            </span>
-                            <a href="{{ route('advisories.gentle-reminder') }}" style="color: #059669; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">
-                                Read Advisory →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Highlight 2: COMING SOON... -->
-                <div style="background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%); border: 2px dashed #cbd5e1; border-radius: 18px; padding: 36px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.02); min-height: 380px;">
-                    <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; border: 1px solid #a7f3d0; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                    </div>
-                    <span style="font-size: 0.75rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Next Programs</span>
-                    <h4 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; letter-spacing: 1.5px; margin-bottom: 10px;">COMING SOON...</h4>
-                    <p style="font-size: 0.92rem; color: #64748b; margin: 0 0 20px 0; max-width: 280px; line-height: 1.6;">
-                        Stay tuned! We are currently preparing exciting upcoming events and school programs for our students and community.
-                    </p>
-                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: white; color: #059669; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all 0.2s;" onmouseover="this.style.borderColor='#059669';this.style.color='#047857';" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#059669';">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                        Check Academic Calendar
-                    </a>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 </section>
 
@@ -1019,30 +1166,6 @@
             });
         });
 
-        // 4. Highlight Details Modals
-        window.openHighlightModal = function(id) {
-            const m = document.getElementById(id);
-            if (m) {
-                m.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        };
-
-        window.closeHighlightModal = function(id) {
-            const m = document.getElementById(id);
-            if (m) {
-                m.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        };
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.highlight-modal').forEach(m => {
-                    m.style.display = 'none';
-                });
-                document.body.style.overflow = '';
-            }
         });
     });
 </script>

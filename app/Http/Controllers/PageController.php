@@ -13,20 +13,51 @@ class PageController extends Controller
      */
     public function home()
     {
-        // Fetch active announcements sorted by priority and date (excluding events/activities)
+        // 1. Fetch active School Notices (Official advisories, administrative notices, reminders, announcements)
+        $schoolNotices = Announcement::where(function ($query) {
+                $query->whereNull('publish_date')
+                      ->orWhere('publish_date', '<=', now());
+            })
+            ->where(function ($query) {
+                $query->where('category', 'like', '%advisory%')
+                      ->orWhere('category', 'like', '%notice%')
+                      ->orWhere('category', 'like', '%reminder%')
+                      ->orWhere('category', 'like', '%announcement%')
+                      ->orWhere('category', 'like', '%memo%')
+                      ->orWhere('category', 'like', '%circular%');
+            })
+            ->orderByRaw("
+                CASE priority
+                    WHEN 'urgent' THEN 1
+                    WHEN 'high' THEN 2
+                    WHEN 'normal' THEN 3
+                    WHEN 'low' THEN 4
+                    ELSE 5
+                END ASC
+            ")
+            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        // 2. Fetch active News & Announcements (activities, achievements, events, student accomplishments, news articles)
+        // Strictly excluding any notices to prevent duplication between sections
         $announcements = Announcement::where(function ($query) {
                 $query->whereNull('publish_date')
                       ->orWhere('publish_date', '<=', now());
             })
             ->where(function ($query) {
                 $query->where(function ($q) {
-                    $q->where('category', 'not like', '%event%')
-                      ->where('category', 'not like', '%sport%')
-                      ->where('category', 'not like', '%activity%')
-                      ->where('category', 'not like', '%program%');
+                    $q->where('category', 'not like', '%advisory%')
+                      ->where('category', 'not like', '%notice%')
+                      ->where('category', 'not like', '%reminder%')
+                      ->where('category', 'not like', '%announcement%')
+                      ->where('category', 'not like', '%memo%')
+                      ->where('category', 'not like', '%circular%');
                 })
                 ->orWhereNull('category');
             })
+            ->whereNotIn('id', $schoolNotices->pluck('id'))
             ->orderByRaw("
                 CASE priority
                     WHEN 'urgent' THEN 1
@@ -48,30 +79,15 @@ class PageController extends Controller
         $upcomingEvents = \App\Services\SchoolCalendarService::getUpcomingEvents(8);
         $nextMonthSchedule = \App\Services\SchoolCalendarService::getNextMonthSchedule();
 
-        $featuredEvents = Announcement::where(function ($query) {
-                $query->where('category', 'like', '%event%')
-                      ->orWhere('category', 'like', '%sport%')
-                      ->orWhere('category', 'like', '%activity%')
-                      ->orWhere('category', 'like', '%program%');
-            })
-            ->where(function ($query) {
-                $query->whereNull('publish_date')
-                      ->orWhere('publish_date', '<=', now());
-            })
-            ->orderBy('publish_date', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->take(3)
-            ->get();
-
         return view('home', compact(
+            'schoolNotices',
             'announcements',
             'heroType',
             'heroTitle',
             'heroSubtitle',
             'calendarSchedule',
             'upcomingEvents',
-            'nextMonthSchedule',
-            'featuredEvents'
+            'nextMonthSchedule'
         ));
     }
 

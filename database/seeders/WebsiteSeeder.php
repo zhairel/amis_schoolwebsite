@@ -30,8 +30,35 @@ class WebsiteSeeder extends Seeder
             );
         }
 
-        // 2. Seed initial announcements matching sampleNews from Vue Home.vue
+        // 2. Seed initial announcements matching sampleNews from Vue Home.vue and school notices
         $announcements = [
+            [
+                'title' => 'ADVISORY: Temporary Lunch Arrangement Inside Classrooms Due to El Niño Heat',
+                'content' => '<p>Assalaamu alaikum wa rahmatullahi wa barakatuh.</p><p>Please be informed that, due to the extreme heat brought about by the El Niño , students are temporarily allowed to eat their lunch inside their respective classrooms until further notice.</p><p>All students are reminded to observe proper cleanliness and waste disposal. After eating, all leftover food and other waste must be removed from the classrooms and properly disposed of in the designated garbage bins on the ground floor. Tables, chairs, and floors must be kept clean at all times.</p><p>Your cooperation in maintaining a clean and orderly learning environment is required.</p><p>For your information and guidance.</p><p>Shukran. BarakAllahu feekum.</p><p>– <strong>AMIS Administration</strong></p>',
+                'category' => 'Official Advisory',
+                'priority' => 'high',
+                'image' => json_encode(['/coming-soon.png']),
+                'publish_date' => '2026-11-04 01:00:00',
+                'author' => 'AMIS Administration',
+            ],
+            [
+                'title' => 'Gentle Reminder: Preserving Islamic Identity & Values',
+                'content' => '<p>Assalaamu alaikum wa rahmatullahi wa barakatuh.</p><p>As the year-end holiday season approaches, the AMIS Shariah Advisory Department (ASAD) respectfully reminds all Muslim students and employees to preserve their Islamic identity, uphold the guidance of the Qur\'an and Sunnah, and refrain from participating in religious practices that contradict Islamic teachings — while always maintaining kindness, courtesy, and peaceful coexistence with people of other faiths.</p><p><strong>📖 Qur\'anic Verse:</strong> <em>"And do not follow their desires away from the truth that has come to you."</em> (Surah Al-Ma\'idah 5:48)<br><strong>🕌 Hadith:</strong> <em>"Man tashabbaha biqawmin fahuwa minhum."</em> ("Whoever imitates a people is one of them.")</p><p>– <strong>AMIS Shariah Advisory Department (ASAD)</strong></p>',
+                'category' => 'Reminder',
+                'priority' => 'normal',
+                'image' => json_encode(['/images/highlights/asad-gentle-reminder-2026.jpg']),
+                'publish_date' => '2026-10-28 09:00:00',
+                'author' => 'AMIS Shariah Advisory Department (ASAD)',
+            ],
+            [
+                'title' => 'Important Notice: Observance of Campus Cleanliness and Orderly Environment',
+                'content' => '<p>Assalaamu alaikum wa rahmatullahi wa barakatuh.</p><p>All students, faculty, and campus staff are reminded to uphold our school value of cleanliness (Taharah) across all school facilities, corridors, and dining spaces. Please ensure that all waste is segregated properly into designated bins on the ground floor. Tables, chairs, and floors must be kept clean at all times.</p><p>Thank you for your valued cooperation in keeping our Islamic learning environment clean, safe, and pleasant for everyone.</p><p>– <strong>AMIS Administration</strong></p>',
+                'category' => 'Important Notice',
+                'priority' => 'normal',
+                'image' => json_encode(['/coming-soon.png']),
+                'publish_date' => '2026-10-20 08:00:00',
+                'author' => 'AMIS Administration',
+            ],
             [
                 'title' => 'Summer Class 2026 - Enroll Now!',
                 'content' => 'Make this summer productive and exciting! We offer One-on-One Sessions, Face-to-Face Learning, and Group Classes. Limited slots only!',
