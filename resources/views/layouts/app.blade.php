@@ -162,13 +162,6 @@
                         </div>
                     </div>
                     <div class="utility-right">
-                        <div class="utility-hijri" title="Today's Islamic Hijri Date (Davao HQ)">
-                            <svg class="utility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                            </svg>
-                            <span>{{ $hijriDate['formatted_en'] ?? '16 Jumada al-Awwal 1448 AH' }}</span>
-                        </div>
-                        <span class="utility-divider"></span>
                         <button type="button" class="utility-prayer-pill" id="openPrayerModalBtn" aria-label="View Davao City Prayer Times">
                             <span class="prayer-pulse-dot"></span>
                             <span>{{ $prayerStatus['next_name'] ?? 'Salah' }}: <strong>{{ $prayerStatus['next_time'] ?? '' }}</strong></span>
@@ -177,11 +170,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
-                        <span class="utility-divider"></span>
-                        <span class="utility-accreditation">
-                            <span class="accreditation-dot"></span>
-                            DepEd Recognized &amp; ESC Participating
-                        </span>
                     </div>
                 </div>
             </div>
@@ -396,7 +384,7 @@
                         <span class="prayer-pulse-dot"></span>
                         <div class="drawer-prayer-text">
                             <span class="drawer-prayer-main">{{ $prayerStatus['next_name'] ?? 'Salah' }}: {{ $prayerStatus['next_time'] ?? '' }} (in {{ $prayerStatus['countdown'] ?? '' }})</span>
-                            <span class="drawer-prayer-hijri">{{ $hijriDate['formatted_en'] ?? 'Davao Prayer Times' }}</span>
+                            <span class="drawer-prayer-hijri">Davao Prayer Times</span>
                         </div>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </button>
