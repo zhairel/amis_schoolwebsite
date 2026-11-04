@@ -20,11 +20,28 @@
         return !empty($img) && !str_contains($img, 'coming-soon');
     }));
 
+    // Detect local image dimensions if available for instant Facebook preview generation
+    $imageWidth = 1200;
+    $imageHeight = 630;
+    $imageMime = 'image/png';
+
     if (!empty($validImgs)) {
         $firstImgPath = $validImgs[0];
         $shareImage = str_starts_with($firstImgPath, 'http') ? $firstImgPath : url($firstImgPath);
+        $localPath = public_path(ltrim(parse_url($firstImgPath, PHP_URL_PATH), '/'));
+        if (file_exists($localPath)) {
+            $imgDims = @getimagesize($localPath);
+            if ($imgDims) {
+                $imageWidth = $imgDims[0];
+                $imageHeight = $imgDims[1];
+                $imageMime = $imgDims['mime'] ?? 'image/png';
+            }
+        }
     } else {
         $shareImage = url('/hero1.png');
+        $imageWidth = 1920;
+        $imageHeight = 1080;
+        $imageMime = 'image/png';
     }
     
     $canonicalUrl = route('announcement.show', $announcement->uuid ?? $announcement->id);
@@ -38,6 +55,9 @@
 @section('canonical_url', $canonicalUrl)
 
 @section('extra_og_tags')
+    <meta property="og:image:width" content="{{ $imageWidth }}">
+    <meta property="og:image:height" content="{{ $imageHeight }}">
+    <meta property="og:image:type" content="{{ $imageMime }}">
     <meta property="article:published_time" content="{{ optional($announcement->publish_date ?? $announcement->created_at)->toIso8601String() }}">
     <meta property="article:author" content="{{ $announcement->author ?: 'AMIS Administration' }}">
     <meta property="article:section" content="{{ $announcement->category ?: 'School Announcements' }}">
