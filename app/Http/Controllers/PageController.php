@@ -48,10 +48,13 @@ class PageController extends Controller
             })
             ->where(function ($query) {
                 $query->where(function ($q) {
-                    $q->where('category', 'not like', '%advisory%')
+                    $q->where('category', 'not like', '%event%')
+                      ->where('category', 'not like', '%sport%')
+                      ->where('category', 'not like', '%activity%')
+                      ->where('category', 'not like', '%program%')
+                      ->where('category', 'not like', '%advisory%')
                       ->where('category', 'not like', '%notice%')
                       ->where('category', 'not like', '%reminder%')
-                      ->where('category', 'not like', '%announcement%')
                       ->where('category', 'not like', '%memo%')
                       ->where('category', 'not like', '%circular%');
                 })
