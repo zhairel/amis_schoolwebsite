@@ -756,7 +756,7 @@
         </div>
 
         @if(isset($schoolNotices) && $schoolNotices->count() > 0)
-            <div class="school-notices-grid">
+            <div class="school-notices-grid" @if($schoolNotices->count() === 1) style="max-width: 680px; margin: 0 auto;" @endif>
                 @foreach($schoolNotices as $notice)
                     @php
                         $categoryLower = strtolower($notice->category ?? '');
