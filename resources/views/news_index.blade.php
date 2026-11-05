@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'News & Announcements | AMIS')
+@section('title', 'News & Info | AMIS')
 
 @section('styles')
 <style>
@@ -213,8 +213,8 @@
 <section class="page-hero">
     <div class="container">
         <span class="sy-badge">School Year 2026 - 2027</span>
-        <h1>Recent News</h1>
-        <p>Stay informed about events, announcements, and key updates from AMIS</p>
+        <h1>News & Info</h1>
+        <p>Stay informed with the latest updates, announcements, and info from AMIS</p>
     </div>
 </section>
 
@@ -319,8 +319,8 @@
                 <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
                 </div>
-                <h3 style="font-size: 1.5rem; color: #1e293b; margin-bottom: 10px; font-weight: 700;">No Recent News Yet</h3>
-                <p style="color: #64748b;">Please check back later for new announcements and updates for this school year.</p>
+                <h3 style="font-size: 1.5rem; color: #1e293b; margin-bottom: 10px; font-weight: 700;">No News & Info Available</h3>
+                <p style="color: #64748b;">Please check back later for new updates, advisories, and info for this school year.</p>
             </div>
         @endif
     </div>

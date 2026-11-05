@@ -17,7 +17,7 @@ Route::get('/robots.txt', function () {
 // Public Pages Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/news', [PageController::class, 'newsIndex'])->name('news.index');
-Route::get('/events', [PageController::class, 'eventsIndex'])->name('events.index');
+Route::redirect('/events', '/news', 301)->name('events.index');
 Route::get('/announcement/{id}', [PageController::class, 'announcementShow'])->name('announcement.show');
 
 // Dedicated Shariah Advisory Page

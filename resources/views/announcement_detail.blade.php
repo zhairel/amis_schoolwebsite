@@ -850,7 +850,7 @@
                 <div class="breadcrumb">
                     <a href="{{ route('home') }}">Home</a>
                     <span class="separator">/</span>
-                    <a href="{{ route('news.index') }}">News & Announcements</a>
+                    <a href="{{ route('news.index') }}">News & Info</a>
                     <span class="separator">/</span>
                     <span class="current">{{ $announcement->title }}</span>
                 </div>
@@ -859,7 +859,7 @@
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
-                    Back to News
+                    Back to News & Info
                 </a>
             </div>
         </div>
@@ -1048,19 +1048,19 @@
                     </div>
 
                     <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        View all news &rarr;
+                        View all News & Info &rarr;
                     </a>
                 </div>
             </div>
         </article>
 
-        <!-- More News & Advisories Section -->
+        <!-- More News & Info Section -->
         @if(!empty($relatedAnnouncements) && count($relatedAnnouncements) > 0)
             <div class="related-news-section">
                 <div class="related-section-header">
                     <h2 class="related-section-title">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-                        More News & Advisories
+                        More News & Info
                     </h2>
                     <a href="{{ route('news.index') }}" class="related-see-all">
                         View All &rarr;

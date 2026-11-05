@@ -310,13 +310,7 @@
 
                             <li>
                                 <a href="{{ route('news.index') }}" class="nav-link {{ request()->routeIs('news.index') ? 'nav-link-active' : '' }}">
-                                    News
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('events.index') }}" class="nav-link {{ request()->routeIs('events.index') ? 'nav-link-active' : '' }}">
-                                    Events
+                                    News & Info
                                 </a>
                             </li>
 
@@ -431,11 +425,7 @@
 
                         <a href="{{ route('news.index') }}" class="drawer-link {{ request()->routeIs('news.index') ? 'drawer-link-active' : '' }}">
                             <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-                            News
-                        </a>
-                        <a href="{{ route('events.index') }}" class="drawer-link {{ request()->routeIs('events.index') ? 'drawer-link-active' : '' }}">
-                            <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            Events
+                            News & Info
                         </a>
                         <a href="{{ route('contact') }}" class="drawer-link {{ request()->routeIs('contact') ? 'drawer-link-active' : '' }}">
                             <svg class="drawer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -484,8 +474,7 @@
                             <li><a href="{{ route('about.history') }}">About Us</a></li>
                             <li><a href="{{ route('about.global-community') }}">Global AMIS Community</a></li>
                             <li><a href="{{ route('academics.calendar') }}">Calendar S.Y. 2026-2027</a></li>
-                            <li><a href="{{ route('news.index') }}">News & Announcements</a></li>
-                            <li><a href="{{ route('events.index') }}">Events</a></li>
+                            <li><a href="{{ route('news.index') }}">News & Info</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>

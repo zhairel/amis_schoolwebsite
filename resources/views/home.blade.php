@@ -703,13 +703,7 @@
         }
     }
     
-    /* Homepage Events Layout Styling */
-    .events-split-layout {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        gap: 50px;
-        align-items: start;
-    }
+
     /* School Notices Section CSS */
     .school-notices {
         background: white;
@@ -1019,10 +1013,10 @@
 <!-- ANNOUNCEMENTS & NEWS -->
 <section class="section news-announcements">
     <div class="container">
-        <h2 class="section-title">Latest News & Announcements</h2>
-        <p class="section-subtitle" style="margin-bottom: 8px;">Stay updated with the latest happenings at AMIS</p>
+        <h2 class="section-title">News & Info</h2>
+        <p class="section-subtitle" style="margin-bottom: 8px;">Stay updated with the latest news, announcements, and info from AMIS</p>
         <div style="text-align: center; margin-bottom: 30px;">
-            <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All News & Announcements →</a>
+            <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All News & Info →</a>
         </div>
         
         <div class="news-layout">
@@ -1039,7 +1033,7 @@
                                 @if(is_array($imgs) && count($imgs) > 1)
                                     <div class="news-slideshow-container w-full h-full relative">
                                         @foreach($imgs as $idx => $img)
-                                            <img src="{{ $img }}" alt="{{ $announcement->title }}" class="news-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ $idx === 0 ? 'opacity-100' : 'opacity-0' }}" loading="lazy">
+                                             <img src="{{ $img }}" alt="{{ $announcement->title }}" class="news-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ $idx === 0 ? 'opacity-100' : 'opacity-0' }}" loading="lazy">
                                         @endforeach
                                     </div>
                                 @else
@@ -1079,157 +1073,13 @@
                 </div>
             @else
                 <div style="text-align: center; padding: 80px 40px;">
-                    <h3>No Latest News & Announcements</h3>
+                    <h3>No News & Info Available</h3>
                     <p>Check back soon for updates from AMIS</p>
                 </div>
             @endif
         </div>
     </div>
 </section>
-
-<!-- UPCOMING EVENTS SECTION -->
-<section class="section homepage-events" style="background: white; border-top: 1px solid #e2e8f0; padding: 75px 0;">
-    <div class="container">
-        <div class="events-split-layout">
-            
-            <!-- Left: Title Column -->
-            <div>
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                    <span style="display: inline-flex; align-items: center; gap: 6px; background: #e6f4ea; color: #059669; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border: 1px solid #a7f3d0;">
-                        <span style="display: inline-block; width: 7px; height: 7px; background: #059669; border-radius: 50%; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);"></span>
-                        Upcoming &amp; Incoming Events
-                    </span>
-                </div>
-                <h2 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.25; margin-bottom: 15px;">AMIS Calendar &amp; Activities</h2>
-                <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">Stay informed with upcoming academic milestones, department events, STEM festivals, and official school activities at Al Munawwara Islamic School.</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
-                    <a href="{{ route('events.index') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; padding: 13px 24px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);" onmouseover="this.style.background='#047857';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#059669';this.style.transform='translateY(0)'">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                        Explore All Events &amp; Programs →
-                    </a>
-                    <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; color: #334155; border: 1px solid #cbd5e1; padding: 11px 20px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0';this.style.borderColor='#94a3b8'" onmouseout="this.style.background='#f8fafc';this.style.borderColor='#cbd5e1'">
-                        View Full Calendar S.Y. 2026-2027 →
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Right: Events Tabs & List Column -->
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                @php
-                    $calendarSchedule = $calendarSchedule ?? \App\Services\SchoolCalendarService::getCurrentMonthSchedule();
-                    $upcomingEvents = $upcomingEvents ?? \App\Services\SchoolCalendarService::getUpcomingEvents(8);
-                    $nextMonthSchedule = $nextMonthSchedule ?? \App\Services\SchoolCalendarService::getNextMonthSchedule();
-                    $currentMonthEvents = $calendarSchedule['events'] ?? [];
-                    $nextMonthEvents = $nextMonthSchedule['events'] ?? [];
-                @endphp
-
-                <!-- Segmented Tabs Switcher -->
-                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: #f1f5f9; padding: 5px; border-radius: 14px; width: fit-content;">
-                    <button type="button" class="event-tab-btn active" data-target="tab-upcoming" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s; background: #059669; color: white; box-shadow: 0 2px 6px rgba(5,150,105,0.2);">
-                        Upcoming &amp; Incoming
-                    </button>
-                    <button type="button" class="event-tab-btn" data-target="tab-current-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
-                        {{ $calendarSchedule['month_name'] }} {{ $calendarSchedule['year'] }}
-                    </button>
-                    <button type="button" class="event-tab-btn" data-target="tab-next-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
-                        {{ $nextMonthSchedule['month_name'] }} {{ $nextMonthSchedule['year'] }}
-                    </button>
-                </div>
-
-                <!-- 1. Upcoming & Incoming View (Default) -->
-                <div id="tab-upcoming" class="events-tab-panel" style="display: block;">
-                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
-                        <span>Next Scheduled Activities &amp; Deadlines</span>
-                        <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">
-                            Live Timeline
-                        </span>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
-                        @forelse($upcomingEvents as $evt)
-                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 15px rgba(5,150,105,0.08)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,0.02)'">
-                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-                                    <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
-                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
-                                </div>
-                                <div style="flex-grow: 1;">
-                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
-                                        {{ $evt['category'] }}
-                                    </span>
-                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
-                                </div>
-                            </a>
-                        @empty
-                            <div style="grid-column: 1 / -1; padding: 30px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
-                                No upcoming activities scheduled at this moment. <a href="{{ route('academics.calendar') }}" style="color: #059669; font-weight: 700;">View full school calendar →</a>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <!-- 2. Current Month View -->
-                <div id="tab-current-month" class="events-tab-panel" style="display: none;">
-                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
-                        <span>{{ $calendarSchedule['month_name'] }} {{ $calendarSchedule['year'] }} Schedule &amp; Activities</span>
-                        <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Current Month</span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
-                        @forelse($currentMonthEvents as $evt)
-                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
-                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
-                                    <div style="background: #059669; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
-                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
-                                </div>
-                                <div style="flex-grow: 1;">
-                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
-                                        {{ $evt['category'] }}
-                                    </span>
-                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
-                                </div>
-                            </a>
-                        @empty
-                            <div style="grid-column: 1 / -1; padding: 25px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">No events found.</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <!-- 3. Next Month View -->
-                <div id="tab-next-month" class="events-tab-panel" style="display: none;">
-                    <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
-                        <span>{{ $nextMonthSchedule['month_name'] }} {{ $nextMonthSchedule['year'] }} Schedule &amp; Activities</span>
-                        <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Upcoming Month</span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
-                        @forelse($nextMonthEvents as $evt)
-                            <a href="{{ route('academics.calendar') }}" style="display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 14px 16px; border-radius: 14px; border: 1px solid #e2e8f0; transition: all 0.2s; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#059669';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e2e8f0';this.style.transform='translateY(0)'">
-                                <div style="flex-shrink: 0; background: white; border: 1px solid #cbd5e1; border-radius: 10px; width: 52px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
-                                    <div style="background: #0369a1; color: white; width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; text-align: center; padding: 2px 0;">{{ $evt['month'] }}</div>
-                                    <div style="color: #0f172a; font-size: 1.05rem; font-weight: 800; line-height: 1.1;">{{ $evt['day'] }}</div>
-                                </div>
-                                <div style="flex-grow: 1;">
-                                    <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; {{ $evt['badge_class'] }}">
-                                        {{ $evt['category'] }}
-                                    </span>
-                                    <h3 style="font-size: 0.92rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3;">{{ $evt['title'] }}</h3>
-                                </div>
-                            </a>
-                        @empty
-                            <div style="grid-column: 1 / -1; padding: 25px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">No events found.</div>
-                        @endforelse
-                    </div>
-                </div>
-
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-
-
-
-
 @endsection
 
 @section('scripts')
@@ -1309,32 +1159,7 @@
             }
         });
 
-        // 3. Calendar & Events Tab Switcher
-        const eventTabBtns = document.querySelectorAll('.event-tab-btn');
-        const eventTabPanels = document.querySelectorAll('.events-tab-panel');
-        eventTabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                eventTabBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.style.background = 'transparent';
-                    b.style.color = '#475569';
-                    b.style.boxShadow = 'none';
-                    b.style.fontWeight = '700';
-                });
-                this.classList.add('active');
-                this.style.background = '#059669';
-                this.style.color = 'white';
-                this.style.boxShadow = '0 2px 6px rgba(5,150,105,0.2)';
-                this.style.fontWeight = '800';
-
-                eventTabPanels.forEach(p => p.style.display = 'none');
-                const activePanel = document.getElementById(targetId);
-                if (activePanel) activePanel.style.display = 'block';
-            });
-        });
-
-        // 4. Dynamic Header Height for Fullscreen Hero
+        // 3. Dynamic Header Height for Fullscreen Hero
         function updateHeroHeaderHeight() {
             const header = document.getElementById('siteHeader');
             if (header) {

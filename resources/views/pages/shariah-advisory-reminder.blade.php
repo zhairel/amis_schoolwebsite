@@ -223,7 +223,7 @@
             <div class="breadcrumb">
                 <a href="{{ route('home') }}">Home</a>
                 <span class="separator">/</span>
-                <a href="{{ route('events.index') }}">Featured Programs &amp; Events</a>
+                <a href="{{ route('news.index') }}">News &amp; Info</a>
                 <span class="separator">/</span>
                 <span>Shariah Advisory: Preserving Islamic Identity</span>
             </div>
@@ -411,9 +411,9 @@
             </a>
 
             <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <a href="{{ route('events.index') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; font-weight: 700; font-size: 0.92rem; text-decoration: none;">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                    All Events &amp; Programs
+                <a href="{{ route('news.index') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; font-weight: 700; font-size: 0.92rem; text-decoration: none;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+                    News &amp; Info
                 </a>
                 <span style="color: #cbd5e1;">•</span>
                 <a href="{{ route('academics.calendar') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #334155; font-weight: 700; font-size: 0.92rem; text-decoration: none;">
