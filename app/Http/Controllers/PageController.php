@@ -99,6 +99,28 @@ class PageController extends Controller
      */
     public function newsIndex()
     {
+        // 1. Fetch Top Stories (prioritize Good News, achievements, and major visual news)
+        $topStories = Announcement::where(function ($query) {
+                $query->whereNull('publish_date')
+                      ->orWhere('publish_date', '<=', now());
+            })
+            ->whereNotNull('image')
+            ->where('image', '!=', '')
+            ->where('image', '!=', '[]')
+            ->orderByRaw("
+                CASE 
+                    WHEN category LIKE '%Good News%' THEN 1
+                    WHEN category LIKE '%JUST IN%' THEN 2
+                    WHEN category LIKE '%AMIS News%' THEN 3
+                    ELSE 4
+                END ASC
+            ")
+            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+
+        // 2. Paginated announcements feed
         $announcements = Announcement::where(function ($query) {
                 $query->whereNull('publish_date')
                       ->orWhere('publish_date', '<=', now());
@@ -116,7 +138,7 @@ class PageController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('news_index', compact('announcements'));
+        return view('news_index', compact('announcements', 'topStories'));
     }
 
     /**
