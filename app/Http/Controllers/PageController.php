@@ -154,8 +154,15 @@ class PageController extends Controller
         } else {
             $announcement = Announcement::where('uuid', $id)->firstOrFail();
         }
+
+        $relatedAnnouncements = Announcement::where('id', '!=', $announcement->id)
+            ->orderByDesc('publish_date')
+            ->orderByDesc('id')
+            ->take(3)
+            ->get();
+
         return response()
-            ->view('announcement_detail', compact('announcement'))
+            ->view('announcement_detail', compact('announcement', 'relatedAnnouncements'))
             ->header('Cache-Control', 'public, max-age=3600');
     }
 
