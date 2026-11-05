@@ -1032,7 +1032,7 @@
                 <!-- Bottom Social Sharing & Navigation -->
                 <div class="news-bottom-actions">
                     <div class="share-pill-group">
-                        <span style="font-size: 0.825rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;">I-bahagi / Share:</span>
+                        <span style="font-size: 0.825rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;">Share:</span>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->full()) }}" target="_blank" rel="noopener noreferrer" class="share-pill-btn share-fb">
                             <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                             Facebook
@@ -1048,22 +1048,22 @@
                     </div>
 
                     <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        Tingnan ang lahat ng balita &rarr;
+                        View all news &rarr;
                     </a>
                 </div>
             </div>
         </article>
 
-        <!-- More News & Advisories Section ("Iba Pang Balita at Advisories") -->
+        <!-- More News & Advisories Section -->
         @if(!empty($relatedAnnouncements) && count($relatedAnnouncements) > 0)
             <div class="related-news-section">
                 <div class="related-section-header">
                     <h2 class="related-section-title">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-                        Iba Pang Balita at Advisories
+                        More News & Advisories
                     </h2>
                     <a href="{{ route('news.index') }}" class="related-see-all">
-                        Tingnan Lahat &rarr;
+                        View All &rarr;
                     </a>
                 </div>
 
@@ -1092,7 +1092,7 @@
                                     <h3 class="related-card-title">{{ $rel->title }}</h3>
                                 </div>
                                 <div class="related-read-link">
-                                    Basahin ang Buong Balita &rarr;
+                                    Read Full Story &rarr;
                                 </div>
                             </div>
                         </a>
