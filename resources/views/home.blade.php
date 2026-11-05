@@ -127,48 +127,6 @@
         border-radius: 6px;
     }
 
-    /* Floating Hero Video Controls */
-    .hero-video-controls {
-        position: absolute;
-        bottom: 24px;
-        right: 24px;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .hero-control-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 9px 15px;
-        background: rgba(15, 23, 42, 0.65);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 999px;
-        color: #ffffff;
-        font-size: 0.8rem;
-        font-weight: 600;
-        font-family: inherit;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        user-select: none;
-    }
-    .hero-control-btn:hover {
-        background: rgba(5, 150, 105, 0.9);
-        border-color: #34d399;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45);
-    }
-    .hero-control-btn:active {
-        transform: scale(0.96);
-    }
-    .hero-control-btn svg {
-        flex-shrink: 0;
-    }
-
     /* Scroll Down Indicator */
     .hero-scroll-down {
         position: absolute;
@@ -671,17 +629,6 @@
             height: calc(100dvh - var(--header-height, 90px));
             min-height: calc(100dvh - var(--header-height, 90px));
         }
-        .hero-video-controls {
-            bottom: 16px;
-            right: 16px;
-        }
-        .hero-control-btn span {
-            display: none;
-        }
-        .hero-control-btn {
-            padding: 9px;
-            border-radius: 50%;
-        }
         .hero-scroll-down {
             display: none;
         }
@@ -873,26 +820,6 @@
             </div>
         </div>
     </div>
-
-    @if($heroType === 'video')
-        <!-- Floating Video Controls: Fullscreen & Sound -->
-        <div class="hero-video-controls" id="heroVideoControls">
-            <button type="button" class="hero-control-btn" id="heroMuteBtn" title="Toggle Sound" aria-label="Toggle Sound">
-                <svg id="heroMuteIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-                    <line x1="23" y1="9" x2="17" y2="15"/>
-                    <line x1="17" y1="9" x2="23" y2="15"/>
-                </svg>
-                <span id="heroMuteLabel">Sound</span>
-            </button>
-            <button type="button" class="hero-control-btn" id="heroFullscreenBtn" title="Watch Full Screen" aria-label="Toggle Fullscreen">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-                </svg>
-                <span>Full Screen</span>
-            </button>
-        </div>
-    @endif
 
     <!-- Sleek Scroll Down Prompt -->
     <a href="#schoolNotices" class="hero-scroll-down" aria-label="Scroll to School Notices">
@@ -1171,70 +1098,8 @@
         window.addEventListener('resize', updateHeroHeaderHeight, { passive: true });
         window.addEventListener('load', updateHeroHeaderHeight);
 
-        // 5. Hero Video Fullscreen & Audio Controls
+        // 4. Auto-pause hero video when scrolled out of view to eliminate lag & conserve resources
         const heroVideo = document.getElementById('heroVideo');
-        const fullscreenBtn = document.getElementById('heroFullscreenBtn');
-        const muteBtn = document.getElementById('heroMuteBtn');
-        const muteLabel = document.getElementById('heroMuteLabel');
-        const muteIcon = document.getElementById('heroMuteIcon');
-
-        if (heroVideo && fullscreenBtn) {
-            fullscreenBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-                    if (heroVideo.requestFullscreen) {
-                        heroVideo.requestFullscreen();
-                    } else if (heroVideo.webkitRequestFullscreen) {
-                        heroVideo.webkitRequestFullscreen();
-                    } else if (heroVideo.mozRequestFullScreen) {
-                        heroVideo.mozRequestFullScreen();
-                    } else if (heroVideo.msRequestFullscreen) {
-                        heroVideo.msRequestFullscreen();
-                    }
-                    heroVideo.controls = true;
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen();
-                    }
-                }
-            });
-
-            ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(ev => {
-                document.addEventListener(ev, function() {
-                    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-                    if (!isFs && heroVideo) {
-                        heroVideo.controls = false;
-                    }
-                });
-            });
-        }
-
-        if (heroVideo && muteBtn) {
-            muteBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                heroVideo.muted = !heroVideo.muted;
-                if (!heroVideo.muted) {
-                    heroVideo.volume = 0.8;
-                    if (muteLabel) muteLabel.textContent = 'Mute';
-                    if (muteIcon) {
-                        muteIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
-                    }
-                } else {
-                    if (muteLabel) muteLabel.textContent = 'Sound';
-                    if (muteIcon) {
-                        muteIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
-                    }
-                }
-            });
-        }
-
-        // 6. Auto-pause video when scrolled out of view to eliminate lag & conserve resources
         if (heroVideo) {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
             if (prefersReducedMotion.matches) {
