@@ -5,13 +5,21 @@
 @section('styles')
 <style>
     /* Hero Section CSS */
+    :root {
+        --header-height: 125px;
+    }
     .hero {
         position: relative;
-        min-height: 700px;
+        width: 100%;
+        height: calc(100vh - var(--header-height, 125px));
+        height: calc(100dvh - var(--header-height, 125px));
+        min-height: calc(100vh - var(--header-height, 125px));
+        min-height: calc(100dvh - var(--header-height, 125px));
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        background-color: #022c22;
     }
     .hero-video {
         position: absolute;
@@ -20,7 +28,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center center;
         z-index: 0;
+    }
+    .hero-video:fullscreen,
+    .hero-video:-webkit-full-screen {
+        object-fit: contain;
+        background: #000;
+        z-index: 999999;
     }
     .hero-slideshow {
         position: absolute;
@@ -110,6 +125,102 @@
         background: white;
         width: 32px;
         border-radius: 6px;
+    }
+
+    /* Floating Hero Video Controls */
+    .hero-video-controls {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .hero-control-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 15px;
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        user-select: none;
+    }
+    .hero-control-btn:hover {
+        background: rgba(5, 150, 105, 0.9);
+        border-color: #34d399;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45);
+    }
+    .hero-control-btn:active {
+        transform: scale(0.96);
+    }
+    .hero-control-btn svg {
+        flex-shrink: 0;
+    }
+
+    /* Scroll Down Indicator */
+    .hero-scroll-down {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+    }
+    .hero-scroll-down:hover {
+        color: #ffffff;
+        transform: translateX(-50%) translateY(3px);
+    }
+    .scroll-mouse {
+        width: 22px;
+        height: 34px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-radius: 12px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        transition: border-color 0.3s;
+    }
+    .hero-scroll-down:hover .scroll-mouse {
+        border-color: #34d399;
+    }
+    .scroll-wheel {
+        width: 3px;
+        height: 6px;
+        background: #34d399;
+        border-radius: 2px;
+        position: absolute;
+        top: 6px;
+        animation: scroll-wheel-anim 1.8s infinite ease-in-out;
+    }
+    @keyframes scroll-wheel-anim {
+        0% { opacity: 1; transform: translateY(0); }
+        50% { opacity: 0.3; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .scroll-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        opacity: 0.85;
     }
 
     /* News layout & card CSS */
@@ -522,7 +633,8 @@
             grid-template-columns: 1fr;
         }
         .hero {
-            min-height: 500px;
+            height: calc(100dvh - var(--header-height, 100px));
+            min-height: calc(100dvh - var(--header-height, 100px));
         }
         .hero-title {
             font-size: 2.25rem;
@@ -555,11 +667,39 @@
         }
     }
     @media (max-width: 768px) {
+        .hero {
+            height: calc(100dvh - var(--header-height, 90px));
+            min-height: calc(100dvh - var(--header-height, 90px));
+        }
+        .hero-video-controls {
+            bottom: 16px;
+            right: 16px;
+        }
+        .hero-control-btn span {
+            display: none;
+        }
+        .hero-control-btn {
+            padding: 9px;
+            border-radius: 50%;
+        }
+        .hero-scroll-down {
+            display: none;
+        }
         .announcements-column {
             grid-template-columns: 1fr;
         }
         .album-grid {
             grid-template-columns: 1fr;
+        }
+    }
+    @media (max-height: 600px) {
+        .hero {
+            height: auto;
+            min-height: 520px;
+            padding: 50px 0;
+        }
+        .hero-scroll-down {
+            display: none;
         }
     }
     
@@ -708,9 +848,9 @@
 
 @section('content')
 <!-- HERO SECTION -->
-<section class="hero">
+<section class="hero" id="homeHero">
     @if($heroType === 'video')
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
             <source src="/hero_video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -739,10 +879,38 @@
             </div>
         </div>
     </div>
+
+    @if($heroType === 'video')
+        <!-- Floating Video Controls: Fullscreen & Sound -->
+        <div class="hero-video-controls" id="heroVideoControls">
+            <button type="button" class="hero-control-btn" id="heroMuteBtn" title="Toggle Sound" aria-label="Toggle Sound">
+                <svg id="heroMuteIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                    <line x1="23" y1="9" x2="17" y2="15"/>
+                    <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+                <span id="heroMuteLabel">Sound</span>
+            </button>
+            <button type="button" class="hero-control-btn" id="heroFullscreenBtn" title="Watch Full Screen" aria-label="Toggle Fullscreen">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                </svg>
+                <span>Full Screen</span>
+            </button>
+        </div>
+    @endif
+
+    <!-- Sleek Scroll Down Prompt -->
+    <a href="#schoolNotices" class="hero-scroll-down" aria-label="Scroll to School Notices">
+        <span class="scroll-mouse">
+            <span class="scroll-wheel"></span>
+        </span>
+        <span class="scroll-label">Scroll Down</span>
+    </a>
 </section>
 
 <!-- 1. SCHOOL NOTICES -->
-<section class="section school-notices" style="padding: 70px 0; border-bottom: 1px solid #e2e8f0;">
+<section class="section school-notices" id="schoolNotices" style="padding: 70px 0; border-bottom: 1px solid #e2e8f0;">
     <div class="container">
         <div style="text-align: center; max-width: 720px; margin: 0 auto 40px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -1166,7 +1334,80 @@
             });
         });
 
-        });
+        // 4. Dynamic Header Height for Fullscreen Hero
+        function updateHeroHeaderHeight() {
+            const header = document.getElementById('siteHeader');
+            if (header) {
+                const height = header.offsetHeight;
+                document.documentElement.style.setProperty('--header-height', height + 'px');
+            }
+        }
+        updateHeroHeaderHeight();
+        window.addEventListener('resize', updateHeroHeaderHeight, { passive: true });
+        window.addEventListener('load', updateHeroHeaderHeight);
+
+        // 5. Hero Video Fullscreen & Audio Controls
+        const heroVideo = document.getElementById('heroVideo');
+        const fullscreenBtn = document.getElementById('heroFullscreenBtn');
+        const muteBtn = document.getElementById('heroMuteBtn');
+        const muteLabel = document.getElementById('heroMuteLabel');
+        const muteIcon = document.getElementById('heroMuteIcon');
+
+        if (heroVideo && fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    if (heroVideo.requestFullscreen) {
+                        heroVideo.requestFullscreen();
+                    } else if (heroVideo.webkitRequestFullscreen) {
+                        heroVideo.webkitRequestFullscreen();
+                    } else if (heroVideo.mozRequestFullScreen) {
+                        heroVideo.mozRequestFullScreen();
+                    } else if (heroVideo.msRequestFullscreen) {
+                        heroVideo.msRequestFullscreen();
+                    }
+                    heroVideo.controls = true;
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+            });
+
+            ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(ev => {
+                document.addEventListener(ev, function() {
+                    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+                    if (!isFs && heroVideo) {
+                        heroVideo.controls = false;
+                    }
+                });
+            });
+        }
+
+        if (heroVideo && muteBtn) {
+            muteBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                heroVideo.muted = !heroVideo.muted;
+                if (!heroVideo.muted) {
+                    heroVideo.volume = 0.8;
+                    if (muteLabel) muteLabel.textContent = 'Mute';
+                    if (muteIcon) {
+                        muteIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+                    }
+                } else {
+                    if (muteLabel) muteLabel.textContent = 'Sound';
+                    if (muteIcon) {
+                        muteIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+                    }
+                }
+            });
+        }
     });
 </script>
 @endsection
