@@ -341,7 +341,16 @@
                                                 <strong>Date:</strong> {{ $event->event_dates }}
                                             </span>
                                         @endif
-                                        @if($event->is_online)
+                                        @if($event->is_online && $event->event_venue)
+                                            <span style="display: flex; align-items: center; gap: 6px; color: #059669; font-weight: 700;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                                                <strong>Mode:</strong> Hybrid (Onsite &amp; Online)
+                                            </span>
+                                            <span style="display: flex; align-items: center; gap: 6px;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#dc2626; flex-shrink:0;"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                                <strong>Venue:</strong> {{ $event->event_venue }}
+                                            </span>
+                                        @elseif($event->is_online)
                                             <span style="display: flex; align-items: center; gap: 6px; color: #059669; font-weight: 700;">
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
                                                 <strong>Mode:</strong> Online Class / Virtual

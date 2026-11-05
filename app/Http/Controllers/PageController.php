@@ -132,7 +132,8 @@ class PageController extends Controller
                 $query->where('category', 'like', '%event%')
                       ->orWhere('category', 'like', '%sport%')
                       ->orWhere('category', 'like', '%activity%')
-                      ->orWhere('category', 'like', '%program%');
+                      ->orWhere('category', 'like', '%program%')
+                      ->orWhere('category', 'like', '%competition%');
             })
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')

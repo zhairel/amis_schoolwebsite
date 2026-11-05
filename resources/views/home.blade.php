@@ -962,10 +962,10 @@
                         Upcoming &amp; Incoming
                     </button>
                     <button type="button" class="event-tab-btn" data-target="tab-current-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
-                        October 2026
+                        {{ $calendarSchedule['month_name'] }} {{ $calendarSchedule['year'] }}
                     </button>
                     <button type="button" class="event-tab-btn" data-target="tab-next-month" style="padding: 7px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569;">
-                        November 2026
+                        {{ $nextMonthSchedule['month_name'] }} {{ $nextMonthSchedule['year'] }}
                     </button>
                 </div>
 
@@ -1000,10 +1000,10 @@
                     </div>
                 </div>
 
-                <!-- 2. October 2026 View -->
+                <!-- 2. Current Month View -->
                 <div id="tab-current-month" class="events-tab-panel" style="display: none;">
                     <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
-                        <span>October 2026 Schedule &amp; Activities</span>
+                        <span>{{ $calendarSchedule['month_name'] }} {{ $calendarSchedule['year'] }} Schedule &amp; Activities</span>
                         <span style="background: #e6f4ea; color: #059669; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Current Month</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
@@ -1026,10 +1026,10 @@
                     </div>
                 </div>
 
-                <!-- 3. November 2026 View -->
+                <!-- 3. Next Month View -->
                 <div id="tab-next-month" class="events-tab-panel" style="display: none;">
                     <div style="font-size: 0.82rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid #e6f4ea; margin-bottom: 12px;">
-                        <span>November 2026 Schedule &amp; Activities</span>
+                        <span>{{ $nextMonthSchedule['month_name'] }} {{ $nextMonthSchedule['year'] }} Schedule &amp; Activities</span>
                         <span style="background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem;">Upcoming Month</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">

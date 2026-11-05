@@ -27,10 +27,13 @@
 
     if (!empty($validImgs)) {
         $firstImgPath = $validImgs[0];
-        // Check if a dedicated 1200x630 OpenGraph landscape banner exists (e.g. sm-2627-031-og.png)
+        // Check if a dedicated 1200x630 OpenGraph landscape banner exists (e.g. sm-2627-031-og.png or amis-gem-2026-international-og.png)
         $ogBannerCandidate = preg_replace('/-page\d+\.(png|jpg|jpeg)$/i', '-og.$1', $firstImgPath);
+        $directOgCandidate = preg_replace('/\.(png|jpg|jpeg)$/i', '-og.$1', $firstImgPath);
         if ($ogBannerCandidate !== $firstImgPath && file_exists(public_path(ltrim(parse_url($ogBannerCandidate, PHP_URL_PATH), '/')))) {
             $firstImgPath = $ogBannerCandidate;
+        } elseif ($directOgCandidate !== $firstImgPath && file_exists(public_path(ltrim(parse_url($directOgCandidate, PHP_URL_PATH), '/')))) {
+            $firstImgPath = $directOgCandidate;
         }
 
         $shareImage = str_starts_with($firstImgPath, 'http') ? $firstImgPath : url($firstImgPath);
@@ -995,25 +998,25 @@
                                     </div>
                                 </div>
                             @endif
+                            @if($announcement->event_venue)
+                                <div style="display: flex; align-items: start; gap: 10px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #fef2f2; color: #dc2626; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">{{ $announcement->is_online ? 'Onsite Venue' : 'Venue / Location' }}</div>
+                                        <div style="font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-top: 2px;">{{ $announcement->event_venue }}</div>
+                                    </div>
+                                </div>
+                            @endif
                             @if($announcement->is_online)
                                 <div style="display: flex; align-items: start; gap: 10px;">
                                     <div style="width: 32px; height: 32px; border-radius: 8px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
                                     </div>
                                     <div>
-                                        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Venue / Platform</div>
-                                        <div style="font-size: 0.95rem; font-weight: 700; color: #059669; margin-top: 2px;">Online Class / Virtual Platform</div>
-                                    </div>
-                                </div>
-                            @endif
-                            @if(!$announcement->is_online && $announcement->event_venue)
-                                <div style="display: flex; align-items: start; gap: 10px;">
-                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #fef2f2; color: #dc2626; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Venue / Location</div>
-                                        <div style="font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-top: 2px;">{{ $announcement->event_venue }}</div>
+                                        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Virtual / Online Modality</div>
+                                        <div style="font-size: 0.95rem; font-weight: 700; color: #059669; margin-top: 2px;">{{ $announcement->event_venue ? 'Hybrid (Online via Microsoft Teams & Onsite)' : 'Online Class / Virtual Platform' }}</div>
                                     </div>
                                 </div>
                             @endif
