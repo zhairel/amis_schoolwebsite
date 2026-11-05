@@ -1408,6 +1408,57 @@
                 }
             });
         }
+
+        // 6. Auto-pause video when scrolled out of view to eliminate lag & conserve resources
+        if (heroVideo) {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (prefersReducedMotion.matches) {
+                heroVideo.pause();
+            }
+            prefersReducedMotion.addEventListener('change', (e) => {
+                if (e.matches) heroVideo.pause();
+            });
+
+            if ('IntersectionObserver' in window) {
+                const heroSection = document.getElementById('homeHero') || heroVideo;
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+                        if (isFs) return;
+
+                        if (entry.isIntersecting) {
+                            // Hero is visible in viewport - resume playback
+                            heroVideo.play().catch(() => {});
+                        } else {
+                            // Hero is scrolled fully out of viewport - auto pause video to stop lag
+                            heroVideo.pause();
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.05
+                });
+                videoObserver.observe(heroSection);
+            }
+
+            // Also pause video when switching tabs or minimizing browser
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    heroVideo.pause();
+                } else {
+                    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+                    if (isFs) {
+                        heroVideo.play().catch(() => {});
+                        return;
+                    }
+                    const heroSection = document.getElementById('homeHero') || heroVideo;
+                    const rect = heroSection.getBoundingClientRect();
+                    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                        heroVideo.play().catch(() => {});
+                    }
+                }
+            });
+        }
     });
 </script>
 @endsection
