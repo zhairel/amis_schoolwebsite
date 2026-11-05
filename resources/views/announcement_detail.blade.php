@@ -113,10 +113,10 @@
         1
     );
 
-    // Format Official Administration Sign-off Banner
+    // Format Official Sign-off Banner
     $processedContent = preg_replace(
-        '/<p>\s*(&ndash;|–|-)?\s*<strong>(AMIS\s+Administration)<\/strong>\s*<\/p>/iu',
-        '<div class="official-signoff-banner"><img src="/logo.png" alt="AMIS Seal" class="signoff-seal" /><div class="signoff-info"><span class="signoff-org">Al Munawwara Islamic School</span><span class="signoff-dept">Office of the School Administration &bull; Davao City</span></div><div class="signoff-badge"><svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Official Release</div></div>',
+        '/<p>\s*(&ndash;|–|-)?\s*<strong>(AMIS\s+(?:Administration|IT\s+Support))<\/strong>\s*<\/p>/iu',
+        '<div class="official-signoff-banner"><img src="/logo.png" alt="AMIS Seal" class="signoff-seal" /><div class="signoff-info"><span class="signoff-org">Al Munawwara Islamic School</span><span class="signoff-dept">AMIS IT Support &bull; Davao City</span></div><div class="signoff-badge"><svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Official Release</div></div>',
         $processedContent,
         1
     );
@@ -143,8 +143,7 @@
     <meta property="og:image:width" content="{{ $imageWidth }}">
     <meta property="og:image:height" content="{{ $imageHeight }}">
     <meta property="og:image:type" content="{{ $imageMime }}">
-    <meta property="article:published_time" content="{{ optional($announcement->publish_date ?? $announcement->created_at)->toIso8601String() }}">
-    <meta property="article:author" content="{{ $announcement->author ?: 'AMIS Administration' }}">
+    <meta property="article:author" content="AMIS IT Support">
     <meta property="article:section" content="{{ $announcement->category ?: 'School Announcements' }}">
     <meta property="og:image:alt" content="{{ $announcement->title ?? 'Announcement' }}">
 @endsection
@@ -379,56 +378,121 @@
         border-color: #a7f3d0 !important;
     }
 
-    /* Media Gallery */
+    /* Media Gallery - Clean Full-width Viewport with White Dots */
     .gallery-container {
         width: 100%;
         margin: 0 auto 32px auto;
         position: relative;
-        padding-right: 110px;
         box-sizing: border-box;
     }
     .main-gallery-viewport {
         width: 100%;
         aspect-ratio: 16/10;
+        max-height: 580px;
         overflow: hidden;
-        border-radius: 16px;
+        border-radius: 18px;
         background: #0f172a;
         border: 1px solid #e2e8f0;
         position: relative;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        user-select: none;
     }
-    .gallery-thumbnails-sidebar {
+    .gallery-slide-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #0f172a;
+    }
+    .carousel-nav-btn {
         position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 95px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        color: #0f172a;
         display: flex;
-        flex-direction: column;
-        gap: 8px;
-        overflow-y: auto;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
         z-index: 10;
-        padding-right: 4px;
-        box-sizing: border-box;
+        transition: all 0.25s ease;
+        opacity: 0;
     }
-    .gallery-thumbnails-sidebar::-webkit-scrollbar {
-        width: 4px;
-    }
-    .gallery-thumbnails-sidebar::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-    }
-    .gallery-thumbnail-btn {
-        border: 2px solid #e2e8f0;
-        transition: all 0.2s ease;
-        opacity: 0.75;
-    }
-    .gallery-thumbnail-btn:hover {
+    .main-gallery-viewport:hover .carousel-nav-btn {
         opacity: 1;
-        border-color: #cbd5e1;
     }
-    .gallery-thumbnail-btn.active {
-        opacity: 1;
-        border-color: #059669;
+    .carousel-nav-btn:hover {
+        background: #ffffff;
+        transform: translateY(-50%) scale(1.08);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+    .carousel-nav-btn.prev-btn {
+        left: 16px;
+    }
+    .carousel-nav-btn.next-btn {
+        right: 16px;
+    }
+    .carousel-counter-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: rgba(15, 23, 42, 0.72);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 10;
+        letter-spacing: 0.5px;
+    }
+    .carousel-dots-bar {
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        z-index: 10;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        max-width: 90%;
+        overflow-x: auto;
+    }
+    .carousel-dots-bar::-webkit-scrollbar {
+        display: none;
+    }
+    .carousel-white-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+    }
+    .carousel-white-dot:hover {
+        background: rgba(255, 255, 255, 0.85);
+        transform: scale(1.25);
+    }
+    .carousel-white-dot.active {
+        width: 24px;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Event Details Box */
@@ -810,21 +874,16 @@
             font-size: 1.075rem;
             line-height: 1.78;
         }
-        .gallery-container {
-            padding-right: 0;
-        }
         .main-gallery-viewport {
             aspect-ratio: 4/3;
         }
-        .gallery-thumbnails-sidebar {
-            position: relative;
-            width: 100%;
-            height: 70px;
-            flex-direction: row;
-            overflow-x: auto;
-            overflow-y: hidden;
-            margin-top: 10px;
+        .carousel-nav-btn {
+            opacity: 0.85;
+            width: 38px;
+            height: 38px;
         }
+        .carousel-nav-btn.prev-btn { left: 8px; }
+        .carousel-nav-btn.next-btn { right: 8px; }
         .news-bottom-actions {
             flex-direction: column;
             align-items: stretch;
@@ -902,7 +961,7 @@
                         <img src="/logo.png" alt="AMIS Logo" class="byline-avatar">
                         <div class="byline-text-meta">
                             <span class="byline-author-name">
-                                {{ $announcement->author ?: 'AMIS Administration' }}
+                                {{ (!empty($announcement->author) && !str_contains(strtolower($announcement->author), 'admin')) ? $announcement->author : 'AMIS IT Support' }}
                                 <svg class="verified-icon" viewBox="0 0 20 20" fill="currentColor" title="Verified School Release">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
@@ -931,7 +990,7 @@
                     </div>
                 </div>
 
-                <!-- Featured Media Gallery (if present) -->
+                <!-- Featured Media Gallery (Clean Full-width Viewport with White Dots) -->
                 @php
                     $imgs = json_decode($announcement->image ?? '', true);
                     if (!is_array($imgs)) {
@@ -943,39 +1002,42 @@
                 @endphp
 
                 @if(!empty($imgs))
-                    <div class="gallery-container" @if(count($imgs) <= 1) style="padding-right: 0;" @endif>
-                        <div class="main-gallery-viewport group">
+                    <div class="gallery-container">
+                        <div class="main-gallery-viewport" id="galleryViewport">
                             <div class="flex transition-transform duration-500 ease-out h-full" id="carouselSlides" style="width: {{ count($imgs) * 100 }}%;">
                                 @foreach($imgs as $img)
                                     <div class="h-full flex items-center justify-center flex-shrink-0" style="width: calc(100% / {{ count($imgs) }});">
-                                        <img src="{{ $img }}" alt="{{ $announcement->title }}" class="w-full h-full object-contain" loading="lazy">
+                                        <img src="{{ $img }}" alt="{{ $announcement->title }}" class="gallery-slide-img" loading="lazy">
                                     </div>
                                 @endforeach
                             </div>
 
                             @if(count($imgs) > 1)
-                                <button onclick="moveCarousel(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center border border-slate-200 transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10" aria-label="Previous slide">
-                                    <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                                <!-- Slide Counter Badge -->
+                                <span class="carousel-counter-badge" id="carouselCounter">
+                                    1 / {{ count($imgs) }}
+                                </span>
+
+                                <!-- Prev / Next Arrow Navigation Buttons -->
+                                <button type="button" onclick="moveCarousel(-1)" class="carousel-nav-btn prev-btn" aria-label="Previous image">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                                     </svg>
                                 </button>
-                                <button onclick="moveCarousel(1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center border border-slate-200 transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer z-10" aria-label="Next slide">
-                                    <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                <button type="button" onclick="moveCarousel(1)" class="carousel-nav-btn next-btn" aria-label="Next image">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                                     </svg>
                                 </button>
+
+                                <!-- Sleek White Dots Indicator -->
+                                <div class="carousel-dots-bar" id="carouselDots">
+                                    @foreach($imgs as $idx => $img)
+                                        <button type="button" onclick="setCarouselSlide({{ $idx }})" class="carousel-white-dot {{ $idx === 0 ? 'active' : '' }}" aria-label="Photo {{ $idx + 1 }} of {{ count($imgs) }}"></button>
+                                    @endforeach
+                                </div>
                             @endif
                         </div>
-
-                        @if(count($imgs) > 1)
-                            <div class="gallery-thumbnails-sidebar">
-                                @foreach($imgs as $index => $img)
-                                    <button onclick="setCarouselSlide({{ $index }})" class="gallery-thumbnail-btn w-full aspect-[4/3] rounded-lg overflow-hidden border-2 {{ $index === 0 ? 'active' : '' }} transition bg-slate-100 p-0 flex-shrink-0 cursor-pointer" data-index="{{ $index }}" aria-label="Thumbnail {{ $index + 1 }}">
-                                        <img src="{{ $img }}" class="w-full h-full object-cover" loading="lazy">
-                                    </button>
-                                @endforeach
-                            </div>
-                        @endif
                     </div>
                 @endif
 
@@ -1128,7 +1190,7 @@
 
     function showCopiedFeedback(btn) {
         const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Na-kopya!';
+        btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
         btn.classList.add('btn-copied');
         setTimeout(function() {
             btn.innerHTML = originalHtml;
@@ -1148,32 +1210,20 @@
             const offset = -currentSlideIndex * (100 / totalSlides);
             slidesContainer.style.transform = `translateX(${offset}%)`;
             
-            // Update active state on thumbnail buttons
-            const buttons = document.querySelectorAll('.gallery-thumbnail-btn');
-            const sidebar = document.querySelector('.gallery-thumbnails-sidebar');
-            buttons.forEach((btn, idx) => {
+            // Update counter badge
+            const counter = document.getElementById('carouselCounter');
+            if (counter) {
+                counter.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+            }
+
+            // Update active state on white dots
+            const dots = document.querySelectorAll('.carousel-white-dot');
+            dots.forEach((dot, idx) => {
                 if (idx === currentSlideIndex) {
-                    btn.classList.add('active');
-                    if (sidebar) {
-                        const btnTop = btn.offsetTop;
-                        const btnHeight = btn.offsetHeight;
-                        const sidebarHeight = sidebar.clientHeight;
-                        const sidebarScrollTop = sidebar.scrollTop;
-                        
-                        if (btnTop + btnHeight > sidebarScrollTop + sidebarHeight) {
-                            sidebar.scrollTo({
-                                top: btnTop + btnHeight - sidebarHeight + 4,
-                                behavior: 'smooth'
-                            });
-                        } else if (btnTop < sidebarScrollTop) {
-                            sidebar.scrollTo({
-                                top: btnTop - 4,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+                    dot.classList.add('active');
+                    dot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 } else {
-                    btn.classList.remove('active');
+                    dot.classList.remove('active');
                 }
             });
         }
@@ -1205,6 +1255,41 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateCarousel();
             startAutoSlide();
+
+            // Touch swipe support for mobile
+            const viewport = document.getElementById('galleryViewport');
+            if (viewport) {
+                let startX = 0;
+                let startY = 0;
+                let isSwiping = false;
+
+                viewport.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        isSwiping = true;
+                    }
+                }, { passive: true });
+
+                viewport.addEventListener('touchend', (e) => {
+                    if (!isSwiping) return;
+                    isSwiping = false;
+                    const diffX = startX - e.changedTouches[0].clientX;
+                    const diffY = startY - e.changedTouches[0].clientY;
+                    // Check if horizontal swipe is dominant and significant
+                    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                        if (diffX > 0) {
+                            moveCarousel(1); // Swipe left -> next
+                        } else {
+                            moveCarousel(-1); // Swipe right -> prev
+                        }
+                    }
+                }, { passive: true });
+
+                // Pause auto slide on hover
+                viewport.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+                viewport.addEventListener('mouseleave', () => resetAutoSlide());
+            }
         });
     @endif
 </script>

@@ -560,7 +560,7 @@
                     $storyImg = is_array($storyImgs) ? ($storyImgs[0] ?? null) : $story->image;
                     if (!$storyImg) $storyImg = '/images/announcements/announcement_1784523441_ZOr34C.jpg';
                     $plainContent = strip_tags($story->content);
-                    $authorName = !empty($story->author) ? $story->author : 'AMIS Editorial';
+                    $authorName = (!empty($story->author) && !str_contains(strtolower($story->author), 'admin')) ? $story->author : 'AMIS IT Support';
                     $storyDate = optional($story->publish_date ?? $story->created_at)->format('F d, Y');
                     
                     // Title formatting: if uppercase, convert to Title Case and preserve AMIS / PEAC / DTI / etc.
