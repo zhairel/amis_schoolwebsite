@@ -387,21 +387,39 @@
     }
     .main-gallery-viewport {
         width: 100%;
-        aspect-ratio: 16/10;
-        max-height: 580px;
+        max-width: 100%;
         overflow: hidden;
-        border-radius: 18px;
-        background: #0f172a;
+        border-radius: 16px;
+        background: #ffffff;
         border: 1px solid #e2e8f0;
         position: relative;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         user-select: none;
+        transition: height 0.3s ease;
+    }
+    .gallery-slide-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 12px;
+        background: #ffffff;
+    }
+    .gallery-container.has-multiple .gallery-slide-item {
+        padding: 12px 12px 48px 12px;
     }
     .gallery-slide-img {
-        width: 100%;
-        height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        max-height: 90vh;
+        display: block;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
         object-fit: contain;
-        background-color: #0f172a;
+        background-color: transparent;
     }
     .carousel-nav-btn {
         position: absolute;
@@ -875,7 +893,7 @@
             line-height: 1.78;
         }
         .main-gallery-viewport {
-            aspect-ratio: 4/3;
+            aspect-ratio: auto;
         }
         .carousel-nav-btn {
             opacity: 0.85;
@@ -1002,12 +1020,12 @@
                 @endphp
 
                 @if(!empty($imgs))
-                    <div class="gallery-container">
+                    <div class="gallery-container {{ count($imgs) > 1 ? 'has-multiple' : '' }}">
                         <div class="main-gallery-viewport" id="galleryViewport">
-                            <div class="flex transition-transform duration-500 ease-out h-full" id="carouselSlides" style="width: {{ count($imgs) * 100 }}%;">
+                            <div class="flex transition-transform duration-500 ease-out items-start" id="carouselSlides" style="width: {{ count($imgs) * 100 }}%;">
                                 @foreach($imgs as $img)
-                                    <div class="h-full flex items-center justify-center flex-shrink-0" style="width: calc(100% / {{ count($imgs) }});">
-                                        <img src="{{ $img }}" alt="{{ $announcement->title }}" class="gallery-slide-img" loading="lazy">
+                                    <div class="gallery-slide-item flex-shrink-0" style="width: calc(100% / {{ count($imgs) }});">
+                                        <img src="{{ $img }}" alt="{{ $announcement->title }}" class="gallery-slide-img" loading="lazy" onload="if(window.syncViewportHeight) window.syncViewportHeight();">
                                     </div>
                                 @endforeach
                             </div>
@@ -1199,16 +1217,34 @@
     }
 
     // Media Carousel Logic
-    @if(!empty($imgs) && count($imgs) > 1)
+    @if(!empty($imgs))
         let currentSlideIndex = 0;
         const totalSlides = {{ count($imgs) }};
         let autoSlideInterval;
+
+        function syncViewportHeight() {
+            const slidesContainer = document.getElementById('carouselSlides');
+            const viewport = document.getElementById('galleryViewport');
+            if (!slidesContainer || !viewport) return;
+            const activeSlide = slidesContainer.children[currentSlideIndex];
+            if (activeSlide) {
+                const h = activeSlide.offsetHeight;
+                if (h > 0) {
+                    viewport.style.height = `${h}px`;
+                }
+            }
+        }
+        window.syncViewportHeight = syncViewportHeight;
+        window.addEventListener('resize', syncViewportHeight);
+        window.addEventListener('load', syncViewportHeight);
         
         function updateCarousel() {
             const slidesContainer = document.getElementById('carouselSlides');
             if (!slidesContainer) return;
             const offset = -currentSlideIndex * (100 / totalSlides);
             slidesContainer.style.transform = `translateX(${offset}%)`;
+            
+            syncViewportHeight();
             
             // Update counter badge
             const counter = document.getElementById('carouselCounter');
@@ -1241,10 +1277,12 @@
         }
 
         function startAutoSlide() {
+            if (totalSlides <= 1) return;
+            clearInterval(autoSlideInterval);
             autoSlideInterval = setInterval(() => {
                 currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
                 updateCarousel();
-            }, 5000);
+            }, 7000);
         }
 
         function resetAutoSlide() {
@@ -1254,7 +1292,10 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             updateCarousel();
-            startAutoSlide();
+            syncViewportHeight();
+            @if(count($imgs) > 1)
+                startAutoSlide();
+            @endif
 
             // Touch swipe support for mobile
             const viewport = document.getElementById('galleryViewport');
