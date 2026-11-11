@@ -836,84 +836,13 @@
         position: relative;
         z-index: 1;
     }
-    .gem-showcase-grid {
-        display: grid;
-        grid-template-columns: 430px 1fr;
-        gap: 48px;
+    .gem-showcase-content {
+        max-width: 820px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-    }
-    .gem-poster-column {
-        display: flex;
-        justify-content: center;
-    }
-    .gem-poster-wrapper {
-        width: 100%;
-        max-width: 430px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .gem-poster-card-wrapper {
-        display: block;
-        text-decoration: none;
-        width: 100%;
-    }
-    .gem-poster-card {
-        border-radius: 20px;
-        overflow: hidden;
-        background: #022c22;
-        border: 2px solid rgba(250, 204, 21, 0.35);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gem-poster-card:hover {
-        transform: translateY(-4px);
-        border-color: #facc15;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(250, 204, 21, 0.25);
-    }
-    .gem-poster-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-    }
-    /* Clean Poster Switcher (No emoji, no clutter) */
-    .gem-poster-switcher {
-        display: flex;
-        gap: 8px;
-        background: rgba(0, 0, 0, 0.45);
-        padding: 5px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-    .gem-poster-btn {
-        flex: 1;
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #94a3b8;
-        background: transparent;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
         text-align: center;
-        letter-spacing: 0.3px;
-    }
-    .gem-poster-btn:hover {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.08);
-    }
-    .gem-poster-btn.active {
-        background: #022c22;
-        color: #facc15;
-        border-color: rgba(250, 204, 21, 0.45);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-    }
-    .gem-content-column {
-        display: flex;
-        flex-direction: column;
         gap: 18px;
     }
     .gem-kicker-text {
@@ -926,9 +855,10 @@
     .gem-title-banner-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        margin-top: -4px;
-        max-width: 580px;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 760px;
     }
     .gem-title-banner-card {
         border-radius: 16px;
@@ -960,11 +890,16 @@
     /* Clean Meta Strip */
     .gem-meta-strip {
         display: flex;
-        flex-direction: column;
-        gap: 6px;
-        padding: 12px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px 24px;
+        padding: 12px 24px;
+        background: rgba(0, 0, 0, 0.28);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        max-width: 760px;
+        width: 100%;
     }
     .gem-meta-row {
         display: flex;
@@ -1186,20 +1121,13 @@
     .btn-gem-outline:hover {
         color: #a7f3d0;
     }
-    @media (max-width: 1024px) {
-        .gem-showcase-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
-        .gem-poster-column {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .gem-dual-clocks-wrapper {
-            max-width: 100%;
-        }
-    }
     @media (max-width: 680px) {
+        .gem-meta-strip {
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            padding: 12px 16px;
+        }
         .gem-dual-clocks-wrapper {
             grid-template-columns: 1fr;
         }
@@ -1303,160 +1231,125 @@
     </div>
 
     <div class="container gem-showcase-container">
-        <div class="gem-showcase-grid">
+        <div class="gem-showcase-content">
             
-            <!-- Left: Official Countdown Graphic (With clean switcher) -->
-            <div class="gem-poster-column">
-                <div class="gem-poster-wrapper">
-                    <a href="{{ route('announcement.show', 276) }}" class="gem-poster-card-wrapper" id="gemPosterLink" title="Click to view AMIS-GEM details and guidelines">
-                        <div class="gem-poster-card">
-                            <picture id="gemPosterPicture">
-                                <source id="gemPosterWebp" srcset="/images/amis-gem-reg-countdown.webp" type="image/webp">
-                                <img id="gemPosterImg" 
-                                     src="/images/amis-gem-reg-countdown.jpg" 
-                                     alt="AMIS-GEM 2026 End of Registration Countdown Poster" 
-                                     class="gem-poster-image" 
-                                     width="512" 
-                                     height="512" 
-                                     loading="eager">
-                            </picture>
-                        </div>
-                    </a>
+            <!-- Category Kicker -->
+            <div class="gem-kicker-text">International Academic Competition</div>
 
-                    <!-- Clean Poster Switcher (No emoji, no clutter) -->
-                    <div class="gem-poster-switcher" role="tablist" aria-label="Select poster view">
-                        <button type="button" class="gem-poster-btn active" id="btnPosterReg" onclick="switchGemPoster('reg')" aria-label="End of Registration poster">
-                            Registration Deadline
-                        </button>
-                        <button type="button" class="gem-poster-btn" id="btnPosterComp" onclick="switchGemPoster('comp')" aria-label="Competition countdown poster">
-                            Event Countdown
-                        </button>
-                    </div>
+            <!-- Official Event Branding Graphic Banner -->
+            <div class="gem-title-banner-wrapper">
+                <h2 class="sr-only">AMIS-GEM 2026 - International English and Mathematics Competition (December 13–15, 2026)</h2>
+                <div class="gem-title-banner-card">
+                    <picture>
+                        <source srcset="/images/amis-gem-banner.webp" type="image/webp">
+                        <img src="/images/amis-gem-banner.png" 
+                             alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION" 
+                             class="gem-title-banner-img" 
+                             width="1024" 
+                             height="258" 
+                             loading="eager">
+                    </picture>
+                </div>
+                <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
+                <p class="gem-countdown-callout" style="color: #fef08a; font-weight: 700; font-size: 0.95rem; margin: 10px 0 16px; line-height: 1.5; text-align: center;">The countdown is on! Don&rsquo;t miss your chance to join the AMIS-GEM Global English and Mathematics Competition 2026! Registration ends on November 20, 2026. Register now and secure your spot!</p>
+            </div>
+
+            <!-- Clean Event Meta Details -->
+            <div class="gem-meta-strip">
+                <div class="gem-meta-row">
+                    <span class="gem-meta-label">Registration:</span>
+                    <span class="gem-meta-val deadline">Closes November 20, 2026 (Registration Cut-off)</span>
+                </div>
+                <div class="gem-meta-row">
+                    <span class="gem-meta-label">Event Dates:</span>
+                    <span class="gem-meta-val">December 13–15, 2026</span>
+                </div>
+                <div class="gem-meta-row">
+                    <span class="gem-meta-label">Modality:</span>
+                    <span class="gem-meta-val">Hybrid (AMIS Function Hall, Davao &amp; Microsoft Teams)</span>
                 </div>
             </div>
 
-            <!-- Right: Clean Typography & Dual Countdown Clocks -->
-            <div class="gem-content-column">
+            <!-- Dual Live Countdown Clocks -->
+            <div class="gem-dual-clocks-wrapper" id="gemShowcaseClock" aria-live="polite">
                 
-                <!-- Category Kicker -->
-                <div class="gem-kicker-text">International Academic Competition</div>
-
-                <!-- Official Event Branding Graphic Banner -->
-                <div class="gem-title-banner-wrapper">
-                    <h2 class="sr-only">AMIS-GEM 2026 - International English and Mathematics Competition (December 13–15, 2026)</h2>
-                    <div class="gem-title-banner-card">
-                        <picture>
-                            <source srcset="/images/amis-gem-banner.webp" type="image/webp">
-                            <img src="/images/amis-gem-banner.png" 
-                                 alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION" 
-                                 class="gem-title-banner-img" 
-                                 width="1024" 
-                                 height="258" 
-                                 loading="eager">
-                        </picture>
+                <!-- Clock 1: Registration Deadline (High Priority - Nov 20) -->
+                <div class="gem-clock-panel panel-reg active">
+                    <div class="gem-clock-panel-header">
+                        <span class="gem-panel-title">End of Registration</span>
+                        <span class="gem-panel-target">Nov 20, 2026</span>
                     </div>
-                    <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
-                    <p class="gem-countdown-callout" style="color: #fef08a; font-weight: 700; font-size: 0.95rem; margin: 10px 0 16px; line-height: 1.5; text-align: center;">The countdown is on! Don&rsquo;t miss your chance to join the AMIS-GEM Global English and Mathematics Competition 2026! Registration ends on November 20, 2026. Register now and secure your spot!</p>
-                </div>
-
-                <!-- Clean Event Meta Details -->
-                <div class="gem-meta-strip">
-                    <div class="gem-meta-row">
-                        <span class="gem-meta-label">Registration:</span>
-                        <span class="gem-meta-val deadline">Closes November 20, 2026 (Registration Cut-off)</span>
+                    <div class="gem-clock-cards-row" aria-label="Registration deadline countdown">
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="regDays">09</div>
+                            <div class="gem-clock-unit">DAYS</div>
+                        </div>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="regHours">00</div>
+                            <div class="gem-clock-unit">HOURS</div>
+                        </div>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="regMinutes">00</div>
+                            <div class="gem-clock-unit">MINS</div>
+                        </div>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="regSeconds">00</div>
+                            <div class="gem-clock-unit">SECS</div>
+                        </div>
                     </div>
-                    <div class="gem-meta-row">
-                        <span class="gem-meta-label">Event Dates:</span>
-                        <span class="gem-meta-val">December 13–15, 2026</span>
-                    </div>
-                    <div class="gem-meta-row">
-                        <span class="gem-meta-label">Modality:</span>
-                        <span class="gem-meta-val">Hybrid (AMIS Function Hall, Davao &amp; Microsoft Teams)</span>
+                    <div class="gem-panel-footer">
+                        <span class="gem-panel-tag tag-urgent" id="regBadgeTag">9 DAYS LEFT</span>
                     </div>
                 </div>
 
-                <!-- Dual Live Countdown Clocks -->
-                <div class="gem-dual-clocks-wrapper" id="gemShowcaseClock" aria-live="polite">
-                    
-                    <!-- Clock 1: Registration Deadline (High Priority - Nov 20) -->
-                    <div class="gem-clock-panel panel-reg active" onclick="switchGemPoster('reg')" title="Click to view Registration Deadline Poster">
-                        <div class="gem-clock-panel-header">
-                            <span class="gem-panel-title">End of Registration</span>
-                            <span class="gem-panel-target">Nov 20, 2026</span>
+                <!-- Clock 2: Competition Opens (Dec 13) -->
+                <div class="gem-clock-panel panel-comp active">
+                    <div class="gem-clock-panel-header">
+                        <span class="gem-panel-title">Competition Opens</span>
+                        <span class="gem-panel-target">Dec 13, 2026</span>
+                    </div>
+                    <div class="gem-clock-cards-row" aria-label="Competition start countdown">
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="compDays">32</div>
+                            <div class="gem-clock-unit">DAYS</div>
                         </div>
-                        <div class="gem-clock-cards-row" aria-label="Registration deadline countdown">
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="regDays">09</div>
-                                <div class="gem-clock-unit">DAYS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="regHours">00</div>
-                                <div class="gem-clock-unit">HOURS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="regMinutes">00</div>
-                                <div class="gem-clock-unit">MINS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="regSeconds">00</div>
-                                <div class="gem-clock-unit">SECS</div>
-                            </div>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="compHours">00</div>
+                            <div class="gem-clock-unit">HOURS</div>
                         </div>
-                        <div class="gem-panel-footer">
-                            <span class="gem-panel-tag tag-urgent" id="regBadgeTag">9 DAYS LEFT</span>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="compMinutes">00</div>
+                            <div class="gem-clock-unit">MINS</div>
+                        </div>
+                        <div class="gem-clock-divider">:</div>
+                        <div class="gem-clock-card">
+                            <div class="gem-clock-digit" id="compSeconds">00</div>
+                            <div class="gem-clock-unit">SECS</div>
                         </div>
                     </div>
-
-                    <!-- Clock 2: Competition Opens (Dec 13) -->
-                    <div class="gem-clock-panel panel-comp" onclick="switchGemPoster('comp')" title="Click to view Competition Poster">
-                        <div class="gem-clock-panel-header">
-                            <span class="gem-panel-title">Competition Opens</span>
-                            <span class="gem-panel-target">Dec 13, 2026</span>
-                        </div>
-                        <div class="gem-clock-cards-row" aria-label="Competition start countdown">
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="compDays">32</div>
-                                <div class="gem-clock-unit">DAYS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="compHours">00</div>
-                                <div class="gem-clock-unit">HOURS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="compMinutes">00</div>
-                                <div class="gem-clock-unit">MINS</div>
-                            </div>
-                            <div class="gem-clock-divider">:</div>
-                            <div class="gem-clock-card">
-                                <div class="gem-clock-digit" id="compSeconds">00</div>
-                                <div class="gem-clock-unit">SECS</div>
-                            </div>
-                        </div>
-                        <div class="gem-panel-footer">
-                            <span class="gem-panel-tag" id="compBadgeTag">32 DAYS TO GO</span>
-                        </div>
+                    <div class="gem-panel-footer">
+                        <span class="gem-panel-tag" id="compBadgeTag">32 DAYS TO GO</span>
                     </div>
-
                 </div>
 
-                <!-- Clean Action Buttons -->
-                <div class="gem-actions-row">
-                    <a href="https://tinyurl.com/4jeh7yr5" target="_blank" rel="noopener noreferrer" class="btn-gem-primary">
-                        Pre-Register Online →
-                    </a>
-                    <a href="https://tinyurl.com/26av23dd" target="_blank" rel="noopener noreferrer" class="btn-gem-secondary">
-                        Guidelines &amp; Mechanics
-                    </a>
-                    <a href="{{ route('announcement.show', 276) }}" class="btn-gem-outline">
-                        View Announcement →
-                    </a>
-                </div>
+            </div>
 
+            <!-- Clean Action Buttons -->
+            <div class="gem-actions-row">
+                <a href="https://tinyurl.com/4jeh7yr5" target="_blank" rel="noopener noreferrer" class="btn-gem-primary">
+                    Pre-Register Online →
+                </a>
+                <a href="https://tinyurl.com/26av23dd" target="_blank" rel="noopener noreferrer" class="btn-gem-secondary">
+                    Guidelines &amp; Mechanics
+                </a>
+                <a href="{{ route('announcement.show', 276) }}" class="btn-gem-outline">
+                    View Announcement →
+                </a>
             </div>
 
         </div>
