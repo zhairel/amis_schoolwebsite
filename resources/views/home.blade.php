@@ -900,7 +900,7 @@
         max-width: 100%;
         height: auto;
         display: block;
-        aspect-ratio: 1024 / 258;
+        aspect-ratio: 1024 / 256;
         object-fit: cover;
     }
     .gem-motto {
@@ -1266,17 +1266,16 @@
                     <picture style="display: block; width: 100%;">
                         <source srcset="{{ asset('images/amis-gem-banner.webp') }}" type="image/webp">
                         <img src="{{ asset('images/amis-gem-banner.png') }}" 
-                             alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION" 
+                             alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION | Calculate. Communicate. Lead." 
                              class="gem-title-banner-img" 
                              width="1024" 
-                             height="258" 
+                             height="256" 
                              loading="eager"
                              fetchpriority="high"
-                             style="width: 100%; max-width: 100%; height: auto; display: block; aspect-ratio: 1024 / 258; object-fit: cover;">
+                             style="width: 100%; max-width: 100%; height: auto; display: block; aspect-ratio: 1024 / 256; object-fit: cover;">
                     </picture>
                 </div>
-                <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
-                <p class="gem-countdown-callout" style="color: #fef08a; font-weight: 700; font-size: 0.95rem; margin: 10px 0 16px; line-height: 1.5; text-align: center;">The countdown is on! Don&rsquo;t miss your chance to join the AMIS-GEM Global English and Mathematics Competition 2026! Registration ends on November 20, 2026. Register now and secure your spot!</p>
+                <p class="gem-countdown-callout" style="color: #fef08a; font-weight: 700; font-size: 0.95rem; margin: 12px 0 16px; line-height: 1.5; text-align: center;">The countdown is on! Don&rsquo;t miss your chance to join the AMIS-GEM Global English and Mathematics Competition 2026! Registration ends on November 20, 2026. Register now and secure your spot!</p>
             </div>
 
             <!-- Clean Event Meta Details -->
