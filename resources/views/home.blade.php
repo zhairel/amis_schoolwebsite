@@ -923,31 +923,32 @@
         text-transform: uppercase;
         letter-spacing: 1.2px;
     }
-    .gem-title-block {
-        margin-top: -6px;
+    .gem-title-banner-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: -4px;
+        max-width: 580px;
     }
-    .gem-main-heading {
-        font-size: 2.75rem;
-        font-weight: 900;
-        line-height: 1.1;
-        margin: 0 0 6px 0;
-        color: #ffffff;
-        letter-spacing: -0.8px;
+    .gem-title-banner-card {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 2px solid rgba(250, 204, 21, 0.45);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(250, 204, 21, 0.15);
+        background: #022c22;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
-    .gem-letter-g { color: #3b82f6; }
-    .gem-letter-e { color: #f97316; }
-    .gem-letter-m { color: #e879f9; }
-    .gem-year {
-        color: #facc15;
-        font-size: 2.3rem;
-        font-weight: 800;
-        margin-left: 4px;
+    .gem-title-banner-card:hover {
+        transform: translateY(-2px);
+        border-color: #facc15;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.25);
     }
-    .gem-sub-heading {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #d1fae5;
-        margin: 0 0 6px 0;
+    .gem-title-banner-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        aspect-ratio: 1024 / 258;
+        object-fit: cover;
     }
     .gem-motto {
         font-size: 0.95rem;
@@ -1335,13 +1336,20 @@
                 <!-- Category Kicker -->
                 <div class="gem-kicker-text">International Academic Competition</div>
 
-                <!-- Main Event Title -->
-                <div class="gem-title-block">
-                    <h2 class="gem-main-heading">
-                        AMIS-<span class="gem-letter-g">G</span><span class="gem-letter-e">E</span><span class="gem-letter-m">M</span> 
-                        <span class="gem-year">2026</span>
-                    </h2>
-                    <p class="gem-sub-heading">Global English and Mathematics Competition</p>
+                <!-- Official Event Branding Graphic Banner -->
+                <div class="gem-title-banner-wrapper">
+                    <h2 class="sr-only">AMIS-GEM 2026 - Global English and Mathematics Competition (December 13–15, 2026)</h2>
+                    <div class="gem-title-banner-card">
+                        <picture>
+                            <source srcset="/images/amis-gem-banner.webp" type="image/webp">
+                            <img src="/images/amis-gem-banner.png" 
+                                 alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION" 
+                                 class="gem-title-banner-img" 
+                                 width="1024" 
+                                 height="258" 
+                                 loading="eager">
+                        </picture>
+                    </div>
                     <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
                 </div>
 
