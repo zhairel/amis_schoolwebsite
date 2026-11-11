@@ -1469,6 +1469,11 @@
                                     <span style="font-weight: 700; color: #991b1b; text-transform: uppercase;">Registration (Nov 20):</span>
                                     <strong style="color: #b91c1c; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeGemClock">9d 14h 00m 00s</strong>
                                 </div>
+                            @elseif(str_contains(strtolower($notice->title ?? ''), 'musabaqah') || str_contains(strtolower($notice->title ?? ''), 'qur\'an'))
+                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                                    <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Registration Open:</span>
+                                    <strong style="color: #047857; font-weight: 800;">Until Jan 17, 2027</strong>
+                                </div>
                             @endif
                         </div>
 
