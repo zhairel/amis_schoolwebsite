@@ -792,7 +792,7 @@
         position: relative;
         background: radial-gradient(ellipse at 50% -10%, #064e3b 0%, #022c22 65%, #011913 100%);
         color: #ffffff;
-        padding: 70px 0;
+        padding: 60px 0;
         overflow: hidden;
         border-bottom: 2px solid rgba(250, 204, 21, 0.25);
         box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -838,7 +838,7 @@
     }
     .gem-showcase-grid {
         display: grid;
-        grid-template-columns: 440px 1fr;
+        grid-template-columns: 430px 1fr;
         gap: 48px;
         align-items: center;
     }
@@ -849,23 +849,21 @@
     .gem-poster-card-wrapper {
         display: block;
         text-decoration: none;
-        perspective: 1000px;
         width: 100%;
-        max-width: 440px;
+        max-width: 430px;
     }
     .gem-poster-card {
-        position: relative;
-        border-radius: 24px;
+        border-radius: 20px;
         overflow: hidden;
         background: #022c22;
-        border: 2px solid rgba(250, 204, 21, 0.4);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(16, 185, 129, 0.2);
-        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        border: 2px solid rgba(250, 204, 21, 0.35);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .gem-poster-card:hover {
-        transform: translateY(-6px) scale(1.015);
+        transform: translateY(-4px);
         border-color: #facc15;
-        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6), 0 0 40px rgba(250, 204, 21, 0.35);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(250, 204, 21, 0.25);
     }
     .gem-poster-image {
         width: 100%;
@@ -874,83 +872,23 @@
         aspect-ratio: 1 / 1;
         object-fit: cover;
     }
-    .gem-poster-glass-badge {
-        position: absolute;
-        bottom: 16px;
-        left: 16px;
-        right: 16px;
-        background: rgba(2, 44, 34, 0.88);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(250, 204, 21, 0.3);
-        padding: 8px 14px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: #facc15;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
     .gem-content-column {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 18px;
     }
-    .gem-eyebrow-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 10px;
-    }
-    .gem-live-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(220, 38, 38, 0.18);
-        border: 1px solid rgba(239, 68, 68, 0.5);
-        color: #fca5a5;
-        padding: 4px 12px;
-        border-radius: 9999px;
-        font-size: 0.74rem;
+    .gem-kicker-text {
+        color: #facc15;
+        font-size: 0.82rem;
         font-weight: 800;
-        letter-spacing: 0.8px;
-    }
-    .gem-meta-pill {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        color: #e2e8f0;
-        padding: 4px 12px;
-        border-radius: 9999px;
-        font-size: 0.74rem;
-        font-weight: 700;
-    }
-    .gem-meta-pill.hybrid {
-        background: rgba(16, 185, 129, 0.18);
-        border-color: rgba(16, 185, 129, 0.45);
-        color: #6ee7b7;
-    }
-    .gem-pulse-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #10b981;
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-        animation: gemPulseGlow 1.8s infinite;
-    }
-    .gem-pulse-dot.red {
-        background: #ef4444;
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-        animation: gemPulseRed 1.8s infinite;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
     }
     .gem-title-block {
-        margin-top: -4px;
+        margin-top: -6px;
     }
     .gem-main-heading {
-        font-size: 2.85rem;
+        font-size: 2.75rem;
         font-weight: 900;
         line-height: 1.1;
         margin: 0 0 6px 0;
@@ -962,106 +900,86 @@
     .gem-letter-m { color: #e879f9; }
     .gem-year {
         color: #facc15;
-        font-size: 2.4rem;
+        font-size: 2.3rem;
         font-weight: 800;
         margin-left: 4px;
     }
     .gem-sub-heading {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         font-weight: 700;
         color: #d1fae5;
         margin: 0 0 6px 0;
-        letter-spacing: 0.2px;
     }
     .gem-motto {
         font-size: 0.95rem;
         font-style: italic;
         color: #fde047;
         margin: 0;
-        opacity: 0.92;
+        opacity: 0.9;
     }
-    .gem-event-facts {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-top: 4px;
-    }
-    .gem-fact-item {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        padding: 12px 14px;
+    /* Clean Meta Strip */
+    .gem-meta-strip {
         display: flex;
-        align-items: center;
-        gap: 10px;
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .gem-fact-item.highlight {
-        background: rgba(239, 68, 68, 0.1);
-        border-color: rgba(239, 68, 68, 0.35);
+    .gem-meta-row {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        font-size: 0.92rem;
     }
-    .gem-fact-icon {
-        font-size: 1.4rem;
-        flex-shrink: 0;
-    }
-    .gem-fact-label {
-        display: block;
-        font-size: 0.72rem;
-        font-weight: 700;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-    }
-    .gem-fact-value {
-        display: block;
-        font-size: 0.88rem;
-        font-weight: 800;
-        color: #ffffff;
-        line-height: 1.3;
-    }
-    /* Grand Countdown Clock */
-    .gem-countdown-clock-wrapper {
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.45) 0%, rgba(6, 78, 59, 0.4) 100%);
-        border: 1.5px solid rgba(250, 204, 21, 0.35);
-        border-radius: 20px;
-        padding: 24px 28px;
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    .gem-clock-label-top {
-        font-size: 0.78rem;
-        font-weight: 800;
+    .gem-meta-label {
         color: #a7f3d0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-align: center;
-        margin-bottom: 16px;
+        font-weight: 700;
+        min-width: 90px;
+    }
+    .gem-meta-val {
+        color: #ffffff;
+        font-weight: 600;
+    }
+    .gem-meta-val.deadline {
+        color: #fca5a5;
+        font-weight: 700;
+    }
+    /* Clock Wrapper */
+    .gem-countdown-clock-wrapper {
+        background: rgba(0, 0, 0, 0.35);
+        border: 1.5px solid rgba(250, 204, 21, 0.3);
+        border-radius: 18px;
+        padding: 20px 24px;
+        width: fit-content;
+        max-width: 100%;
     }
     .gem-clock-cards-row {
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 12px;
     }
     .gem-clock-card {
         background: linear-gradient(180deg, #0f172a 0%, #022c22 100%);
         border: 1.5px solid rgba(250, 204, 21, 0.4);
-        border-radius: 16px;
-        min-width: 96px;
-        padding: 14px 10px;
+        border-radius: 14px;
+        min-width: 90px;
+        padding: 12px 10px;
         text-align: center;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
     }
     .gem-clock-digit {
         font-family: 'Outfit', sans-serif;
-        font-size: 2.85rem;
+        font-size: 2.6rem;
         font-weight: 900;
         color: #facc15;
         line-height: 1;
         letter-spacing: -1px;
         font-variant-numeric: tabular-nums;
-        text-shadow: 0 0 20px rgba(250, 204, 21, 0.35);
+        text-shadow: 0 0 16px rgba(250, 204, 21, 0.3);
     }
     .gem-clock-unit {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 800;
         color: #a7f3d0;
         letter-spacing: 1.2px;
@@ -1069,38 +987,12 @@
         text-transform: uppercase;
     }
     .gem-clock-divider {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 900;
         color: #facc15;
-        opacity: 0.7;
-        margin-top: -12px;
+        opacity: 0.65;
+        margin-top: -10px;
         animation: gemPulse 1s infinite;
-    }
-    /* Poster 32 DAYS TO GO Pill */
-    .gem-days-togo-pill-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        margin-top: 18px;
-    }
-    .gem-days-togo-line {
-        flex: 1;
-        height: 1.5px;
-        background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.5), transparent);
-    }
-    .gem-days-togo-pill {
-        background: #022c22;
-        border: 2px solid #facc15;
-        color: #ffffff;
-        font-size: 1.05rem;
-        font-weight: 900;
-        letter-spacing: 1.5px;
-        padding: 6px 24px;
-        border-radius: 9999px;
-        text-transform: uppercase;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), 0 0 15px rgba(250, 204, 21, 0.2);
-        white-space: nowrap;
     }
     /* Action Buttons */
     .gem-actions-row {
@@ -1118,34 +1010,33 @@
         color: #0f172a;
         font-size: 0.95rem;
         font-weight: 800;
-        padding: 13px 24px;
-        border-radius: 12px;
+        padding: 12px 22px;
+        border-radius: 10px;
         text-decoration: none;
-        transition: all 0.25s ease;
-        box-shadow: 0 6px 20px rgba(250, 204, 21, 0.35);
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);
     }
     .btn-gem-primary:hover {
         background: #eab308;
         color: #000;
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(250, 204, 21, 0.45);
     }
     .btn-gem-secondary {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.1);
         border: 1.5px solid rgba(255, 255, 255, 0.3);
         color: #ffffff;
         font-size: 0.92rem;
         font-weight: 700;
-        padding: 12px 20px;
-        border-radius: 12px;
+        padding: 11px 18px;
+        border-radius: 10px;
         text-decoration: none;
         transition: all 0.2s ease;
     }
     .btn-gem-secondary:hover {
-        background: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.2);
         border-color: #ffffff;
         transform: translateY(-2px);
     }
@@ -1155,7 +1046,7 @@
         font-weight: 700;
         text-decoration: underline;
         text-underline-offset: 4px;
-        padding: 10px 6px;
+        padding: 10px 4px;
         transition: color 0.2s ease;
     }
     .btn-gem-outline:hover {
@@ -1164,51 +1055,54 @@
     @media (max-width: 1024px) {
         .gem-showcase-grid {
             grid-template-columns: 1fr;
-            gap: 36px;
+            gap: 32px;
         }
         .gem-poster-column {
-            max-width: 400px;
+            max-width: 380px;
             margin: 0 auto;
         }
-        .gem-event-facts {
-            grid-template-columns: 1fr;
+        .gem-countdown-clock-wrapper {
+            width: 100%;
+        }
+        .gem-clock-cards-row {
+            justify-content: center;
         }
     }
     @media (max-width: 600px) {
         .amis-gem-showcase {
-            padding: 45px 0;
+            padding: 40px 0;
         }
         .gem-main-heading {
-            font-size: 2.1rem;
+            font-size: 2rem;
         }
         .gem-year {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
         }
         .gem-sub-heading {
             font-size: 1.05rem;
         }
+        .gem-meta-row {
+            flex-direction: column;
+            gap: 2px;
+        }
         .gem-countdown-clock-wrapper {
-            padding: 18px 14px;
+            padding: 14px 10px;
         }
         .gem-clock-cards-row {
             gap: 6px;
         }
         .gem-clock-card {
-            min-width: 68px;
+            min-width: 64px;
             padding: 10px 4px;
         }
         .gem-clock-digit {
-            font-size: 1.85rem;
+            font-size: 1.75rem;
         }
         .gem-clock-unit {
-            font-size: 0.62rem;
+            font-size: 0.6rem;
         }
         .gem-clock-divider {
-            font-size: 1.5rem;
-        }
-        .gem-days-togo-pill {
-            font-size: 0.82rem;
-            padding: 5px 16px;
+            font-size: 1.4rem;
         }
         .gem-actions-row {
             flex-direction: column;
@@ -1280,39 +1174,28 @@
     <div class="container gem-showcase-container">
         <div class="gem-showcase-grid">
             
-            <!-- Left: Official Countdown Graphic / Card Showcase -->
+            <!-- Left: Official Countdown Graphic (Unobscured full poster) -->
             <div class="gem-poster-column">
                 <a href="{{ route('announcement.show', 276) }}" class="gem-poster-card-wrapper" title="Click to view AMIS-GEM details and guidelines">
                     <div class="gem-poster-card">
                         <picture>
                             <source srcset="/images/amis-gem-countdown.webp" type="image/webp">
                             <img src="/images/amis-gem-countdown.png" 
-                                 alt="AMIS-GEM 2026 32 Days To Go Official Countdown Poster" 
+                                 alt="AMIS-GEM 2026 Official Countdown Poster" 
                                  class="gem-poster-image" 
                                  width="512" 
                                  height="512" 
                                  loading="eager">
                         </picture>
-                        <div class="gem-poster-glass-badge">
-                            <span class="gem-pulse-dot"></span>
-                            <span>Official Countdown Poster</span>
-                        </div>
                     </div>
                 </a>
             </div>
 
-            <!-- Right: Live Timer, Badges, Event Info & CTA -->
+            <!-- Right: Clean Typography & Countdown Clock -->
             <div class="gem-content-column">
                 
-                <!-- Eyebrow Meta Row -->
-                <div class="gem-eyebrow-row">
-                    <span class="gem-live-pill">
-                        <span class="gem-pulse-dot red"></span>
-                        LIVE OFFICIAL COUNTDOWN
-                    </span>
-                    <span class="gem-meta-pill">International Academic Event</span>
-                    <span class="gem-meta-pill hybrid">Hybrid Setup</span>
-                </div>
+                <!-- Category Kicker -->
+                <div class="gem-kicker-text">International Academic Competition</div>
 
                 <!-- Main Event Title -->
                 <div class="gem-title-block">
@@ -1324,34 +1207,24 @@
                     <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
                 </div>
 
-                <!-- Event Snapshot Pills -->
-                <div class="gem-event-facts">
-                    <div class="gem-fact-item">
-                        <span class="gem-fact-icon">🗓️</span>
-                        <div>
-                            <span class="gem-fact-label">Event Dates</span>
-                            <strong class="gem-fact-value">December 13–15, 2026</strong>
-                        </div>
+                <!-- Clean Event Meta Details -->
+                <div class="gem-meta-strip">
+                    <div class="gem-meta-row">
+                        <span class="gem-meta-label">Dates:</span>
+                        <span class="gem-meta-val">December 13–15, 2026</span>
                     </div>
-                    <div class="gem-fact-item highlight">
-                        <span class="gem-fact-icon">⏰</span>
-                        <div>
-                            <span class="gem-fact-label">Registration Cut-off</span>
-                            <strong class="gem-fact-value text-red">November 15, 2026</strong>
-                        </div>
+                    <div class="gem-meta-row">
+                        <span class="gem-meta-label">Modality:</span>
+                        <span class="gem-meta-val">Hybrid (AMIS Function Hall, Davao &amp; Microsoft Teams)</span>
                     </div>
-                    <div class="gem-fact-item">
-                        <span class="gem-fact-icon">📍</span>
-                        <div>
-                            <span class="gem-fact-label">Modality &amp; Venues</span>
-                            <strong class="gem-fact-value">AMIS Hall, Davao &amp; MS Teams</strong>
-                        </div>
+                    <div class="gem-meta-row">
+                        <span class="gem-meta-label">Deadline:</span>
+                        <span class="gem-meta-val deadline">November 15, 2026 (Registration Cut-off)</span>
                     </div>
                 </div>
 
-                <!-- Live Dynamic Countdown Clock Cards -->
+                <!-- Clean Live Countdown Clock -->
                 <div class="gem-countdown-clock-wrapper">
-                    <div class="gem-clock-label-top">Time Remaining Until Competition Opens</div>
                     <div class="gem-clock-cards-row" id="gemShowcaseClock" aria-live="polite">
                         
                         <!-- Days Card -->
@@ -1384,31 +1257,18 @@
                             <div class="gem-clock-unit">SECONDS</div>
                         </div>
                     </div>
-
-                    <!-- Authentic Poster "32 DAYS TO GO" Pill -->
-                    <div class="gem-days-togo-pill-container">
-                        <div class="gem-days-togo-line"></div>
-                        <div class="gem-days-togo-pill" id="gemDaysToGoBadge">
-                            32 DAYS TO GO
-                        </div>
-                        <div class="gem-days-togo-line"></div>
-                    </div>
                 </div>
 
-                <!-- Interactive Action Buttons -->
+                <!-- Clean Action Buttons -->
                 <div class="gem-actions-row">
                     <a href="https://tinyurl.com/4jeh7yr5" target="_blank" rel="noopener noreferrer" class="btn-gem-primary">
-                        <span>Pre-Register Your School &amp; Delegates</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
+                        Pre-Register Online →
                     </a>
                     <a href="https://tinyurl.com/26av23dd" target="_blank" rel="noopener noreferrer" class="btn-gem-secondary">
-                        <span>Read Guidelines &amp; Mechanics</span>
+                        Guidelines &amp; Mechanics
                     </a>
                     <a href="{{ route('announcement.show', 276) }}" class="btn-gem-outline">
-                        <span>View Announcement Details →</span>
+                        View Announcement →
                     </a>
                 </div>
 
