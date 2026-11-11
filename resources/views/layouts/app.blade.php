@@ -345,7 +345,7 @@
                         <!-- Line 1: Event Title & Dates -->
                         <div class="gem-ticker-row-top">
                             <span class="gem-ticker-pill">AMIS-GEM 2026</span>
-                            <span class="gem-ticker-title">International English and Mathematics Competition</span>
+                            <span class="gem-ticker-title">Global English and Mathematics Competition</span>
                             <span class="gem-ticker-badge-dates">Dec 13–15, 2026</span>
                         </div>
 

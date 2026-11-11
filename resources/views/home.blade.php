@@ -832,6 +832,17 @@
         background-size: 40px 40px;
         opacity: 0.6;
     }
+    .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border-width: 0 !important;
+    }
     .gem-showcase-container {
         position: relative;
         z-index: 1;
@@ -1238,7 +1249,7 @@
 
             <!-- Official Event Branding Graphic Banner -->
             <div class="gem-title-banner-wrapper">
-                <h2 class="sr-only">AMIS-GEM 2026 - International English and Mathematics Competition (December 13–15, 2026)</h2>
+                <h2 class="sr-only">AMIS-GEM 2026 - Global English and Mathematics Competition (December 13–15, 2026)</h2>
                 <div class="gem-title-banner-card">
                     <picture>
                         <source srcset="/images/amis-gem-banner.webp" type="image/webp">
