@@ -1343,7 +1343,7 @@
 
                 <!-- Official Event Branding Graphic Banner -->
                 <div class="gem-title-banner-wrapper">
-                    <h2 class="sr-only">AMIS-GEM 2026 - Global English and Mathematics Competition (December 13–15, 2026)</h2>
+                    <h2 class="sr-only">AMIS-GEM 2026 - International English and Mathematics Competition (December 13–15, 2026)</h2>
                     <div class="gem-title-banner-card">
                         <picture>
                             <source srcset="/images/amis-gem-banner.webp" type="image/webp">

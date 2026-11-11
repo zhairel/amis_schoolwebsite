@@ -139,15 +139,22 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            padding-top: 7px;
-            padding-bottom: 7px;
+            gap: 16px;
+            padding-top: 6px;
+            padding-bottom: 6px;
         }
-        .gem-ticker-left {
+        .gem-ticker-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+        .gem-ticker-row-top {
             display: flex;
             align-items: center;
-            gap: 10px;
-            white-space: nowrap;
+            gap: 8px;
+            flex-wrap: wrap;
+            line-height: 1.25;
         }
         .gem-ticker-pill {
             background: #facc15;
@@ -158,33 +165,49 @@
             padding: 2px 8px;
             border-radius: 9999px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
         .gem-ticker-title {
             font-weight: 700;
-            color: #f1f5f9;
+            color: #ffffff;
+            font-size: 0.85rem;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
         }
         .gem-ticker-badge-dates {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.14);
             color: #a7f3d0;
-            font-size: 0.74rem;
+            font-size: 0.72rem;
             font-weight: 600;
             padding: 2px 8px;
-            border-radius: 6px;
+            border-radius: 5px;
+            white-space: nowrap;
         }
-        .gem-ticker-center {
+        .gem-ticker-row-bottom {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            line-height: 1.25;
+        }
+        .gem-ticker-reg-label {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #fde047;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
         .gem-ticker-clock {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: rgba(0, 0, 0, 0.38);
+            background: rgba(0, 0, 0, 0.42);
             border: 1px solid rgba(250, 204, 21, 0.35);
-            padding: 3px 12px;
+            padding: 2px 10px;
             border-radius: 9999px;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
         .gem-ticker-digits {
             display: inline-flex;
@@ -194,47 +217,50 @@
         .gem-ticker-digits strong {
             font-weight: 800;
             color: #facc15;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             min-width: 18px;
             text-align: center;
         }
         .gem-ticker-digits small {
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             color: #a7f3d0;
             text-transform: lowercase;
         }
         .gem-ticker-sep {
             color: rgba(250, 204, 21, 0.65);
             font-weight: 800;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             animation: gemPulse 1s infinite;
         }
         .gem-ticker-badge-togo {
             background: #059669;
             color: #ffffff;
-            font-size: 0.65rem;
+            font-size: 0.64rem;
             font-weight: 800;
             padding: 1px 6px;
             border-radius: 4px;
             margin-left: 4px;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
         .gem-ticker-right {
             display: flex;
             align-items: center;
             gap: 8px;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .btn-ticker-cta {
             background: #facc15;
             color: #0f172a;
             font-weight: 800;
-            font-size: 0.75rem;
-            padding: 4px 12px;
+            font-size: 0.78rem;
+            padding: 6px 14px;
             border-radius: 6px;
             text-decoration: none;
             transition: all 0.2s ease;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            white-space: nowrap;
         }
         .btn-ticker-cta:hover {
             background: #eab308;
@@ -244,11 +270,12 @@
         .btn-ticker-info {
             color: #e2e8f0;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.76rem;
             text-decoration: underline;
             text-underline-offset: 3px;
             padding: 4px 6px;
             transition: color 0.2s;
+            white-space: nowrap;
         }
         .btn-ticker-info:hover {
             color: #ffffff;
@@ -273,20 +300,35 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.35; }
         }
-        @media (max-width: 992px) {
-            .gem-ticker-title { display: none; }
-        }
-        @media (max-width: 680px) {
+        @media (max-width: 900px) {
             .gem-ticker-container {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 6px;
-                padding-top: 5px;
-                padding-bottom: 5px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 8px;
+                padding-top: 6px;
+                padding-bottom: 6px;
             }
-            .gem-ticker-left { display: none; }
-            .gem-ticker-center { order: 1; }
-            .gem-ticker-right { order: 2; }
+            .gem-ticker-content {
+                align-items: center;
+            }
+            .gem-ticker-row-top,
+            .gem-ticker-row-bottom {
+                justify-content: center;
+            }
+            .gem-ticker-right {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 520px) {
+            .gem-ticker-badge-dates {
+                display: none;
+            }
+            .gem-ticker-title {
+                font-size: 0.78rem;
+                white-space: normal;
+                text-align: center;
+            }
         }
     </style>
 
@@ -299,23 +341,27 @@
             <!-- ⚡ AMIS-GEM 2026 OFFICIAL COUNTDOWN TICKER BAR -->
             <aside class="gem-top-ticker" id="gemTopTicker" aria-label="AMIS-GEM Competition Countdown">
                 <div class="container gem-ticker-container">
-                    <div class="gem-ticker-left">
-                        <span class="gem-ticker-pill">AMIS-GEM 2026</span>
-                        <span class="gem-ticker-title">Global English &amp; Mathematics Competition</span>
-                        <span class="gem-ticker-badge-dates">Dec 13–15, 2026</span>
-                    </div>
+                    <div class="gem-ticker-content">
+                        <!-- Line 1: Event Title & Dates -->
+                        <div class="gem-ticker-row-top">
+                            <span class="gem-ticker-pill">AMIS-GEM 2026</span>
+                            <span class="gem-ticker-title">International English and Mathematics Competition</span>
+                            <span class="gem-ticker-badge-dates">Dec 13–15, 2026</span>
+                        </div>
 
-                    <div class="gem-ticker-center">
-                        <div class="gem-ticker-clock" id="gemTickerClock" aria-live="polite">
-                            <span class="gem-ticker-label" id="tickerLabel" style="font-size: 0.78rem; font-weight: 700; color: #fca5a5; text-transform: uppercase; margin-right: 4px;">Registration Closes:</span>
-                            <span class="gem-ticker-digits"><strong id="tickerDays">09</strong><small>d</small></span>
-                            <span class="gem-ticker-sep">:</span>
-                            <span class="gem-ticker-digits"><strong id="tickerHours">00</strong><small>h</small></span>
-                            <span class="gem-ticker-sep">:</span>
-                            <span class="gem-ticker-digits"><strong id="tickerMinutes">00</strong><small>m</small></span>
-                            <span class="gem-ticker-sep">:</span>
-                            <span class="gem-ticker-digits"><strong id="tickerSeconds">00</strong><small>s</small></span>
-                            <span class="gem-ticker-badge-togo" id="tickerBadgeToGo">9 DAYS LEFT</span>
+                        <!-- Line 2: Registration Countdown -->
+                        <div class="gem-ticker-row-bottom">
+                            <span class="gem-ticker-reg-label" id="tickerRegLabel">AMIS GEM - REGISTRATION:</span>
+                            <div class="gem-ticker-clock" id="gemTickerClock" aria-live="polite">
+                                <span class="gem-ticker-digits"><strong id="tickerDays">09</strong><small>d</small></span>
+                                <span class="gem-ticker-sep">:</span>
+                                <span class="gem-ticker-digits"><strong id="tickerHours">00</strong><small>h</small></span>
+                                <span class="gem-ticker-sep">:</span>
+                                <span class="gem-ticker-digits"><strong id="tickerMinutes">00</strong><small>m</small></span>
+                                <span class="gem-ticker-sep">:</span>
+                                <span class="gem-ticker-digits"><strong id="tickerSeconds">00</strong><small>s</small></span>
+                                <span class="gem-ticker-badge-togo" id="tickerBadgeToGo">9 DAYS LEFT</span>
+                            </div>
                         </div>
                     </div>
 
@@ -1254,7 +1300,7 @@
             const pad = (n) => String(n).padStart(2, '0');
 
             // 1. Top Ticker elements (Prioritize active registration deadline)
-            const tLabel = document.getElementById('tickerLabel');
+            const tLabel = document.getElementById('tickerRegLabel') || document.getElementById('tickerLabel');
             const tDays = document.getElementById('tickerDays');
             const tHours = document.getElementById('tickerHours');
             const tMins = document.getElementById('tickerMinutes');
@@ -1263,8 +1309,8 @@
 
             const activeTickerData = !regData.isConcluded ? regData : compData;
             if (tLabel) {
-                tLabel.textContent = !regData.isConcluded ? 'Registration Closes:' : 'Event Starts:';
-                tLabel.style.color = !regData.isConcluded ? '#fca5a5' : '#fde047';
+                tLabel.textContent = !regData.isConcluded ? 'AMIS GEM - REGISTRATION:' : 'COMPETITION OPENS:';
+                tLabel.style.color = !regData.isConcluded ? '#fde047' : '#a7f3d0';
             }
             if (tDays) tDays.textContent = activeTickerData.days;
             if (tHours) tHours.textContent = pad(activeTickerData.hours);
@@ -1274,9 +1320,9 @@
                 if (activeTickerData.isConcluded) {
                     tBadge.textContent = 'CONCLUDED';
                 } else if (!regData.isConcluded) {
-                    tBadge.textContent = regData.daysToGo + ' DAYS LEFT';
+                    tBadge.textContent = regData.days + ' DAYS LEFT';
                 } else {
-                    tBadge.textContent = compData.daysToGo + ' DAYS TO GO';
+                    tBadge.textContent = compData.days + ' DAYS TO GO';
                 }
             }
 
@@ -1293,7 +1339,7 @@
             if (regMinsEl) regMinsEl.textContent = pad(regData.minutes);
             if (regSecsEl) regSecsEl.textContent = pad(regData.seconds);
             if (regBadgeTag) {
-                regBadgeTag.textContent = regData.isConcluded ? 'REGISTRATION CLOSED' : (regData.daysToGo + ' DAYS LEFT');
+                regBadgeTag.textContent = regData.isConcluded ? 'REGISTRATION CLOSED' : (regData.days + ' DAYS LEFT');
             }
 
             // (b) Competition Start Elements
@@ -1308,7 +1354,7 @@
             if (compMinsEl) compMinsEl.textContent = pad(compData.minutes);
             if (compSecsEl) compSecsEl.textContent = pad(compData.seconds);
             if (compBadgeTag) {
-                compBadgeTag.textContent = compData.isConcluded ? 'EVENT CONCLUDED' : (compData.daysToGo + ' DAYS TO GO');
+                compBadgeTag.textContent = compData.isConcluded ? 'EVENT CONCLUDED' : (compData.days + ' DAYS TO GO');
             }
 
             // (c) Backward-compatibility aliases (#gemDays, etc.)
@@ -1340,7 +1386,7 @@
             if (aMins) aMins.textContent = pad(compData.minutes);
             if (aSecs) aSecs.textContent = pad(compData.seconds);
             if (aBadge) {
-                aBadge.textContent = compData.isConcluded ? 'EVENT IN PROGRESS' : (compData.daysToGo + ' DAYS TO GO');
+                aBadge.textContent = compData.isConcluded ? 'EVENT IN PROGRESS' : (compData.days + ' DAYS TO GO');
             }
 
             // 4. Early Enrollment Countdown elements
