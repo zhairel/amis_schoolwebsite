@@ -1356,6 +1356,7 @@
                         </picture>
                     </div>
                     <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
+                    <p class="gem-countdown-callout" style="color: #fef08a; font-weight: 700; font-size: 0.95rem; margin: 10px 0 16px; line-height: 1.5; text-align: center;">The countdown is on! Don&rsquo;t miss your chance to join the AMIS-GEM Global English and Mathematics Competition 2026! Registration ends on November 20, 2026. Register now and secure your spot!</p>
                 </div>
 
                 <!-- Clean Event Meta Details -->
@@ -1545,6 +1546,11 @@
                                 <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
                                     <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Opens Dec 1 (15% Off):</span>
                                     <strong style="color: #047857; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeEnrollClock">19d 14h 22m 00s</strong>
+                                </div>
+                            @elseif(str_contains(strtolower($notice->title ?? ''), 'gem') || str_contains(strtolower($notice->title ?? ''), 'competition'))
+                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                                    <span style="font-weight: 700; color: #991b1b; text-transform: uppercase;">Registration (Nov 20):</span>
+                                    <strong style="color: #b91c1c; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeGemClock">9d 14h 00m 00s</strong>
                                 </div>
                             @endif
                         </div>

@@ -1415,6 +1415,14 @@
                     ? 'NOW OPEN' 
                     : (enrollData.days + 'd ' + pad(enrollData.hours) + 'h ' + pad(enrollData.minutes) + 'm ' + pad(enrollData.seconds) + 's');
             }
+
+            // School Notices Card AMIS-GEM Registration Strip
+            const noticeGem = document.getElementById('noticeGemClock');
+            if (noticeGem) {
+                noticeGem.textContent = regData.isConcluded 
+                    ? 'CLOSED' 
+                    : (regData.days + 'd ' + pad(regData.hours) + 'h ' + pad(regData.minutes) + 'm ' + pad(regData.seconds) + 's');
+            }
         }
 
         // Global poster switcher
