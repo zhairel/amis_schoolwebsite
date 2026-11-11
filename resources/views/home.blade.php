@@ -849,6 +849,7 @@
     }
     .gem-showcase-content {
         max-width: 820px;
+        width: 100%;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -867,11 +868,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         width: 100%;
         max-width: 760px;
+        margin: 0 auto;
     }
     .gem-title-banner-card {
+        width: 100%;
+        max-width: 760px;
+        display: block;
+        margin: 0 auto;
         border-radius: 16px;
         overflow: hidden;
         border: 2px solid rgba(250, 204, 21, 0.45);
@@ -884,8 +890,14 @@
         border-color: #facc15;
         box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.25);
     }
+    .gem-title-banner-card picture {
+        display: block;
+        width: 100%;
+        line-height: 0;
+    }
     .gem-title-banner-img {
         width: 100%;
+        max-width: 100%;
         height: auto;
         display: block;
         aspect-ratio: 1024 / 258;
@@ -1251,14 +1263,16 @@
             <div class="gem-title-banner-wrapper">
                 <h2 class="sr-only">AMIS-GEM 2026 - Global English and Mathematics Competition (December 13–15, 2026)</h2>
                 <div class="gem-title-banner-card">
-                    <picture>
-                        <source srcset="/images/amis-gem-banner.webp" type="image/webp">
-                        <img src="/images/amis-gem-banner.png" 
+                    <picture style="display: block; width: 100%;">
+                        <source srcset="{{ asset('images/amis-gem-banner.webp') }}" type="image/webp">
+                        <img src="{{ asset('images/amis-gem-banner.png') }}" 
                              alt="13-15 DEC 2026 | AMIS-GEM GLOBAL ENGLISH AND MATHEMATICS COMPETITION" 
                              class="gem-title-banner-img" 
                              width="1024" 
                              height="258" 
-                             loading="eager">
+                             loading="eager"
+                             fetchpriority="high"
+                             style="width: 100%; max-width: 100%; height: auto; display: block; aspect-ratio: 1024 / 258; object-fit: cover;">
                     </picture>
                 </div>
                 <p class="gem-motto">&ldquo;Calculate. Communicate. Lead.&rdquo;</p>
