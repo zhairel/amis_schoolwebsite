@@ -1277,6 +1277,11 @@
             <div class="hero-buttons">
                 <a href="https://aes.amis.edu.ph" class="btn btn-hero">Enroll Now</a>
             </div>
+            <!-- Early Enrollment Countdown Callout -->
+            <div class="hero-enroll-callout" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(8px); padding: 7px 18px; border-radius: 999px; border: 1px solid rgba(250, 204, 21, 0.45); font-size: 0.88rem; color: #ffffff;">
+                <span style="color: #facc15; font-weight: 800;">SY 2027–2028 Early Enrollment:</span>
+                <span>Opens in <strong style="color: #facc15; font-weight: 800; font-variant-numeric: tabular-nums;" id="heroEnrollCountdown">19d 14h 22m</strong> (Dec 1–31, 2026 &bull; 15% Off)</span>
+            </div>
         </div>
     </div>
 
@@ -1535,6 +1540,13 @@
                             <p class="notice-excerpt">
                                 {{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], ' ', $notice->content)))), 140, '...') }}
                             </p>
+
+                            @if(str_contains(strtolower($notice->title ?? ''), 'enrollment'))
+                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                                    <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Opens Dec 1 (15% Off):</span>
+                                    <strong style="color: #047857; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeEnrollClock">19d 14h 22m 00s</strong>
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Card Footer: Author & Read More Link -->

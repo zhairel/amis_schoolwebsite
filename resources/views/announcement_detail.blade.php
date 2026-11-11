@@ -1147,6 +1147,39 @@
                                 </div>
                             </div>
                         @endif
+
+                        @if(($announcement->id ?? null) == 286 || str_contains(strtolower($announcement->title ?? ''), 'early enrollment'))
+                            <div class="announcement-enrollment-countdown" style="margin-top: 16px; padding: 14px 18px; background: linear-gradient(135deg, #022c22 0%, #064e3b 100%); border-radius: 12px; border: 1.5px solid rgba(250, 204, 21, 0.45); color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
+                                <div style="display: flex; flex-direction: column; gap: 2px;">
+                                    <span style="font-weight: 800; font-size: 0.88rem; color: #facc15; text-transform: uppercase; letter-spacing: 0.8px;">Early Enrollment Countdown</span>
+                                    <span style="font-size: 0.78rem; color: #a7f3d0;">Opens December 1, 2026 &bull; 15% Early Bird Discount</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; flex-wrap: wrap;">
+                                    <div style="background: rgba(0,0,0,0.4); padding: 5px 11px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center; min-width: 48px;">
+                                        <strong id="enrollDays" style="color: #facc15; font-size: 1.25rem; font-weight: 900; line-height: 1;">19</strong>
+                                        <span style="font-size: 0.6rem; color: #a7f3d0; display: block; text-transform: uppercase; margin-top: 2px;">Days</span>
+                                    </div>
+                                    <span style="color: #facc15; font-weight: 800; font-size: 1.1rem;">:</span>
+                                    <div style="background: rgba(0,0,0,0.4); padding: 5px 11px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center; min-width: 48px;">
+                                        <strong id="enrollHours" style="color: #facc15; font-size: 1.25rem; font-weight: 900; line-height: 1;">00</strong>
+                                        <span style="font-size: 0.6rem; color: #a7f3d0; display: block; text-transform: uppercase; margin-top: 2px;">Hours</span>
+                                    </div>
+                                    <span style="color: #facc15; font-weight: 800; font-size: 1.1rem;">:</span>
+                                    <div style="background: rgba(0,0,0,0.4); padding: 5px 11px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center; min-width: 48px;">
+                                        <strong id="enrollMinutes" style="color: #facc15; font-size: 1.25rem; font-weight: 900; line-height: 1;">00</strong>
+                                        <span style="font-size: 0.6rem; color: #a7f3d0; display: block; text-transform: uppercase; margin-top: 2px;">Mins</span>
+                                    </div>
+                                    <span style="color: #facc15; font-weight: 800; font-size: 1.1rem;">:</span>
+                                    <div style="background: rgba(0,0,0,0.4); padding: 5px 11px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center; min-width: 48px;">
+                                        <strong id="enrollSeconds" style="color: #facc15; font-size: 1.25rem; font-weight: 900; line-height: 1;">00</strong>
+                                        <span style="font-size: 0.6rem; color: #a7f3d0; display: block; text-transform: uppercase; margin-top: 2px;">Secs</span>
+                                    </div>
+                                    <a href="https://aes.amis.edu.ph" target="_blank" rel="noopener noreferrer" style="background: #facc15; color: #0f172a; font-size: 0.8rem; font-weight: 800; padding: 9px 15px; border-radius: 8px; text-decoration: none; margin-left: 4px; white-space: nowrap;">
+                                        Enroll via AES &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 @endif
 

@@ -1204,6 +1204,7 @@
     <script>
     (function() {
         const REG_TARGET_ISO = '2026-11-20T23:59:59+08:00'; // End of Registration Deadline
+        const ENROLL_TARGET_ISO = '2026-12-01T00:00:00+08:00'; // Early Enrollment Starts
         const COMP_TARGET_ISO = '2026-12-13T08:00:00+08:00'; // Competition Start Opening
         const TIMEZONE = 'Asia/Manila';
 
@@ -1340,6 +1341,33 @@
             if (aSecs) aSecs.textContent = pad(compData.seconds);
             if (aBadge) {
                 aBadge.textContent = compData.isConcluded ? 'EVENT IN PROGRESS' : (compData.daysToGo + ' DAYS TO GO');
+            }
+
+            // 4. Early Enrollment Countdown elements
+            const enrollData = computeDiff(ENROLL_TARGET_ISO);
+            const eDays = document.getElementById('enrollDays');
+            const eHours = document.getElementById('enrollHours');
+            const eMins = document.getElementById('enrollMinutes');
+            const eSecs = document.getElementById('enrollSeconds');
+            if (eDays) eDays.textContent = enrollData.days;
+            if (eHours) eHours.textContent = pad(enrollData.hours);
+            if (eMins) eMins.textContent = pad(enrollData.minutes);
+            if (eSecs) eSecs.textContent = pad(enrollData.seconds);
+
+            // Homepage Hero Early Enrollment Callout
+            const heroEnroll = document.getElementById('heroEnrollCountdown');
+            if (heroEnroll) {
+                heroEnroll.textContent = enrollData.isConcluded 
+                    ? 'NOW OPEN' 
+                    : (enrollData.days + 'd ' + pad(enrollData.hours) + 'h ' + pad(enrollData.minutes) + 'm ' + pad(enrollData.seconds) + 's');
+            }
+
+            // School Notices Card Early Enrollment Strip
+            const noticeEnroll = document.getElementById('noticeEnrollClock');
+            if (noticeEnroll) {
+                noticeEnroll.textContent = enrollData.isConcluded 
+                    ? 'NOW OPEN' 
+                    : (enrollData.days + 'd ' + pad(enrollData.hours) + 'h ' + pad(enrollData.minutes) + 'm ' + pad(enrollData.seconds) + 's');
             }
         }
 
