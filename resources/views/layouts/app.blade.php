@@ -122,6 +122,172 @@
         #cc-main {
             font-family: 'Outfit', 'Inter', sans-serif !important;
         }
+
+        /* ════════════════════════════════════════════════ */
+        /*   AMIS-GEM 2026 GLOBAL TOP COUNTDOWN TICKER BAR  */
+        /* ════════════════════════════════════════════════ */
+        .gem-top-ticker {
+            background: linear-gradient(90deg, #022c22 0%, #064e3b 35%, #047857 70%, #022c22 100%);
+            color: #ffffff;
+            border-bottom: 1px solid rgba(250, 204, 21, 0.45);
+            font-size: 0.82rem;
+            position: relative;
+            z-index: 1003;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+        .gem-ticker-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+        .gem-ticker-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .gem-ticker-pill {
+            background: #facc15;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+        .gem-ticker-title {
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+        .gem-ticker-badge-dates {
+            background: rgba(255, 255, 255, 0.12);
+            color: #a7f3d0;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        .gem-ticker-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gem-ticker-clock {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.38);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            padding: 3px 12px;
+            border-radius: 9999px;
+            font-variant-numeric: tabular-nums;
+        }
+        .gem-ticker-digits {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 1px;
+        }
+        .gem-ticker-digits strong {
+            font-weight: 800;
+            color: #facc15;
+            font-size: 0.95rem;
+            min-width: 18px;
+            text-align: center;
+        }
+        .gem-ticker-digits small {
+            font-size: 0.68rem;
+            color: #a7f3d0;
+            text-transform: lowercase;
+        }
+        .gem-ticker-sep {
+            color: rgba(250, 204, 21, 0.65);
+            font-weight: 800;
+            font-size: 0.85rem;
+            animation: gemPulse 1s infinite;
+        }
+        .gem-ticker-badge-togo {
+            background: #059669;
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+            letter-spacing: 0.5px;
+        }
+        .gem-ticker-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-ticker-cta {
+            background: #facc15;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .btn-ticker-cta:hover {
+            background: #eab308;
+            color: #000;
+            transform: translateY(-1px);
+        }
+        .btn-ticker-info {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            padding: 4px 6px;
+            transition: color 0.2s;
+        }
+        .btn-ticker-info:hover {
+            color: #ffffff;
+        }
+        .btn-ticker-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .btn-ticker-close:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        @keyframes gemPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+        @media (max-width: 992px) {
+            .gem-ticker-title { display: none; }
+        }
+        @media (max-width: 680px) {
+            .gem-ticker-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .gem-ticker-left { display: none; }
+            .gem-ticker-center { order: 1; }
+            .gem-ticker-right { order: 2; }
+        }
     </style>
 
     @yield('styles')
@@ -130,6 +296,45 @@
     <div class="app">
         <!-- MODERN REDESIGNED HEADER -->
         <header class="site-header" id="siteHeader">
+            <!-- ⚡ AMIS-GEM 2026 OFFICIAL COUNTDOWN TICKER BAR -->
+            <aside class="gem-top-ticker" id="gemTopTicker" aria-label="AMIS-GEM Competition Countdown">
+                <div class="container gem-ticker-container">
+                    <div class="gem-ticker-left">
+                        <span class="gem-ticker-pill">AMIS-GEM 2026</span>
+                        <span class="gem-ticker-title">Global English &amp; Mathematics Competition</span>
+                        <span class="gem-ticker-badge-dates">Dec 13–15, 2026</span>
+                    </div>
+
+                    <div class="gem-ticker-center">
+                        <div class="gem-ticker-clock" id="gemTickerClock" aria-live="polite">
+                            <span class="gem-ticker-digits"><strong id="tickerDays">32</strong><small>d</small></span>
+                            <span class="gem-ticker-sep">:</span>
+                            <span class="gem-ticker-digits"><strong id="tickerHours">00</strong><small>h</small></span>
+                            <span class="gem-ticker-sep">:</span>
+                            <span class="gem-ticker-digits"><strong id="tickerMinutes">00</strong><small>m</small></span>
+                            <span class="gem-ticker-sep">:</span>
+                            <span class="gem-ticker-digits"><strong id="tickerSeconds">00</strong><small>s</small></span>
+                            <span class="gem-ticker-badge-togo" id="tickerBadgeToGo">TO GO</span>
+                        </div>
+                    </div>
+
+                    <div class="gem-ticker-right">
+                        <a href="https://tinyurl.com/4jeh7yr5" target="_blank" rel="noopener noreferrer" class="btn-ticker-cta">
+                            Pre-Register
+                        </a>
+                        <a href="{{ route('announcement.show', 276) }}" class="btn-ticker-info">
+                            Details
+                        </a>
+                        <button type="button" class="btn-ticker-close" id="btnDismissTicker" aria-label="Dismiss countdown banner" title="Dismiss banner">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
             <!-- 1. Sleek Utility Topbar -->
             <div class="top-utility-bar">
                 <div class="container top-utility-content">
@@ -989,6 +1194,145 @@
         document.addEventListener('DOMContentLoaded', function() {
             observer.observe(document.body, { childList: true, subtree: true });
         });
+    })();
+    </script>
+
+    <!-- ══════════════════════════════════════════════════════════════ -->
+    <!--          AMIS-GEM 2026 PRECISION COUNTDOWN ENGINE             -->
+    <!-- ══════════════════════════════════════════════════════════════ -->
+    <script>
+    (function() {
+        const TARGET_ISO = '2026-12-13T08:00:00+08:00';
+        const TIMEZONE = 'Asia/Manila';
+
+        function computeDiff() {
+            // Modern Temporal calculation if natively available (DST-safe & timezone-aware)
+            if (typeof Temporal !== 'undefined' && Temporal.Now && Temporal.PlainDate) {
+                try {
+                    const now = Temporal.Now.zonedDateTimeISO(TIMEZONE);
+                    const end = Temporal.PlainDate.from('2026-12-13')
+                        .toPlainDateTime('08:00:00')
+                        .toZonedDateTime(TIMEZONE);
+                    const diff = now.until(end, { largestUnit: 'day', smallestUnit: 'second' });
+
+                    if (diff.sign < 0) {
+                        return { isConcluded: true, days: 0, hours: 0, minutes: 0, seconds: 0, daysToGo: 0 };
+                    }
+
+                    const daysToGo = Math.max(0, Math.ceil(diff.total({ unit: 'day', relativeTo: now })));
+                    return {
+                        isConcluded: false,
+                        days: diff.days,
+                        hours: diff.hours,
+                        minutes: diff.minutes,
+                        seconds: diff.seconds,
+                        daysToGo: daysToGo
+                    };
+                } catch (e) {}
+            }
+
+            // High-precision Date arithmetic fallback
+            const targetMs = new Date(TARGET_ISO).getTime();
+            const nowMs = Date.now();
+            const diffMs = targetMs - nowMs;
+
+            if (diffMs <= 0) {
+                return { isConcluded: true, days: 0, hours: 0, minutes: 0, seconds: 0, daysToGo: 0 };
+            }
+
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+            const daysToGo = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+
+            return { isConcluded: false, days, hours, minutes, seconds, daysToGo };
+        }
+
+        function updateAllCountdowns() {
+            const data = computeDiff();
+            const pad = (n) => String(n).padStart(2, '0');
+
+            // 1. Top Ticker elements
+            const tDays = document.getElementById('tickerDays');
+            const tHours = document.getElementById('tickerHours');
+            const tMins = document.getElementById('tickerMinutes');
+            const tSecs = document.getElementById('tickerSeconds');
+            const tBadge = document.getElementById('tickerBadgeToGo');
+
+            if (tDays) tDays.textContent = data.days;
+            if (tHours) tHours.textContent = pad(data.hours);
+            if (tMins) tMins.textContent = pad(data.minutes);
+            if (tSecs) tSecs.textContent = pad(data.seconds);
+            if (tBadge) {
+                tBadge.textContent = data.isConcluded ? 'CONCLUDED' : (data.daysToGo + ' DAYS TO GO');
+            }
+
+            // 2. Homepage Showcase Section elements
+            const sDays = document.getElementById('gemDays');
+            const sHours = document.getElementById('gemHours');
+            const sMins = document.getElementById('gemMinutes');
+            const sSecs = document.getElementById('gemSeconds');
+            const sBadge = document.getElementById('gemDaysToGoBadge');
+
+            if (sDays) sDays.textContent = data.days;
+            if (sHours) sHours.textContent = pad(data.hours);
+            if (sMins) sMins.textContent = pad(data.minutes);
+            if (sSecs) sSecs.textContent = pad(data.seconds);
+            if (sBadge) {
+                if (data.isConcluded) {
+                    sBadge.textContent = 'EVENT IN PROGRESS / CONCLUDED';
+                } else if (data.daysToGo === 1) {
+                    sBadge.textContent = '1 DAY TO GO';
+                } else {
+                    sBadge.textContent = data.daysToGo + ' DAYS TO GO';
+                }
+            }
+
+            // 3. Announcement Detail Page elements
+            const aDays = document.getElementById('announcementGemDays');
+            const aHours = document.getElementById('announcementGemHours');
+            const aMins = document.getElementById('announcementGemMinutes');
+            const aSecs = document.getElementById('announcementGemSeconds');
+            const aBadge = document.getElementById('announcementGemBadge');
+
+            if (aDays) aDays.textContent = data.days;
+            if (aHours) aHours.textContent = pad(data.hours);
+            if (aMins) aMins.textContent = pad(data.minutes);
+            if (aSecs) aSecs.textContent = pad(data.seconds);
+            if (aBadge) {
+                aBadge.textContent = data.isConcluded ? 'EVENT IN PROGRESS' : (data.daysToGo + ' DAYS TO GO');
+            }
+        }
+
+        function initCountdown() {
+            updateAllCountdowns();
+            setInterval(updateAllCountdowns, 1000);
+
+            // Dismiss handler for top ticker
+            const btnDismiss = document.getElementById('btnDismissTicker');
+            const ticker = document.getElementById('gemTopTicker');
+            if (btnDismiss && ticker) {
+                try {
+                    if (sessionStorage.getItem('amis_gem_ticker_closed') === '1') {
+                        ticker.style.display = 'none';
+                    }
+                } catch (e) {}
+
+                btnDismiss.addEventListener('click', function() {
+                    ticker.style.display = 'none';
+                    try {
+                        sessionStorage.setItem('amis_gem_ticker_closed', '1');
+                    } catch (e) {}
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCountdown);
+        } else {
+            initCountdown();
+        }
     })();
     </script>
 
