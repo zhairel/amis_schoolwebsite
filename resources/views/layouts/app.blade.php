@@ -307,14 +307,15 @@
 
                     <div class="gem-ticker-center">
                         <div class="gem-ticker-clock" id="gemTickerClock" aria-live="polite">
-                            <span class="gem-ticker-digits"><strong id="tickerDays">32</strong><small>d</small></span>
+                            <span class="gem-ticker-label" id="tickerLabel" style="font-size: 0.78rem; font-weight: 700; color: #fca5a5; text-transform: uppercase; margin-right: 4px;">Registration Closes:</span>
+                            <span class="gem-ticker-digits"><strong id="tickerDays">09</strong><small>d</small></span>
                             <span class="gem-ticker-sep">:</span>
                             <span class="gem-ticker-digits"><strong id="tickerHours">00</strong><small>h</small></span>
                             <span class="gem-ticker-sep">:</span>
                             <span class="gem-ticker-digits"><strong id="tickerMinutes">00</strong><small>m</small></span>
                             <span class="gem-ticker-sep">:</span>
                             <span class="gem-ticker-digits"><strong id="tickerSeconds">00</strong><small>s</small></span>
-                            <span class="gem-ticker-badge-togo" id="tickerBadgeToGo">TO GO</span>
+                            <span class="gem-ticker-badge-togo" id="tickerBadgeToGo">9 DAYS LEFT</span>
                         </div>
                     </div>
 
@@ -1202,37 +1203,34 @@
     <!-- ══════════════════════════════════════════════════════════════ -->
     <script>
     (function() {
-        const TARGET_ISO = '2026-12-13T08:00:00+08:00';
+        const REG_TARGET_ISO = '2026-11-20T23:59:59+08:00'; // End of Registration Deadline
+        const COMP_TARGET_ISO = '2026-12-13T08:00:00+08:00'; // Competition Start Opening
         const TIMEZONE = 'Asia/Manila';
 
-        function computeDiff() {
+        function computeDiff(targetIso) {
             // Modern Temporal calculation if natively available (DST-safe & timezone-aware)
-            if (typeof Temporal !== 'undefined' && Temporal.Now && Temporal.PlainDate) {
+            if (typeof Temporal !== 'undefined' && Temporal.Now && Temporal.Instant) {
                 try {
-                    const now = Temporal.Now.zonedDateTimeISO(TIMEZONE);
-                    const end = Temporal.PlainDate.from('2026-12-13')
-                        .toPlainDateTime('08:00:00')
-                        .toZonedDateTime(TIMEZONE);
-                    const diff = now.until(end, { largestUnit: 'day', smallestUnit: 'second' });
+                    const now = Temporal.Now.instant();
+                    const target = Temporal.Instant.from(targetIso);
+                    const diffSeconds = target.since(now).total({ unit: 'second' });
 
-                    if (diff.sign < 0) {
+                    if (diffSeconds <= 0) {
                         return { isConcluded: true, days: 0, hours: 0, minutes: 0, seconds: 0, daysToGo: 0 };
                     }
 
-                    const daysToGo = Math.max(0, Math.ceil(diff.total({ unit: 'day', relativeTo: now })));
-                    return {
-                        isConcluded: false,
-                        days: diff.days,
-                        hours: diff.hours,
-                        minutes: diff.minutes,
-                        seconds: diff.seconds,
-                        daysToGo: daysToGo
-                    };
+                    const days = Math.floor(diffSeconds / 86400);
+                    const hours = Math.floor((diffSeconds % 86400) / 3600);
+                    const minutes = Math.floor((diffSeconds % 3600) / 60);
+                    const seconds = Math.floor(diffSeconds % 60);
+                    const daysToGo = Math.max(1, Math.ceil(diffSeconds / 86400));
+
+                    return { isConcluded: false, days, hours, minutes, seconds, daysToGo };
                 } catch (e) {}
             }
 
             // High-precision Date arithmetic fallback
-            const targetMs = new Date(TARGET_ISO).getTime();
+            const targetMs = new Date(targetIso).getTime();
             const nowMs = Date.now();
             const diffMs = targetMs - nowMs;
 
@@ -1250,60 +1248,132 @@
         }
 
         function updateAllCountdowns() {
-            const data = computeDiff();
+            const regData = computeDiff(REG_TARGET_ISO);
+            const compData = computeDiff(COMP_TARGET_ISO);
             const pad = (n) => String(n).padStart(2, '0');
 
-            // 1. Top Ticker elements
+            // 1. Top Ticker elements (Prioritize active registration deadline)
+            const tLabel = document.getElementById('tickerLabel');
             const tDays = document.getElementById('tickerDays');
             const tHours = document.getElementById('tickerHours');
             const tMins = document.getElementById('tickerMinutes');
             const tSecs = document.getElementById('tickerSeconds');
             const tBadge = document.getElementById('tickerBadgeToGo');
 
-            if (tDays) tDays.textContent = data.days;
-            if (tHours) tHours.textContent = pad(data.hours);
-            if (tMins) tMins.textContent = pad(data.minutes);
-            if (tSecs) tSecs.textContent = pad(data.seconds);
+            const activeTickerData = !regData.isConcluded ? regData : compData;
+            if (tLabel) {
+                tLabel.textContent = !regData.isConcluded ? 'Registration Closes:' : 'Event Starts:';
+                tLabel.style.color = !regData.isConcluded ? '#fca5a5' : '#fde047';
+            }
+            if (tDays) tDays.textContent = activeTickerData.days;
+            if (tHours) tHours.textContent = pad(activeTickerData.hours);
+            if (tMins) tMins.textContent = pad(activeTickerData.minutes);
+            if (tSecs) tSecs.textContent = pad(activeTickerData.seconds);
             if (tBadge) {
-                tBadge.textContent = data.isConcluded ? 'CONCLUDED' : (data.daysToGo + ' DAYS TO GO');
+                if (activeTickerData.isConcluded) {
+                    tBadge.textContent = 'CONCLUDED';
+                } else if (!regData.isConcluded) {
+                    tBadge.textContent = regData.daysToGo + ' DAYS LEFT';
+                } else {
+                    tBadge.textContent = compData.daysToGo + ' DAYS TO GO';
+                }
             }
 
-            // 2. Homepage Showcase Section elements
+            // 2. Dual Showcase Section Elements
+            // (a) Registration Deadline Elements
+            const regDaysEl = document.getElementById('regDays');
+            const regHoursEl = document.getElementById('regHours');
+            const regMinsEl = document.getElementById('regMinutes');
+            const regSecsEl = document.getElementById('regSeconds');
+            const regBadgeTag = document.getElementById('regBadgeTag');
+
+            if (regDaysEl) regDaysEl.textContent = regData.days;
+            if (regHoursEl) regHoursEl.textContent = pad(regData.hours);
+            if (regMinsEl) regMinsEl.textContent = pad(regData.minutes);
+            if (regSecsEl) regSecsEl.textContent = pad(regData.seconds);
+            if (regBadgeTag) {
+                regBadgeTag.textContent = regData.isConcluded ? 'REGISTRATION CLOSED' : (regData.daysToGo + ' DAYS LEFT');
+            }
+
+            // (b) Competition Start Elements
+            const compDaysEl = document.getElementById('compDays');
+            const compHoursEl = document.getElementById('compHours');
+            const compMinsEl = document.getElementById('compMinutes');
+            const compSecsEl = document.getElementById('compSeconds');
+            const compBadgeTag = document.getElementById('compBadgeTag');
+
+            if (compDaysEl) compDaysEl.textContent = compData.days;
+            if (compHoursEl) compHoursEl.textContent = pad(compData.hours);
+            if (compMinsEl) compMinsEl.textContent = pad(compData.minutes);
+            if (compSecsEl) compSecsEl.textContent = pad(compData.seconds);
+            if (compBadgeTag) {
+                compBadgeTag.textContent = compData.isConcluded ? 'EVENT CONCLUDED' : (compData.daysToGo + ' DAYS TO GO');
+            }
+
+            // (c) Backward-compatibility aliases (#gemDays, etc.)
             const sDays = document.getElementById('gemDays');
             const sHours = document.getElementById('gemHours');
             const sMins = document.getElementById('gemMinutes');
             const sSecs = document.getElementById('gemSeconds');
-            const sBadge = document.getElementById('gemDaysToGoBadge');
-
-            if (sDays) sDays.textContent = data.days;
-            if (sHours) sHours.textContent = pad(data.hours);
-            if (sMins) sMins.textContent = pad(data.minutes);
-            if (sSecs) sSecs.textContent = pad(data.seconds);
-            if (sBadge) {
-                if (data.isConcluded) {
-                    sBadge.textContent = 'EVENT IN PROGRESS / CONCLUDED';
-                } else if (data.daysToGo === 1) {
-                    sBadge.textContent = '1 DAY TO GO';
-                } else {
-                    sBadge.textContent = data.daysToGo + ' DAYS TO GO';
-                }
-            }
+            if (sDays) sDays.textContent = compData.days;
+            if (sHours) sHours.textContent = pad(compData.hours);
+            if (sMins) sMins.textContent = pad(compData.minutes);
+            if (sSecs) sSecs.textContent = pad(compData.seconds);
 
             // 3. Announcement Detail Page elements
+            const aRegDays = document.getElementById('announcementRegDays');
+            const aRegHours = document.getElementById('announcementRegHours');
+            const aRegMins = document.getElementById('announcementRegMinutes');
+            if (aRegDays) aRegDays.textContent = regData.days;
+            if (aRegHours) aRegHours.textContent = pad(regData.hours);
+            if (aRegMins) aRegMins.textContent = pad(regData.minutes);
+
             const aDays = document.getElementById('announcementGemDays');
             const aHours = document.getElementById('announcementGemHours');
             const aMins = document.getElementById('announcementGemMinutes');
             const aSecs = document.getElementById('announcementGemSeconds');
             const aBadge = document.getElementById('announcementGemBadge');
 
-            if (aDays) aDays.textContent = data.days;
-            if (aHours) aHours.textContent = pad(data.hours);
-            if (aMins) aMins.textContent = pad(data.minutes);
-            if (aSecs) aSecs.textContent = pad(data.seconds);
+            if (aDays) aDays.textContent = compData.days;
+            if (aHours) aHours.textContent = pad(compData.hours);
+            if (aMins) aMins.textContent = pad(compData.minutes);
+            if (aSecs) aSecs.textContent = pad(compData.seconds);
             if (aBadge) {
-                aBadge.textContent = data.isConcluded ? 'EVENT IN PROGRESS' : (data.daysToGo + ' DAYS TO GO');
+                aBadge.textContent = compData.isConcluded ? 'EVENT IN PROGRESS' : (compData.daysToGo + ' DAYS TO GO');
             }
         }
+
+        // Global poster switcher
+        window.switchGemPoster = function(type) {
+            const webpEl = document.getElementById('gemPosterWebp');
+            const imgEl = document.getElementById('gemPosterImg');
+            const btnReg = document.getElementById('btnPosterReg');
+            const btnComp = document.getElementById('btnPosterComp');
+            const panelReg = document.querySelector('.gem-clock-panel.panel-reg');
+            const panelComp = document.querySelector('.gem-clock-panel.panel-comp');
+
+            if (type === 'reg') {
+                if (webpEl) webpEl.srcset = '/images/amis-gem-reg-countdown.webp';
+                if (imgEl) {
+                    imgEl.src = '/images/amis-gem-reg-countdown.jpg';
+                    imgEl.alt = 'AMIS-GEM 2026 End of Registration Countdown Poster (Nov 20)';
+                }
+                if (btnReg) btnReg.classList.add('active');
+                if (btnComp) btnComp.classList.remove('active');
+                if (panelReg) panelReg.classList.add('active');
+                if (panelComp) panelComp.classList.remove('active');
+            } else {
+                if (webpEl) webpEl.srcset = '/images/amis-gem-countdown.webp';
+                if (imgEl) {
+                    imgEl.src = '/images/amis-gem-countdown.png';
+                    imgEl.alt = 'AMIS-GEM 2026 Official Countdown Poster (Dec 13-15)';
+                }
+                if (btnReg) btnReg.classList.remove('active');
+                if (btnComp) btnComp.classList.add('active');
+                if (panelReg) panelReg.classList.remove('active');
+                if (panelComp) panelComp.classList.add('active');
+            }
+        };
 
         function initCountdown() {
             updateAllCountdowns();

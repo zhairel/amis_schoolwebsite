@@ -1102,32 +1102,48 @@
                             @endif
                         </div>
                         @if(($announcement->id ?? null) == 276 || str_contains(strtolower($announcement->title ?? ''), 'gem'))
-                            <div class="announcement-gem-countdown" style="margin-top: 16px; padding: 14px 18px; background: linear-gradient(135deg, #022c22 0%, #064e3b 100%); border-radius: 12px; border: 1px solid rgba(250, 204, 21, 0.35); color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                            <div class="announcement-gem-countdown" style="margin-top: 16px; padding: 14px 18px; background: linear-gradient(135deg, #022c22 0%, #064e3b 100%); border-radius: 12px; border: 1px solid rgba(250, 204, 21, 0.35); color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);"></span>
-                                    <span style="font-weight: 800; font-size: 0.85rem; color: #facc15; text-transform: uppercase; letter-spacing: 0.5px;">Live Competition Countdown</span>
+                                    <span style="font-weight: 800; font-size: 0.85rem; color: #facc15; text-transform: uppercase; letter-spacing: 0.5px;">AMIS-GEM Countdowns</span>
                                 </div>
-                                <div style="display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums;">
-                                    <div style="background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.3); text-align: center;">
-                                        <strong id="announcementGemDays" style="color: #facc15; font-size: 1.15rem; font-weight: 800;">32</strong>
-                                        <span style="font-size: 0.65rem; color: #a7f3d0; display: block; text-transform: uppercase;">Days</span>
+                                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                                    <!-- Registration Countdown -->
+                                    <div style="display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums;">
+                                        <span style="font-size: 0.75rem; font-weight: 700; color: #fca5a5; text-transform: uppercase;">Registration (Nov 20):</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.4); text-align: center;">
+                                            <strong id="announcementRegDays" style="color: #ffffff; font-size: 1.05rem; font-weight: 800;">09</strong>
+                                            <span style="font-size: 0.58rem; color: #fca5a5; display: block; text-transform: uppercase;">d</span>
+                                        </div>
+                                        <span style="color: #fca5a5; font-weight: 800;">:</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.4); text-align: center;">
+                                            <strong id="announcementRegHours" style="color: #ffffff; font-size: 1.05rem; font-weight: 800;">00</strong>
+                                            <span style="font-size: 0.58rem; color: #fca5a5; display: block; text-transform: uppercase;">h</span>
+                                        </div>
+                                        <span style="color: #fca5a5; font-weight: 800;">:</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.4); text-align: center;">
+                                            <strong id="announcementRegMinutes" style="color: #ffffff; font-size: 1.05rem; font-weight: 800;">00</strong>
+                                            <span style="font-size: 0.58rem; color: #fca5a5; display: block; text-transform: uppercase;">m</span>
+                                        </div>
                                     </div>
-                                    <span style="color: #facc15; font-weight: 800;">:</span>
-                                    <div style="background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.3); text-align: center;">
-                                        <strong id="announcementGemHours" style="color: #facc15; font-size: 1.15rem; font-weight: 800;">00</strong>
-                                        <span style="font-size: 0.65rem; color: #a7f3d0; display: block; text-transform: uppercase;">Hours</span>
+
+                                    <!-- Event Countdown -->
+                                    <div style="display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums;">
+                                        <span style="font-size: 0.75rem; font-weight: 700; color: #fde047; text-transform: uppercase;">Event (Dec 13):</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center;">
+                                            <strong id="announcementGemDays" style="color: #facc15; font-size: 1.05rem; font-weight: 800;">32</strong>
+                                            <span style="font-size: 0.58rem; color: #a7f3d0; display: block; text-transform: uppercase;">d</span>
+                                        </div>
+                                        <span style="color: #facc15; font-weight: 800;">:</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center;">
+                                            <strong id="announcementGemHours" style="color: #facc15; font-size: 1.05rem; font-weight: 800;">00</strong>
+                                            <span style="font-size: 0.58rem; color: #a7f3d0; display: block; text-transform: uppercase;">h</span>
+                                        </div>
+                                        <span style="color: #facc15; font-weight: 800;">:</span>
+                                        <div style="background: rgba(0,0,0,0.35); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(250, 204, 21, 0.35); text-align: center;">
+                                            <strong id="announcementGemMinutes" style="color: #facc15; font-size: 1.05rem; font-weight: 800;">00</strong>
+                                            <span style="font-size: 0.58rem; color: #a7f3d0; display: block; text-transform: uppercase;">m</span>
+                                        </div>
                                     </div>
-                                    <span style="color: #facc15; font-weight: 800;">:</span>
-                                    <div style="background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.3); text-align: center;">
-                                        <strong id="announcementGemMinutes" style="color: #facc15; font-size: 1.15rem; font-weight: 800;">00</strong>
-                                        <span style="font-size: 0.65rem; color: #a7f3d0; display: block; text-transform: uppercase;">Mins</span>
-                                    </div>
-                                    <span style="color: #facc15; font-weight: 800;">:</span>
-                                    <div style="background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(250, 204, 21, 0.3); text-align: center;">
-                                        <strong id="announcementGemSeconds" style="color: #facc15; font-size: 1.15rem; font-weight: 800;">00</strong>
-                                        <span style="font-size: 0.65rem; color: #a7f3d0; display: block; text-transform: uppercase;">Secs</span>
-                                    </div>
-                                    <span id="announcementGemBadge" style="background: #059669; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; white-space: nowrap;">32 DAYS TO GO</span>
                                 </div>
                             </div>
                         @endif
