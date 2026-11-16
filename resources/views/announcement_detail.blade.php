@@ -91,10 +91,12 @@
     // Process content for authentic news / balita typography
     $processedContent = $announcement->content ?? '';
 
-    // If content has no <p> tags, convert line breaks into clean paragraphs
-    if (!str_contains($processedContent, '<p>')) {
-        $paragraphs = array_filter(array_map('trim', explode("\n", $processedContent)));
-        $processedContent = '<p>' . implode('</p><p>', $paragraphs) . '</p>';
+    // If content has no HTML block elements, convert double line breaks into clean paragraphs
+    if (!preg_match('/<(?:p|div|section|article|table|ul|ol|h[1-6]|picture|img)[\s>]/i', $processedContent)) {
+        $paragraphs = array_filter(array_map('trim', preg_split('/\r?\n\s*\r?\n/', $processedContent)));
+        if (!empty($paragraphs)) {
+            $processedContent = '<p>' . implode('</p><p>', array_map('nl2br', $paragraphs)) . '</p>';
+        }
     }
 
     // Format Islamic Salutation Greeting with traditional Amiri typography
