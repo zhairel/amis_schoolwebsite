@@ -330,6 +330,139 @@
                 text-align: center;
             }
         }
+
+        /* ════════════════════════════════════════════════ */
+        /*   MODERN EXPANDED NAVBAR DROPDOWN UI/UX          */
+        /* ════════════════════════════════════════════════ */
+        .nav-dropdown {
+            position: relative;
+        }
+        .nav-dropdown-card {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 390px;
+            max-width: 440px;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 24px 50px -12px rgba(15, 23, 42, 0.16), 0 4px 16px rgba(0, 0, 0, 0.04);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 1050;
+        }
+        .nav-dropdown:hover .nav-dropdown-card,
+        .nav-dropdown:focus-within .nav-dropdown-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-arrow {
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-left: 1px solid rgba(226, 232, 240, 0.95);
+            border-top: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 2px;
+        }
+        .dropdown-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+            position: relative;
+        }
+        .dropdown-item:hover {
+            background: #f0fdf4;
+            border-color: #dcfce7;
+            transform: translateX(4px);
+        }
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #f0fdf4;
+            border: 1px solid #d1fae5;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.22s ease;
+        }
+        .dropdown-item:hover .item-icon {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: #ffffff;
+            border-color: #059669;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.28);
+            transform: scale(1.06);
+        }
+        .item-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            transition: transform 0.22s ease;
+        }
+        .dropdown-item:hover .item-icon svg {
+            stroke: #ffffff;
+            transform: scale(1.05);
+        }
+        .item-text {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .item-title {
+            font-weight: 700;
+            font-size: 0.96rem;
+            color: #0f172a;
+            line-height: 1.3;
+            transition: color 0.18s ease;
+        }
+        .dropdown-item:hover .item-title {
+            color: #059669;
+        }
+        .item-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.35;
+            margin-top: 2px;
+            transition: color 0.18s ease;
+        }
+        .dropdown-item:hover .item-desc {
+            color: #334155;
+        }
+        .item-arrow {
+            width: 16px;
+            height: 16px;
+            color: #059669;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+        }
+        .dropdown-item:hover .item-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 
     @yield('styles')
@@ -450,53 +583,74 @@
                                     <div class="dropdown-arrow"></div>
                                     <div class="dropdown-inner">
                                         <a href="{{ route('about.history') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 2v20"/><path d="M14 7h4"/><path d="M14 11h4"/><path d="M14 15h2"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">School History</span>
                                                 <span class="item-desc">Founding roots & development</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.philosophy') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="2"/></svg>
+                                            </div>
                                             <div class="item-text">
-                                                <span class="item-title">Philosophy, Vision & Mission</span>
+                                                <span class="item-title">Philosophy, Vision &amp; Mission</span>
                                                 <span class="item-desc">Core Islamic education values</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.logo') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                            </div>
                                             <div class="item-text">
-                                                <span class="item-title">AMIS Emblem & Seal</span>
+                                                <span class="item-title">AMIS Emblem &amp; Seal</span>
                                                 <span class="item-desc">Symbolism & official crest</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.why') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Why Islamic School?</span>
                                                 <span class="item-desc">Integrated Dunya & Akhira learning</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.certifications') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
-                                            <div class="item-text">
-                                                <span class="item-title">Certifications & Accreditations</span>
-                                                <span class="item-desc">DepEd recognition & government permits</span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
                                             </div>
+                                            <div class="item-text">
+                                                <span class="item-title">Certifications &amp; Accreditations</span>
+                                                <span class="item-desc">DepEd recognition &amp; PEAC ESC status</span>
+                                            </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.location') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Campus Location</span>
                                                 <span class="item-desc">Ma-a, Davao City campus map</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('about.global-community') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Global AMIS Community</span>
-                                                <span class="item-desc">Worldwide students & alumni</span>
+                                                <span class="item-desc">Worldwide students &amp; alumni</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -514,18 +668,24 @@
                                     <div class="dropdown-arrow"></div>
                                     <div class="dropdown-inner">
                                         <a href="{{ route('academics.basic-education') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Basic Education</span>
-                                                <span class="item-desc">Kindergarten to Junior & Senior High</span>
+                                                <span class="item-desc">Kindergarten to Junior &amp; Senior High</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('academics.calendar') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Calendar S.Y. 2026-2027</span>
-                                                <span class="item-desc">Academic terms & event schedules</span>
+                                                <span class="item-desc">Academic terms &amp; event schedules</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -543,18 +703,24 @@
                                     <div class="dropdown-arrow"></div>
                                     <div class="dropdown-inner">
                                         <a href="{{ route('isal.halaqah') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Halaqah Online</span>
-                                                <span class="item-desc">Quranic recitation & Tajweed program</span>
+                                                <span class="item-desc">Quranic recitation &amp; Tajweed program</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                         <a href="{{ route('isal.halaqah-parents') }}" class="dropdown-item">
-                                            <span class="item-bullet"></span>
+                                            <div class="item-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                            </div>
                                             <div class="item-text">
                                                 <span class="item-title">Halaqah Parents</span>
                                                 <span class="item-desc">Islamic studies session for guardians</span>
                                             </div>
+                                            <svg class="item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                                         </a>
                                     </div>
                                 </div>
