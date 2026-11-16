@@ -203,6 +203,159 @@
         font-weight: 600;
         color: white;
     }
+    .accred-header-wrap {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+    .accred-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+    .accred-pill.active-pill {
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1.5px solid #a7f3d0;
+    }
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #059669;
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
+        animation: pulseGreen 2s infinite;
+    }
+    @keyframes pulseGreen {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 8px rgba(5, 150, 105, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
+        }
+    }
+    .accred-lead {
+        max-width: 820px;
+        margin: 0 auto 24px;
+        text-align: center;
+        color: #475569;
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+    .peac-meta-card {
+        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1.5px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 24px;
+        margin: 0 auto 36px;
+        max-width: 960px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .peac-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+    .peac-meta-item {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: left;
+    }
+    .peac-meta-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        font-weight: 700;
+        color: #64748b;
+    }
+    .peac-meta-val {
+        font-size: 0.98rem;
+        font-weight: 800;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .peac-meta-val.text-success {
+        color: #059669;
+    }
+    .peac-meta-val.code-val {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        letter-spacing: 0.5px;
+        color: #991b1b;
+        background: #fef2f2;
+        padding: 3px 8px;
+        border-radius: 6px;
+        border: 1px solid #fee2e2;
+        font-size: 0.92rem;
+    }
+    .peac-school-ids {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px 24px;
+        font-size: 0.88rem;
+        color: #334155;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+        text-align: center;
+    }
+    .accred-card-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .accred-card-header {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        text-align: left;
+    }
+    .card-badge {
+        font-weight: 800;
+        font-size: 0.98rem;
+        color: #0f172a;
+    }
+    .card-sub {
+        font-size: 0.82rem;
+        color: #64748b;
+    }
+    .zoom-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 14px;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #475569;
+        transition: all 0.2s ease;
+    }
+    .accred-img-card:hover .zoom-hint {
+        background: #ecfdf5;
+        color: #065f46;
+    }
     @media (max-width: 768px) {
         .page-title { font-size: 2rem; }
         .page-subtitle { font-size: 1rem; }
@@ -210,6 +363,8 @@
         .accred-title { font-size: 1.5rem; }
         .accred-images-grid { grid-template-columns: 1fr; }
         .accred-badges { grid-template-columns: 1fr 1fr; }
+        .peac-meta-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+        .peac-school-ids { flex-direction: column; gap: 6px; }
         .zoom-close { top: 10px; right: 10px; }
         .zoom-modal-content { max-width: 95vw; }
     }
@@ -243,15 +398,98 @@
                     <div class="accred-images-grid single">
                         <div class="accred-img-card large zoomable" data-image="/accre/QAHE_cert.png">
                             <img src="/accre/QAHE_cert.png" alt="QAHE Full Accreditation Certificate" loading="lazy" />
+                            <div class="zoom-hint">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                <span>Click to enlarge certificate</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="accred-section">
-                    <h2 class="accred-title">DepEd &amp; PEAC - Private Education Assistance Committee</h2>
-                    <div class="accred-images-grid single">
-                        <div class="accred-img-card large zoomable" data-image="/accre/PEAC_cert.png">
-                            <img src="/accre/PEAC_cert.png" alt="DepEd &amp; PEAC ESC Certified Status Certificate" loading="lazy" />
+                    <div class="accred-header-wrap">
+                        <span class="accred-pill active-pill">
+                            <span class="pulse-dot"></span>
+                            ACTIVE CERTIFICATION
+                        </span>
+                        <h2 class="accred-title">DepEd &amp; PEAC - Private Education Assistance Committee</h2>
+                        <p class="accred-lead">
+                            Al Munawwara Islamic School has satisfactorily met the official standards and requirements for the Junior High School Program under the Educational Service Contracting (ESC) of the Department of Education (DepEd) through the Private Education Assistance Committee (PEAC).
+                        </p>
+                    </div>
+
+                    <!-- Official Verification Summary Card -->
+                    <div class="peac-meta-card">
+                        <div class="peac-meta-grid">
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Certification Status</span>
+                                <span class="peac-meta-val text-success">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Full Compliance
+                                </span>
+                            </div>
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Certification Type</span>
+                                <span class="peac-meta-val">Cert-Revisit</span>
+                            </div>
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Instrument</span>
+                                <span class="peac-meta-val">2018 CAI</span>
+                            </div>
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Date Certified</span>
+                                <span class="peac-meta-val">January 7, 2026</span>
+                            </div>
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Valid Until</span>
+                                <span class="peac-meta-val" style="color: #047857;">May 31, 2030</span>
+                            </div>
+                            <div class="peac-meta-item">
+                                <span class="peac-meta-label">Verification Code</span>
+                                <span class="peac-meta-val code-val">PCC-2026-0RNELJVG</span>
+                            </div>
+                        </div>
+
+                        <div class="peac-school-ids">
+                            <span><strong>School:</strong> Al Munawwara Islamic School</span>
+                            <span><strong>DepEd ID:</strong> 466150</span>
+                            <span><strong>ESC ID:</strong> 1104046</span>
+                            <span><strong>DepEd Region:</strong> Region 11 &bull; Davao City</span>
+                            <span><strong>Address:</strong> Don Julian Rodriguez Avenue Sr., Ma-a, Davao City</span>
+                        </div>
+                    </div>
+
+                    <!-- Images Grid: PEACMark Online Verification + Physical Certificate -->
+                    <div class="accred-images-grid">
+                        <div class="accred-card-container">
+                            <div class="accred-card-header">
+                                <span class="card-badge">Official PEACMark Online Verification</span>
+                                <span class="card-sub">Digital verification certificate officially verified by PEAC</span>
+                            </div>
+                            <div class="accred-img-card zoomable" data-image="/accre/PEAC_verification.png">
+                                <picture>
+                                    <source srcset="/accre/PEAC_verification.webp" type="image/webp">
+                                    <img src="/accre/PEAC_verification.png" alt="Official PEACMark Online Certification Verification - Al Munawwara Islamic School" loading="lazy" />
+                                </picture>
+                                <div class="zoom-hint">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                    <span>Click to enlarge verification card</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accred-card-container">
+                            <div class="accred-card-header">
+                                <span class="card-badge">DepEd &amp; PEAC Certificate of Certified Status</span>
+                                <span class="card-sub">Conferred by Private Education Assistance Committee</span>
+                            </div>
+                            <div class="accred-img-card zoomable" data-image="/accre/PEAC_cert.png">
+                                <img src="/accre/PEAC_cert.png" alt="DepEd &amp; PEAC ESC Certified Status Certificate - Al Munawwara Islamic School" loading="lazy" />
+                                <div class="zoom-hint">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                    <span>Click to enlarge certificate</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,6 +499,10 @@
                     <div class="accred-images-grid single">
                         <div class="accred-img-card large zoomable" data-image="/accre/ACTD_cert.jpg">
                             <img src="/accre/ACTD_cert.jpg" alt="ACTD Certificate" loading="lazy" />
+                            <div class="zoom-hint">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                <span>Click to enlarge certificate</span>
+                            </div>
                         </div>
                     </div>
                 </div>

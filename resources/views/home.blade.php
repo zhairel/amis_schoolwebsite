@@ -1194,6 +1194,118 @@
             text-align: center;
         }
     }
+
+    /* Home Accreditations & Recognitions Showcase */
+    .home-accred-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        margin-top: 20px;
+    }
+    .home-accred-card {
+        background: #ffffff;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 30px 26px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .home-accred-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        border-color: #cbd5e1;
+    }
+    .home-accred-card.featured {
+        border-color: #bbf7d0;
+        background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+        box-shadow: 0 4px 16px rgba(5, 150, 105, 0.06);
+    }
+    .home-accred-card.featured:hover {
+        border-color: #059669;
+        box-shadow: 0 14px 32px rgba(5, 150, 105, 0.12);
+    }
+    .home-accred-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 999px;
+        align-self: flex-start;
+        margin-bottom: 16px;
+    }
+    .home-accred-badge.active-tag {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+    }
+    .home-accred-badge.global-tag {
+        background: #e0e7ff;
+        color: #3730a3;
+        border: 1px solid #c7d2fe;
+    }
+    .home-accred-badge.us-tag {
+        background: #f1f5f9;
+        color: #334155;
+        border: 1px solid #cbd5e1;
+    }
+    .active-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #16a34a;
+        box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+    }
+    .home-accred-icon {
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .home-accred-card h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 10px;
+        line-height: 1.35;
+    }
+    .home-accred-card p {
+        color: #64748b;
+        font-size: 0.94rem;
+        line-height: 1.6;
+        margin-bottom: 18px;
+        flex-grow: 1;
+    }
+    .home-accred-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 0.82rem;
+        color: #475569;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid #e2e8f0;
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 18px;
+    }
+    .home-accred-link {
+        color: #059669;
+        font-weight: 700;
+        font-size: 0.92rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.2s, transform 0.2s;
+    }
+    .home-accred-link:hover {
+        color: #047857;
+        transform: translateX(3px);
+    }
 </style>
 @endsection
 
@@ -1571,6 +1683,80 @@
                     <p>Check back soon for updates from AMIS</p>
                 </div>
             @endif
+        </div>
+    </div>
+</section>
+
+<!-- ACCREDITATIONS & RECOGNITIONS SHOWCASE -->
+<section class="section school-accreditations" style="background: #ffffff; padding: 70px 0; border-top: 1px solid #e2e8f0;">
+    <div class="container">
+        <div style="text-align: center; max-width: 760px; margin: 0 auto 40px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #059669; padding: 5px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border: 1px solid #a7f3d0;">
+                    <span style="display: inline-block; width: 7px; height: 7px; background: #059669; border-radius: 50%; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);"></span>
+                    National &amp; International Recognition
+                </span>
+            </div>
+            <h2 class="section-title" style="margin-bottom: 10px; font-size: 2.25rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">Accreditations &amp; Certified Status</h2>
+            <p class="section-subtitle" style="color: #64748b; font-size: 1.02rem; margin: 0; line-height: 1.6;">Adhering to rigorous educational standards verified by the Department of Education, PEAC, and international accrediting bodies</p>
+        </div>
+
+        <div class="home-accred-grid">
+            <!-- 1. DepEd & PEAC Card -->
+            <div class="home-accred-card featured">
+                <div class="home-accred-badge active-tag">
+                    <span class="active-dot"></span>
+                    ACTIVE &bull; FULL COMPLIANCE
+                </div>
+                <div class="home-accred-icon" style="color: #b91c1c;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>DepEd &amp; PEAC Certified Status</h3>
+                <p>Junior High School Program officially certified under the Educational Service Contracting (ESC) system with Full Compliance.</p>
+                <div class="home-accred-meta">
+                    <span><strong>DepEd ID:</strong> 466150</span>
+                    <span><strong>ESC ID:</strong> 1104046</span>
+                    <span><strong>PEAC Verification Code:</strong> PCC-2026-0RNELJVG</span>
+                    <span><strong>Valid Until:</strong> May 31, 2030</span>
+                </div>
+                <a href="{{ route('about.certifications') }}" class="home-accred-link">View Verification &amp; Certificate &rarr;</a>
+            </div>
+
+            <!-- 2. QAHE Card -->
+            <div class="home-accred-card">
+                <div class="home-accred-badge global-tag">INTERNATIONAL ACCREDITATION</div>
+                <div class="home-accred-icon" style="color: #059669;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></svg>
+                </div>
+                <h3>QAHE International Accreditation</h3>
+                <p>Full educational accreditation by the International Association for Quality Assurance in Pre-Tertiary &amp; Higher Education.</p>
+                <div class="home-accred-meta">
+                    <span><strong>Scope:</strong> Pre-Tertiary &amp; Basic Education</span>
+                    <span><strong>Status:</strong> Fully Accredited Institution</span>
+                </div>
+                <a href="{{ route('about.certifications') }}" class="home-accred-link">View QAHE Certificate &rarr;</a>
+            </div>
+
+            <!-- 3. ACTD Card -->
+            <div class="home-accred-card">
+                <div class="home-accred-badge us-tag">UNITED STATES ACCREDITATION</div>
+                <div class="home-accred-icon" style="color: #2563eb;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </div>
+                <h3>ACTD USA Certified</h3>
+                <p>Accredited by the Accrediting Council for Teacher Development (USA) for instructional excellence and faculty training.</p>
+                <div class="home-accred-meta">
+                    <span><strong>Council:</strong> ACTD United States</span>
+                    <span><strong>Focus:</strong> Teacher Development &amp; Pedagogy</span>
+                </div>
+                <a href="{{ route('about.certifications') }}" class="home-accred-link">View ACTD Certificate &rarr;</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 36px;">
+            <a href="{{ route('about.certifications') }}" class="btn-hero" style="background: #059669; color: #ffffff; border-color: #059669; padding: 12px 32px; font-size: 0.95rem; font-weight: 700; border-radius: 8px;">
+                View All Official Certifications &amp; Verification Cards &rarr;
+            </a>
         </div>
     </div>
 </section>
