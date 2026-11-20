@@ -34,7 +34,7 @@ $notice->content = '<p class="salutation-islamic" style="display: inline-flex; a
         '<a href="https://aes.amis.edu.ph" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #facc15; color: #0f172a; padding: 12px 24px; border-radius: 10px; font-weight: 800; font-size: 0.95rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">' .
             '<span>Enroll Online via AES &rarr;</span>' .
         '</a>' .
-        '<a href="tel:+639272991833" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); color: white; border: 1.5px solid rgba(255, 255, 255, 0.4); padding: 11px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none;">' .
+        '<a href="tel:+639454185438" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); color: white; border: 1.5px solid rgba(255, 255, 255, 0.4); padding: 11px 22px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none;">' .
             '<span>Inquire via Registrar</span>' .
         '</a>' .
     '</div>' .

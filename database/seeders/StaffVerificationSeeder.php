@@ -17,7 +17,7 @@ class StaffVerificationSeeder extends Seeder
                 'position' => 'Director',
                 'department' => 'Executive Administration',
                 'official_email' => 'almunawwaraislamicschool@gmail.com',
-                'phone_number' => '+63927-299-1833',
+                'phone_number' => '+63945-418-5438',
                 'office_address' => 'Don Julian Rodriguez Sr. Avenue, Ma-A, Davao City, 8,000, Philippines',
                 'badge_title' => 'Verified AMIS Official',
                 'official_website' => 'https://amis.edu.ph',

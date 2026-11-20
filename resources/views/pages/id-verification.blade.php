@@ -773,7 +773,7 @@
                 Please notify the registrar's office to update your official records:
                 <ul class="list-disc list-inside mt-2 space-y-1.5 font-bold">
                     <li>Email: <a href="mailto:registrar@amis.edu.ph" class="underline">registrar@amis.edu.ph</a></li>
-                    <li>SMS/Call: +63 927 299 1833</li>
+                    <li>SMS/Call: <a href="tel:+639454185438" class="underline">+63 945 418 5438</a></li>
                     <li>Provide Student ID & PSA birth cert copy</li>
                 </ul>
             </div>

@@ -519,11 +519,11 @@
             <div class="top-utility-bar">
                 <div class="container top-utility-content">
                     <div class="utility-left">
-                        <a href="tel:+639272991833" class="utility-item">
+                        <a href="tel:+639454185438" class="utility-item">
                             <svg class="utility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                             </svg>
-                            <span>+63 927 299 1833</span>
+                            <span>+63 945 418 5438</span>
                         </a>
                         <span class="utility-divider"></span>
                         <a href="mailto:inquiries@amis.edu.ph" class="utility-item">
@@ -855,7 +855,7 @@
                 <div class="drawer-footer">
                     <div class="drawer-contact-row">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                        <a href="tel:+639272991833">+63 927 299 1833</a>
+                        <a href="tel:+639454185438">+63 945 418 5438</a>
                     </div>
                     <div class="drawer-contact-row">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -900,6 +900,7 @@
                     <div class="footer-section">
                         <h4>Contact Info</h4>
                         <ul>
+                            <li>Phone: <a href="tel:+639454185438" style="color: inherit; text-decoration: none;">+63 945 418 5438</a></li>
                             <li>Email: inquiries@amis.edu.ph</li>
                             <li>Address: Don Julian Rodriguez Avenue, Ma-a, Davao City, Philippines, 8000</li>
                         </ul>

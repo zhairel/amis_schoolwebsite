@@ -287,7 +287,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>Phone</h3>
-                            <p>+63 927 299 1833</p>
+                            <p><a href="tel:+639454185438" style="color: inherit; text-decoration: none;">+63 945 418 5438</a></p>
                         </div>
                     </div>
 

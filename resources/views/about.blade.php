@@ -334,7 +334,7 @@
                     </div>
                     <div>
                         <h3>Contact Details</h3>
-                        <p>Phone: +63 927 299 1833<br>
+                        <p>Phone: <a href="tel:+639454185438" style="color: inherit; text-decoration: none;">+63 945 418 5438</a><br>
                         Email: inquiries@amis.edu.ph</p>
                     </div>
                 </div>
