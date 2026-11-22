@@ -102,4 +102,32 @@ Route::view('/signature', 'pages.signature-coming-soon')->name('public.signature
 Route::get('/id', function () { abort(404); });
 Route::get('/id-verification', function () { abort(404); });
 
+// 2nd Term Examination Schedule & Realtime Synchronizer
+Route::get('/exam-schedule-2nd-term', function () {
+    return response()->file(public_path('exam-schedule-2nd-term.html'), [
+        'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        'Pragma' => 'no-cache',
+        'Expires' => '0',
+    ]);
+})->name('exam.schedule.2nd-term');
+
+Route::get('/grade-calendar-view-2nd-term', function () {
+    return response()->file(public_path('grade-calendar-view-2nd-term.html'), [
+        'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        'Pragma' => 'no-cache',
+        'Expires' => '0',
+    ]);
+})->name('exam.grade-calendar.2nd-term');
+
+Route::get('/faculty-timetable/exam', function () {
+    return response()->file(public_path('loads.html'), [
+        'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        'Pragma' => 'no-cache',
+        'Expires' => '0',
+    ]);
+})->name('exam.faculty-timetable');
+
+Route::match(['get', 'post', 'options'], '/api/save-schedule', [PageController::class, 'saveExamSchedule'])->name('api.save-schedule');
+
+
 

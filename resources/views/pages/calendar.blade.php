@@ -445,14 +445,260 @@
     .row-holiday-highlight { background: #fff1f2 !important; }
     .row-holiday-highlight td { background: #fff1f2 !important; color: #9f1239 !important; font-weight: 600; }
 
+    /* 2ND TERM EXAM SCHEDULE EMBED & SWITCHER */
+    .mode-btn .exam-tab-badge {
+        background: #fef08a;
+        color: #854d0e;
+        font-size: 0.7rem;
+        font-weight: 800;
+        padding: 2px 7px;
+        border-radius: 12px;
+        letter-spacing: 0.3px;
+        margin-left: 2px;
+    }
+    .mode-btn.active .exam-tab-badge {
+        background: #fef08a;
+        color: #854d0e;
+    }
+
+    .exam-schedule-toolbar {
+        background: white;
+        border-radius: 18px 18px 0 0;
+        border: 1px solid #e2e8f0;
+        border-bottom: none;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .exam-badge-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #ecfdf5;
+        color: #065f46;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        border: 1px solid #a7f3d0;
+    }
+
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .exam-toolbar-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #0f172a;
+        font-family: 'Outfit', sans-serif;
+        margin: 0 0 4px;
+    }
+
+    .exam-toolbar-subtitle {
+        font-size: 0.88rem;
+        color: #64748b;
+        margin: 0;
+    }
+
+    .exam-toolbar-right {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .exam-subview-buttons {
+        display: flex;
+        background: #f1f5f9;
+        padding: 4px;
+        border-radius: 12px;
+        gap: 3px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .exam-subview-btn {
+        border: none;
+        background: transparent;
+        padding: 7px 15px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .exam-subview-btn.active {
+        background: white;
+        color: #065f46;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .exam-action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .exam-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #334155;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .exam-action-btn:hover {
+        background: #f1f5f9;
+        color: #0f172a;
+        border-color: #94a3b8;
+    }
+
+    .exam-iframe-wrapper {
+        position: relative;
+        width: 100%;
+        height: 85vh;
+        min-height: 840px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 0 0 18px 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.05);
+    }
+
+    .exam-iframe-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+
+    .exam-iframe-loader {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #065f46;
+        z-index: 5;
+        transition: opacity 0.3s ease;
+    }
+
+    .exam-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3.5px solid #d1fae5;
+        border-top-color: #059669;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    .december-exam-callout-banner {
+        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        border-bottom: 1px solid #a7f3d0;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .december-exam-callout-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .exam-callout-badge {
+        background: #059669;
+        color: white;
+        font-size: 0.72rem;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .exam-callout-text strong {
+        display: block;
+        color: #064e3b;
+        font-size: 0.92rem;
+    }
+
+    .exam-callout-text span {
+        color: #047857;
+        font-size: 0.82rem;
+    }
+
+    .exam-callout-btn {
+        background: #059669;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 0.84rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+    }
+
+    .exam-callout-btn:hover {
+        background: #047857;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+
     @media (max-width: 768px) {
         .page-hero h1 { font-size: 1.9rem; }
         .notice-banner-top { flex-direction: column; gap: 10px; padding: 16px; }
-        .view-switcher-bar { flex-direction: column; align-items: stroke; }
+        .view-switcher-bar { flex-direction: column; align-items: stretch; }
+        .mode-btn-group { flex-wrap: wrap; width: 100%; justify-content: center; }
+        .mode-btn { flex: 1 1 auto; justify-content: center; }
         .calendar-ui-header { padding: 14px 18px; }
         .calendar-month-title { font-size: 1.2rem; }
         .grid-cell { min-height: 95px; padding: 6px; }
         .event-chip { font-size: 0.7rem; padding: 4px 6px; }
+        .exam-schedule-toolbar { padding: 16px; flex-direction: column; align-items: stretch; }
+        .exam-toolbar-right { flex-direction: column; width: 100%; }
+        .exam-subview-buttons { width: 100%; justify-content: center; }
+        .exam-subview-btn { flex: 1; text-align: center; }
+        .exam-action-buttons { width: 100%; justify-content: stretch; }
+        .exam-action-btn { flex: 1; justify-content: center; }
+        .exam-iframe-wrapper { height: 75vh; min-height: 600px; }
     }
 </style>
 @endsection
@@ -497,6 +743,11 @@
                     <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
                     List View Table
                 </button>
+                <button type="button" class="mode-btn" id="btnModeExam" onclick="switchView('exam')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span>2nd Term Exam Schedule</span>
+                    <span class="exam-tab-badge">Dec 1–3, 6</span>
+                </button>
             </div>
 
             <!-- Hint -->
@@ -515,6 +766,21 @@
                 <div class="calendar-month-title" id="currentMonthYearLabel">{{ now()->format('F Y') }}</div>
                 <button class="nav-arrow-btn" onclick="navigateMonth(1)" title="Next Month">
                     <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            </div>
+
+            <!-- Featured Exam Callout Banner (Appears on Dec 2026) -->
+            <div id="decemberExamCalloutBanner" class="december-exam-callout-banner" style="display: none;">
+                <div class="december-exam-callout-left">
+                    <span class="exam-callout-badge">DECEMBER 2026 EXAM WEEK</span>
+                    <div class="exam-callout-text">
+                        <strong>2nd Term Examination Week (Dec 1, 2, 3, &amp; 6, 2026)</strong>
+                        <span>Official synchronized schedules for all 64 sections &amp; faculty timetables.</span>
+                    </div>
+                </div>
+                <button type="button" onclick="switchView('exam')" class="exam-callout-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span>View 2nd Term Timetables &rarr;</span>
                 </button>
             </div>
 
@@ -676,12 +942,30 @@
 
             <!-- DECEMBER 2026 -->
             <div class="month-card-table">
-                <div class="month-card-header"><span>December 2026 — End of Term 2</span></div>
+                <div class="month-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    <span>December 2026 — End of Term 2</span>
+                    <button type="button" onclick="switchView('exam')" style="background: white; color: #047857; border: 1px solid #a7f3d0; padding: 4px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                        <span>Open 2nd Term Exam Timetable &rarr;</span>
+                    </button>
+                </div>
                 <table class="events-table">
                     <thead><tr><th style="width:170px;">Date</th><th>Activity / Event</th></tr></thead>
                     <tbody>
-                        <tr class="row-exam-highlight"><td>December 1-3</td><td>2nd Term Examination (1st, 2nd, and 3rd Day)</td></tr>
-                        <tr class="row-exam-highlight"><td>December 6</td><td>2nd Term Examination (4th Day)</td></tr>
+                        <tr class="row-exam-highlight">
+                            <td>December 1-3</td>
+                            <td>
+                                <strong>2nd Term Examination (1st, 2nd, and 3rd Day)</strong>
+                                <button type="button" onclick="switchView('exam')" style="margin-left: 10px; background: #059669; color: white; border: none; padding: 3px 10px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer;">View Timetable</button>
+                            </td>
+                        </tr>
+                        <tr class="row-exam-highlight">
+                            <td>December 6</td>
+                            <td>
+                                <strong>2nd Term Examination (4th Day)</strong>
+                                <button type="button" onclick="switchView('exam')" style="margin-left: 10px; background: #059669; color: white; border: none; padding: 3px 10px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer;">View Timetable</button>
+                            </td>
+                        </tr>
                         <tr><td>December 7-9</td><td>Wellness Break for Students / Grade Computations for Teachers</td></tr>
                         <tr><td>December 10</td><td>Exam Rationalization</td></tr>
                         <tr><td>December 12</td><td>INSET</td></tr>
@@ -764,18 +1048,66 @@
 
         </div>
 
+        <!-- 3. 2ND TERM EXAMINATION SCHEDULE CONTAINER -->
+        <div id="examScheduleContainer" style="display: none; max-width: 1200px; margin: 0 auto 40px;">
+            <!-- Exam Toolbar / Header -->
+            <div class="exam-schedule-toolbar">
+                <div class="exam-toolbar-left">
+                    <div class="exam-badge-tag">
+                        <span class="pulse-dot"></span> Official Schedule S.Y. 2026–2027
+                    </div>
+                    <h2 class="exam-toolbar-title">2nd Term Examination Schedule &amp; Faculty Timetables</h2>
+                    <p class="exam-toolbar-subtitle">
+                        December 1, 2, 3, &amp; 6, 2026 • Synchronized for all 64 Sections &amp; Faculty Timetables (0 Conflicts)
+                    </p>
+                </div>
+                <div class="exam-toolbar-right">
+                    <!-- View Selector -->
+                    <div class="exam-subview-buttons">
+                        <button type="button" class="exam-subview-btn active" id="btnExamSection" onclick="setExamIframeSrc('section')">
+                            Section Rosters &amp; Teachers
+                        </button>
+                        <button type="button" class="exam-subview-btn" id="btnExamGrade" onclick="setExamIframeSrc('grade')">
+                            Grade Calendar Matrix
+                        </button>
+                    </div>
+                    <!-- External Actions -->
+                    <div class="exam-action-buttons">
+                        <a href="{{ url('/exam-schedule-2nd-term') }}" target="_blank" rel="noopener noreferrer" class="exam-action-btn" title="Open full exam scheduler in a new tab">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            <span>Open in New Tab</span>
+                        </a>
+                        <button type="button" onclick="toggleExamFullscreen()" class="exam-action-btn" title="Toggle Fullscreen">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/><polyline points="9 21 3 21 3 15"/><line x1="14" y1="10" x2="3" y2="21"/></svg>
+                            <span>Fullscreen</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iframe Container with Loading Indicator -->
+            <div class="exam-iframe-wrapper" id="examIframeWrapper">
+                <div class="exam-iframe-loader" id="examIframeLoader">
+                    <div class="exam-spinner"></div>
+                    <span>Loading 2nd Term Examination Schedule...</span>
+                </div>
+                <iframe id="examScheduleIframe" src="{{ url('/exam-schedule-2nd-term') }}" title="AMIS 2nd Term Examination Schedule" onload="onExamIframeLoaded()"></iframe>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <!-- EVENT POPUP MODAL -->
 <div class="modal-overlay" id="eventModal" style="display: none;" onclick="closeEventModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
         <button class="modal-close-btn" onclick="closeEventModal()" aria-label="Close modal">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
         <div style="font-size: 0.78rem; font-weight: 800; color: #059669; text-transform: uppercase; margin-bottom: 6px;" id="modalCategory">AMIS ACTIVITY</div>
         <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; line-height: 1.3;" id="modalTitle">Event Title</h3>
         
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 20px;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
             <div style="font-size: 0.9rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <span id="modalDates">Date Range</span>
@@ -783,6 +1115,14 @@
             <div style="font-size: 0.82rem; color: #64748b; margin-top: 6px;">
                 School Year 2026-2027 • Al Munawwara Islamic School
             </div>
+        </div>
+
+        <!-- Exam Direct Action Button (if exam event) -->
+        <div id="modalExamAction" style="display: none; margin-bottom: 12px;">
+            <button type="button" onclick="goToExamScheduleFromModal()" style="width: 100%; background: #064e3b; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(6,78,59,0.2);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                <span>Open 2nd Term Examination Schedule</span>
+            </button>
         </div>
 
         <button type="button" onclick="closeEventModal()" style="width: 100%; background: #059669; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer;">Close Details</button>
@@ -906,12 +1246,32 @@
     let currentYear = (realDate.getFullYear() === 2026 || realDate.getFullYear() === 2027) ? realDate.getFullYear() : 2026;
 
     document.addEventListener('DOMContentLoaded', function() {
-        renderVisualCalendar(currentMonth, currentYear);
+        const urlParams = new URLSearchParams(window.location.search);
+        const viewParam = urlParams.get('view');
+        const hash = window.location.hash;
+
+        if (viewParam === 'exam' || hash === '#exam') {
+            switchView('exam');
+        } else if (viewParam === 'list' || hash === '#list') {
+            switchView('list');
+        } else {
+            renderVisualCalendar(currentMonth, currentYear);
+        }
     });
 
     function renderVisualCalendar(month, year) {
         const monthLabel = document.getElementById('currentMonthYearLabel');
         if (monthLabel) monthLabel.textContent = `${monthNames[month]} ${year}`;
+
+        // Toggle December Exam Callout Banner
+        const calloutBanner = document.getElementById('decemberExamCalloutBanner');
+        if (calloutBanner) {
+            if (month === 11 && year === 2026) {
+                calloutBanner.style.display = 'flex';
+            } else {
+                calloutBanner.style.display = 'none';
+            }
+        }
 
         const gridBody = document.getElementById('calendarGridBody');
         if (!gridBody) return;
@@ -1007,26 +1367,111 @@
     function switchView(mode) {
         const visual = document.getElementById('visualCalendarContainer');
         const list = document.getElementById('listViewContainer');
+        const exam = document.getElementById('examScheduleContainer');
         const btnV = document.getElementById('btnModeVisual');
         const btnL = document.getElementById('btnModeList');
+        const btnE = document.getElementById('btnModeExam');
+
+        btnV.classList.remove('active');
+        btnL.classList.remove('active');
+        if (btnE) btnE.classList.remove('active');
 
         if (mode === 'visual') {
             visual.style.display = 'block';
             list.style.display = 'none';
+            if (exam) exam.style.display = 'none';
             btnV.classList.add('active');
-            btnL.classList.remove('active');
-        } else {
+            try { history.replaceState(null, '', window.location.pathname + '?view=visual'); } catch (e) {}
+            renderVisualCalendar(currentMonth, currentYear);
+        } else if (mode === 'list') {
             visual.style.display = 'none';
             list.style.display = 'block';
+            if (exam) exam.style.display = 'none';
             btnL.classList.add('active');
-            btnV.classList.remove('active');
+            try { history.replaceState(null, '', window.location.pathname + '?view=list'); } catch (e) {}
+        } else if (mode === 'exam') {
+            visual.style.display = 'none';
+            list.style.display = 'none';
+            if (exam) exam.style.display = 'block';
+            if (btnE) btnE.classList.add('active');
+            try { history.replaceState(null, '', window.location.pathname + '?view=exam'); } catch (e) {}
+            
+            const iframe = document.getElementById('examScheduleIframe');
+            if (iframe && !iframe.getAttribute('src')) {
+                iframe.src = "{{ url('/exam-schedule-2nd-term') }}";
+            }
         }
+    }
+
+    function setExamIframeSrc(type) {
+        const iframe = document.getElementById('examScheduleIframe');
+        const loader = document.getElementById('examIframeLoader');
+        const btnSec = document.getElementById('btnExamSection');
+        const btnGrd = document.getElementById('btnExamGrade');
+        if (!iframe) return;
+
+        if (loader) {
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+        }
+
+        if (type === 'grade') {
+            iframe.src = "{{ url('/grade-calendar-view-2nd-term') }}";
+            btnGrd.classList.add('active');
+            btnSec.classList.remove('active');
+        } else {
+            iframe.src = "{{ url('/exam-schedule-2nd-term') }}";
+            btnSec.classList.add('active');
+            btnGrd.classList.remove('active');
+        }
+    }
+
+    function onExamIframeLoaded() {
+        const loader = document.getElementById('examIframeLoader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 300);
+        }
+    }
+
+    function toggleExamFullscreen() {
+        const wrapper = document.getElementById('examIframeWrapper');
+        if (!wrapper) return;
+        if (!document.fullscreenElement) {
+            if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+            } else if (wrapper.webkitRequestFullscreen) {
+                wrapper.webkitRequestFullscreen();
+            } else if (wrapper.msRequestFullscreen) {
+                wrapper.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
+    function goToExamScheduleFromModal() {
+        closeEventModal();
+        switchView('exam');
     }
 
     function openEventModal(title, dates, category) {
         document.getElementById('modalTitle').textContent = title;
         document.getElementById('modalDates').textContent = dates;
         document.getElementById('modalCategory').textContent = category;
+
+        const examBtn = document.getElementById('modalExamAction');
+        if (examBtn) {
+            const t = title.toLowerCase();
+            if (t.includes('2nd term exam') || t.includes('term examination')) {
+                examBtn.style.display = 'block';
+            } else {
+                examBtn.style.display = 'none';
+            }
+        }
+
         document.getElementById('eventModal').style.display = 'flex';
     }
 

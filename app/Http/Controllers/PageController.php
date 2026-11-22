@@ -415,5 +415,140 @@ class PageController extends Controller
     {
         return view('pages.shariah-advisory-reminder');
     }
+
+    /**
+     * Realtime API handler for saving and fetching 2nd Term Examination Schedule.
+     */
+    public function saveExamSchedule(Request $request)
+    {
+        $version = '20261123_v21_remove_saliha_proctor';
+        $staticJsonPath = public_path('exam_data_2nd_term.json');
+        $staticJsPath = public_path('exam_data_2nd_term.js');
+        $tmpJsonPath = '/tmp/amis_exam_schedule.json';
+
+        $corsHeaders = [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ];
+
+        if ($request->isMethod('OPTIONS')) {
+            return response('', 200, $corsHeaders);
+        }
+
+        if ($request->isMethod('POST')) {
+            try {
+                $rawContent = $request->getContent();
+                $body = json_decode($rawContent, true);
+                if (!is_array($body)) {
+                    $body = $request->all();
+                }
+
+                $schedule = null;
+                $lockedSections = [];
+                $updatedAt = round(microtime(true) * 1000);
+
+                if (isset($body[0]) && is_array($body[0])) {
+                    $schedule = $body;
+                } elseif (is_array($body)) {
+                    if (isset($body['schedule']) && is_array($body['schedule'])) {
+                        $schedule = $body['schedule'];
+                    }
+                    if (isset($body['locked_sections']) && is_array($body['locked_sections'])) {
+                        $lockedSections = $body['locked_sections'];
+                    }
+                    if (isset($body['updated_at'])) {
+                        $updatedAt = (float)$body['updated_at'];
+                    }
+                }
+
+                if ((!$schedule || count($schedule) < 50) && empty($lockedSections)) {
+                    return response()->json([
+                        'ok' => false,
+                        'error' => 'Invalid payload: expected schedule array (>= 50) or locked_sections array',
+                    ], 400, $corsHeaders);
+                }
+
+                // If schedule provided, write to public JSON and JS
+                if ($schedule && count($schedule) >= 50) {
+                    $encodedJson = json_encode($schedule, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+                    @file_put_contents($staticJsonPath, $encodedJson);
+                    @file_put_contents($staticJsPath, "window.EXAM_DATA_2ND_TERM = " . $encodedJson . ";\n");
+                } else {
+                    // Load existing schedule to merge with locked_sections in tmp
+                    if (file_exists($staticJsonPath)) {
+                        $schedule = json_decode(@file_get_contents($staticJsonPath), true);
+                    }
+                }
+
+                // Write to /tmp cache for fast realtime access
+                $tmpData = [
+                    'version' => $version,
+                    'schedule' => $schedule,
+                    'updated_at' => $updatedAt,
+                    'locked_sections' => $lockedSections,
+                ];
+                @file_put_contents($tmpJsonPath, json_encode($tmpData));
+
+                return response()->json([
+                    'ok' => true,
+                    'status' => 'success',
+                    'version' => $version,
+                    'count' => is_array($schedule) ? count($schedule) : 0,
+                    'locked_sections_count' => count($lockedSections),
+                    'updated_at' => $updatedAt,
+                    'message' => 'Saved to AMIS realtime store',
+                ], 200, $corsHeaders);
+            } catch (\Throwable $e) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => $e->getMessage(),
+                ], 500, $corsHeaders);
+            }
+        }
+
+        // GET request
+        $schedule = null;
+        $lockedSections = [];
+        $updatedAt = 0;
+
+        // Try /tmp first
+        if (file_exists($tmpJsonPath)) {
+            try {
+                $tmpRaw = @file_get_contents($tmpJsonPath);
+                $tmpData = json_decode($tmpRaw, true);
+                if (is_array($tmpData) && ($tmpData['version'] ?? '') === $version && is_array($tmpData['schedule'] ?? null) && count($tmpData['schedule']) > 50) {
+                    $schedule = $tmpData['schedule'];
+                    $lockedSections = is_array($tmpData['locked_sections'] ?? null) ? $tmpData['locked_sections'] : [];
+                    $updatedAt = $tmpData['updated_at'] ?? (filemtime($tmpJsonPath) * 1000);
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        // Fallback to static JSON file
+        if (!$schedule && file_exists($staticJsonPath)) {
+            try {
+                $staticRaw = @file_get_contents($staticJsonPath);
+                $staticData = json_decode($staticRaw, true);
+                if (is_array($staticData) && count($staticData) > 50) {
+                    $schedule = $staticData;
+                    $updatedAt = filemtime($staticJsonPath) * 1000;
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        return response()->json([
+            'ok' => true,
+            'status' => 'success',
+            'version' => $version,
+            'count' => is_array($schedule) ? count($schedule) : 0,
+            'updated_at' => $updatedAt,
+            'schedule' => $schedule,
+            'locked_sections' => $lockedSections,
+        ], 200, $corsHeaders);
+    }
 }
 
