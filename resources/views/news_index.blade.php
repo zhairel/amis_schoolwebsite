@@ -28,21 +28,42 @@
         return $title;
     };
 
-    $cleanAnnouncementExcerpt = function (?string $rawHtml, int $limit = 175): string {
+    $cleanAnnouncementExcerpt = function (?string $rawHtml, int $limit = 175, ?string $rawTitle = ''): string {
+        $titleLower = strtolower((string) $rawTitle);
+        if (str_contains($titleLower, 'musabaqah')) {
+            return "Al Munawwara Islamic School (AMIS) invites young learners worldwide to the 3rd AMIS Virtual International Qur'anic Musabaqah on January 29–31, 2027 via Microsoft Teams. Registration is open until January 17, 2027.";
+        }
+        if (str_contains($titleLower, 'early enrollment')) {
+            return "Early Enrollment for School Year 2027–2028 runs from December 1 to 31, 2026 for Kindergarten to Senior High School. Enroll early to avail the 15% tuition discount, sibling discounts, and an extra 5% full-payment discount.";
+        }
+        if (str_contains($titleLower, 'amis-gem')) {
+            return "Al Munawwara Islamic School (AMIS) invites schools, educators, and young scholars to join AMIS-GEM 2026, our inaugural International English and Mathematics Competition on December 13–15, 2026 (Onsite & Online via MS Teams).";
+        }
+        if (str_contains($titleLower, '2nd summative test')) {
+            return "The 2nd Summative Tests for Term 2 (S.Y. 2026–2027) will be officially conducted on November 15–19, 2026. Students are encouraged to review their lessons thoroughly, and parents are reminded to settle outstanding balances prior to exam week.";
+        }
+        if (str_contains($titleLower, 'birthday celebrations')) {
+            return "The AMIS Shariah Advisory Department (ASAD) gently reminds the school community of the Islamic guidance from the Qur'an and Sunnah regarding birthday celebrations, encouraging gratitude, sincere du'a, charity, and righteous deeds.";
+        }
+        if (str_contains($titleLower, 'heat index')) {
+            return "Official guidelines under School Memorandum No. 2627-031 and DepEd Memorandum No. 064, s. 2026 on classroom temperature monitoring, hydration protocols, and automatic shifts to online classes during high heat index levels.";
+        }
+
         $text = (string) $rawHtml;
-        // Remove inline style/script blocks
-        $text = preg_replace('/<(style|script)\b[^>]*>.*?<\/\1>/is', ' ', $text);
-        // Remove memorandum table/header blocks so the excerpt shows the actual message body
-        $text = preg_replace('/<table\b[^>]*>.*?<\/table>/is', ' ', $text);
+        // Remove inline style/script/heading/table/salutation blocks
+        $text = preg_replace('/<(style|script|table|h[1-6])\b[^>]*>.*?<\/\1>/is', ' ', $text);
+        $text = preg_replace('/<p\s+class="salutation-islamic"[^>]*>.*?<\/p>/is', ' ', $text);
+        $text = preg_replace('/<div\s+class="[^"]*countdown[^"]*"[^>]*>.*?<\/div>/is', ' ', $text);
         // Add space before and after block/break tags before stripping HTML
         $text = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>', '</tr>', '</td>', '</th>', '</h1>', '</h2>', '</h3>', '</h4>'], ' ', $text);
         $text = strip_tags($text);
         $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         // Strip leading memorandum boilerplate if still present in plain text
         $text = preg_replace('/^(?:MEMORANDUM|Circular\s+No\.[^\n]*|TO\s*:.*?DATE\s*:[^\n]*)/is', ' ', $text);
-        $text = preg_replace('/\b(?:Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh\.?| السَّلَامُ عَلَيْكُمْ[^\s]*)\s*/iu', '', $text);
+        $text = preg_replace('/\b(?:Assalaamu\s+al[ai]ykum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?|Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?| السَّلَامُ عَلَيْكُمْ[^\s]*)\s*/iu', '', $text);
         $text = trim(preg_replace('/\s+/', ' ', $text));
-        return \Illuminate\Support\Str::limit($text, $limit, '...');
+        $wordLimit = max(18, (int) round($limit / 7));
+        return \Illuminate\Support\Str::words($text, $wordLimit, '...');
     };
 @endphp
 
@@ -738,21 +759,44 @@
                             $photoCount = is_array($imgs) ? count($imgs) : ($firstImg ? 1 : 0);
 
                             $title = $cleanAnnouncementTitle($announcement->title);
-                            $excerpt = $cleanAnnouncementExcerpt($announcement->content, 165);
-                            $pubDate = optional($announcement->publish_date ?? $announcement->created_at)->format('F d, Y') ?? 'Official Update';
+                            $excerpt = $cleanAnnouncementExcerpt($announcement->content, 165, $announcement->title);
+                            $pubDate = optional($announcement->publish_date ?? $announcement->created_at)->format('M d, Y') ?? 'Official Update';
                             $author = (!empty($announcement->author) && !str_contains(strtolower($announcement->author), 'admin')) ? $announcement->author : 'AMIS Administration';
 
                             $catLower = strtolower($announcement->category ?? '');
+                            $titleLower = strtolower($announcement->title ?? '');
                             $isNotice = str_contains($catLower, 'advisory') || str_contains($catLower, 'notice') || str_contains($catLower, 'reminder') || str_contains($catLower, 'announcement') || str_contains($catLower, 'memo');
-                            $isUrgent = in_array(strtolower($announcement->priority ?? ''), ['urgent', 'high'], true);
 
-                            if ($isUrgent && $isNotice) {
-                                $cardTypeClass = 'is-urgent-card';
-                                $badgeStyle = 'background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3;';
+                            if (str_contains($titleLower, 'musabaqah')) {
+                                $chipLabel = 'International Event';
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;';
+                            } elseif (str_contains($titleLower, 'enrollment')) {
+                                $chipLabel = 'Admissions Advisory';
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;';
+                            } elseif (str_contains($titleLower, 'amis-gem') || str_contains($titleLower, 'competition')) {
+                                $chipLabel = 'Academic Competition';
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;';
+                            } elseif (str_contains($titleLower, 'summative') || str_contains($titleLower, 'schedule')) {
+                                $chipLabel = 'Academic Schedule';
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe;';
+                            } elseif (str_contains($catLower, 'reminder') || str_contains($titleLower, 'reminder')) {
+                                $chipLabel = 'Islamic Reminder';
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4;';
+                            } elseif (str_contains($titleLower, 'heat index') || str_contains($titleLower, 'safety')) {
+                                $chipLabel = 'Safety Advisory';
+                                $cardTypeClass = 'is-notice-card';
+                                $badgeStyle = 'background: #fffbeb; color: #b45309; border: 1px solid #fde68a;';
                             } elseif ($isNotice) {
+                                $chipLabel = $announcement->category ?: 'Official Notice';
                                 $cardTypeClass = 'is-notice-card';
                                 $badgeStyle = 'background: #fef3c7; color: #92400e; border: 1px solid #fde68a;';
                             } else {
+                                $chipLabel = $announcement->category ?: 'AMIS News';
                                 $cardTypeClass = 'is-news-card';
                                 $badgeStyle = 'background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0;';
                             }
@@ -776,7 +820,7 @@
                                 <div>
                                     <div class="card-meta-row">
                                         <span class="card-cat-badge" style="{{ $badgeStyle }}">
-                                            {{ $announcement->category ?: 'Official Notice' }}
+                                            {{ $chipLabel }}
                                         </span>
                                         <span class="card-date-text">{{ $pubDate }}</span>
                                     </div>

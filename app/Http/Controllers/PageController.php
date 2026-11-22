@@ -40,19 +40,41 @@ class PageController extends Controller
             ->take(10)
             ->get();
 
-        // Deduplicate notices sharing the exact same primary banner (e.g. duplicate AMIS-GEM reminders)
-        $seenNoticeImages = [];
-        $schoolNotices = $rawNotices->filter(function ($notice) use (&$seenNoticeImages) {
-            $imgs = json_decode($notice->image ?? '', true);
-            $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $notice->image;
-            if ($firstImg && isset($seenNoticeImages[$firstImg])) {
-                return false;
-            }
-            if ($firstImg) {
-                $seenNoticeImages[$firstImg] = true;
-            }
-            return true;
-        })->take(6)->values();
+        // Deduplicate notices sharing the same topic or primary banner (e.g. duplicate AMIS-GEM reminders)
+        $seenNoticeKeys = [];
+        $schoolNotices = $rawNotices
+            ->reject(function ($notice) {
+                // Skip temporary "9 Days Left" countdown duplicate (#287) in favor of the main AMIS-GEM notice (#276)
+                return str_contains(strtolower($notice->title ?? ''), '9 days left');
+            })
+            ->filter(function ($notice) use (&$seenNoticeKeys) {
+                $titleLower = strtolower($notice->title ?? '');
+                $topicKey = null;
+                if (str_contains($titleLower, 'amis-gem')) {
+                    $topicKey = 'amis-gem';
+                } elseif (str_contains($titleLower, 'musabaqah')) {
+                    $topicKey = 'musabaqah';
+                } elseif (str_contains($titleLower, 'early enrollment')) {
+                    $topicKey = 'early-enrollment';
+                }
+
+                $imgs = json_decode($notice->image ?? '', true);
+                $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $notice->image;
+                $imgBase = $firstImg ? pathinfo($firstImg, PATHINFO_FILENAME) : null;
+
+                if (($topicKey && isset($seenNoticeKeys[$topicKey])) || ($imgBase && isset($seenNoticeKeys[$imgBase]))) {
+                    return false;
+                }
+                if ($topicKey) {
+                    $seenNoticeKeys[$topicKey] = true;
+                }
+                if ($imgBase) {
+                    $seenNoticeKeys[$imgBase] = true;
+                }
+                return true;
+            })
+            ->take(6)
+            ->values();
 
         // 2. Fetch active News & Announcements (activities, achievements, events, student accomplishments, news articles)
         // Strictly excluding any notices to prevent duplication between sections
@@ -119,7 +141,7 @@ class PageController extends Controller
         $basePublished = fn () => Announcement::where(function ($query) {
             $query->whereNull('publish_date')
                   ->orWhere('publish_date', '<=', now());
-        });
+        })->where('title', 'not like', '%9 Days Left%');
 
         // 1. Fetch Top 3 Visual Stories (Good News, JUST IN, AMIS News)
         $topStories = $basePublished()

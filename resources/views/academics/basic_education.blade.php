@@ -182,19 +182,27 @@
                             <li>Fiqh & Aqeedah</li>
                         </ul>
                     </div>
+                    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 12px;">
+                        <img src="/accre/peac_certified_jhs_466150.webp" alt="PEAC Certified 466150 Junior High School" style="height: 48px; width: auto; object-fit: contain;" loading="lazy">
+                        <span style="font-size: 0.8rem; color: #475569; font-weight: 600; line-height: 1.4;">
+                            <strong style="color: #065f46;">PEAC Certified Status (ESC Subsidy)</strong><br>
+                            DepEd ID: 466150 &bull; Junior High School
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Senior High -->
                 <div class="curriculum-card">
                     <h3>Senior High (Grades 11-12)</h3>
-                    <p>Prepares students for college academic tracks (such as General Academic and STEM strands) while enriching leadership qualities and global exposure in line with Islamic faith principles.</p>
+                    <p>Prepares students for higher education and career excellence through the Academic Track, strengthening critical inquiry, applied research, and moral leadership guided by Islamic values.</p>
                     <div class="subjects-list">
-                        <h4>Key Strands</h4>
+                        <h4>Academic Track</h4>
                         <ul>
-                            <li>STEM</li>
-                            <li>GAS (General Academics)</li>
-                            <li>Research Projects</li>
-                            <li>Islamic Leadership</li>
+                            <li><strong>Cluster:</strong> Science, Technology, Engineering, and Mathematics (STEM)</li>
+                            <li>Pre-Calculus &amp; Basic Calculus</li>
+                            <li>General Biology, Chemistry &amp; Physics</li>
+                            <li>Practical Research &amp; Capstone</li>
+                            <li>Applied Islamic Ethics &amp; Leadership</li>
                         </ul>
                     </div>
                 </div>

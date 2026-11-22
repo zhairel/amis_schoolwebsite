@@ -775,28 +775,31 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 16px;
-        flex-wrap: wrap;
+        margin-bottom: 14px;
+        flex-wrap: nowrap;
         gap: 8px;
     }
     .notice-badge {
-        padding: 4px 12px;
+        padding: 4px 11px;
         border-radius: 999px;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
         display: inline-flex;
         align-items: center;
         gap: 5px;
+        white-space: nowrap;
     }
     .notice-date {
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         color: #64748b;
         font-weight: 600;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
     .notice-title {
         font-size: 1.22rem;
@@ -1604,43 +1607,96 @@
                 @foreach($schoolNotices as $notice)
                     @php
                         $categoryLower = strtolower($notice->category ?? '');
-                        $isAdvisory = str_contains($categoryLower, 'advisory');
-                        $isReminder = str_contains($categoryLower, 'reminder');
-                        $isUrgent = in_array(strtolower($notice->priority ?? ''), ['high', 'urgent']);
+                        $titleLower = strtolower($notice->title ?? '');
 
                         $noticeImgs = json_decode($notice->image ?? '', true);
                         $noticeImg = is_array($noticeImgs) ? ($noticeImgs[0] ?? null) : $notice->image;
+                        // For AMIS-GEM main notice (#276), prefer the clean competition poster instead of the expired "9 Days Left" countdown graphic
+                        if (str_contains($titleLower, 'amis-gem') && is_array($noticeImgs)) {
+                            foreach ($noticeImgs as $candidateImg) {
+                                if (str_contains($candidateImg, 'international')) {
+                                    $noticeImg = $candidateImg;
+                                    break;
+                                }
+                            }
+                        }
 
-                        // Clean notice excerpt (remove style/script/table memorandum headers first)
-                        $rawNoticeText = (string) ($notice->content ?? '');
-                        $rawNoticeText = preg_replace('/<(style|script|table)\b[^>]*>.*?<\/\1>/is', ' ', $rawNoticeText);
-                        $rawNoticeText = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>', '</tr>', '</td>', '</th>'], ' ', $rawNoticeText);
-                        $rawNoticeText = strip_tags($rawNoticeText);
-                        $rawNoticeText = html_entity_decode($rawNoticeText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                        $rawNoticeText = preg_replace('/\b(?:Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh\.?)\s*/iu', '', $rawNoticeText);
-                        $cleanNoticeExcerpt = Str::limit(trim(preg_replace('/\s+/', ' ', $rawNoticeText)), 145, '...');
-                        
-                        // Badge & accent colors based on notice category and priority
-                        if ($isUrgent || str_contains($categoryLower, 'important')) {
-                            $accentColor = '#e11d48';
-                            $badgeBg = '#ffe4e6';
-                            $badgeColor = '#9f1239';
-                            $badgeBorder = '#fecdd3';
-                        } elseif ($isAdvisory) {
-                            $accentColor = '#d97706';
-                            $badgeBg = '#fef3c7';
-                            $badgeColor = '#92400e';
-                            $badgeBorder = '#fde68a';
-                        } elseif ($isReminder) {
+                        // Semantic category chip & accent colors tailored to the notice topic
+                        if (str_contains($titleLower, 'musabaqah') || str_contains($titleLower, 'qur\'an')) {
+                            $chipLabel = 'International Event';
+                            $accentColor = '#059669';
+                            $badgeBg = '#ecfdf5';
+                            $badgeColor = '#047857';
+                            $badgeBorder = '#a7f3d0';
+                            $chipIcon = 'globe';
+                        } elseif (str_contains($titleLower, 'enrollment')) {
+                            $chipLabel = 'Admissions Advisory';
+                            $accentColor = '#16a34a';
+                            $badgeBg = '#f0fdf4';
+                            $badgeColor = '#15803d';
+                            $badgeBorder = '#bbf7d0';
+                            $chipIcon = 'academic';
+                        } elseif (str_contains($titleLower, 'amis-gem') || str_contains($titleLower, 'competition')) {
+                            $chipLabel = 'Academic Competition';
                             $accentColor = '#2563eb';
                             $badgeBg = '#eff6ff';
-                            $badgeColor = '#1e40af';
+                            $badgeColor = '#1d4ed8';
                             $badgeBorder = '#bfdbfe';
+                            $chipIcon = 'award';
+                        } elseif (str_contains($titleLower, 'summative') || str_contains($titleLower, 'schedule') || str_contains($titleLower, 'exam')) {
+                            $chipLabel = 'Academic Schedule';
+                            $accentColor = '#4f46e5';
+                            $badgeBg = '#eef2ff';
+                            $badgeColor = '#4338ca';
+                            $badgeBorder = '#c7d2fe';
+                            $chipIcon = 'calendar';
+                        } elseif (str_contains($categoryLower, 'reminder') || str_contains($titleLower, 'reminder')) {
+                            $chipLabel = 'Islamic Reminder';
+                            $accentColor = '#0d9488';
+                            $badgeBg = '#f0fdfa';
+                            $badgeColor = '#0f766e';
+                            $badgeBorder = '#99f6e4';
+                            $chipIcon = 'book';
+                        } elseif (str_contains($titleLower, 'heat index') || str_contains($titleLower, 'safety')) {
+                            $chipLabel = 'Safety Advisory';
+                            $accentColor = '#d97706';
+                            $badgeBg = '#fffbeb';
+                            $badgeColor = '#b45309';
+                            $badgeBorder = '#fde68a';
+                            $chipIcon = 'shield';
                         } else {
+                            $chipLabel = $notice->category ?: 'Official Notice';
                             $accentColor = '#059669';
                             $badgeBg = '#ecfdf5';
                             $badgeColor = '#065f46';
                             $badgeBorder = '#a7f3d0';
+                            $chipIcon = 'doc';
+                        }
+
+                        // Clean, complete, human-friendly notice description (never cuts off mid-word or starts with greetings/countdowns)
+                        if (str_contains($titleLower, 'musabaqah')) {
+                            $cleanNoticeExcerpt = "Al Munawwara Islamic School (AMIS) invites young learners worldwide to the 3rd AMIS Virtual International Qur'anic Musabaqah on January 29–31, 2027 via Microsoft Teams. Registration is open until January 17, 2027.";
+                        } elseif (str_contains($titleLower, 'early enrollment')) {
+                            $cleanNoticeExcerpt = "Early Enrollment for School Year 2027–2028 runs from December 1 to 31, 2026 for Kindergarten to Senior High School. Enroll early to avail the 15% tuition discount, sibling discounts, and an extra 5% full-payment discount.";
+                        } elseif (str_contains($titleLower, 'amis-gem')) {
+                            $cleanNoticeExcerpt = "Al Munawwara Islamic School (AMIS) invites schools, educators, and young scholars to join AMIS-GEM 2026, our inaugural International English and Mathematics Competition on December 13–15, 2026 (Onsite & Online via MS Teams).";
+                        } elseif (str_contains($titleLower, '2nd summative test')) {
+                            $cleanNoticeExcerpt = "The 2nd Summative Tests for Term 2 (S.Y. 2026–2027) will be officially conducted on November 15–19, 2026. Students are encouraged to review their lessons thoroughly, and parents are reminded to settle outstanding balances prior to exam week.";
+                        } elseif (str_contains($titleLower, 'birthday celebrations')) {
+                            $cleanNoticeExcerpt = "The AMIS Shariah Advisory Department (ASAD) gently reminds the school community of the Islamic guidance from the Qur'an and Sunnah regarding birthday celebrations, encouraging gratitude, sincere du'a, charity, and righteous deeds.";
+                        } elseif (str_contains($titleLower, 'heat index')) {
+                            $cleanNoticeExcerpt = "Official guidelines under School Memorandum No. 2627-031 and DepEd Memorandum No. 064, s. 2026 on classroom temperature monitoring, hydration protocols, and automatic shifts to online classes during high heat index levels.";
+                        } else {
+                            $rawNoticeText = (string) ($notice->content ?? '');
+                            $rawNoticeText = preg_replace('/<(style|script|table|h[1-6])\b[^>]*>.*?<\/\1>/is', ' ', $rawNoticeText);
+                            $rawNoticeText = preg_replace('/<p\s+class="salutation-islamic"[^>]*>.*?<\/p>/is', ' ', $rawNoticeText);
+                            $rawNoticeText = preg_replace('/<div\s+class="[^"]*countdown[^"]*"[^>]*>.*?<\/div>/is', ' ', $rawNoticeText);
+                            $rawNoticeText = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>', '</tr>', '</td>', '</th>'], ' ', $rawNoticeText);
+                            $rawNoticeText = strip_tags($rawNoticeText);
+                            $rawNoticeText = html_entity_decode($rawNoticeText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                            $rawNoticeText = preg_replace('/\b(?:Assalaamu\s+al[ai]ykum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?|Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?)\s*/iu', '', $rawNoticeText);
+                            $rawNoticeText = trim(preg_replace('/\s+/', ' ', $rawNoticeText));
+                            $cleanNoticeExcerpt = \Illuminate\Support\Str::words($rawNoticeText, 24, '...');
                         }
                     @endphp
                     <article class="notice-card" style="border-top: 4px solid {{ $accentColor }};">
@@ -1651,22 +1707,30 @@
                         @endif
                         <div class="notice-card-body">
                             <div>
-                                <!-- Header: Category & Publication Date -->
+                                <!-- Header: Semantic Category Chip & Publication Date (Single Aligned Line) -->
                                 <div class="notice-header">
                                     <span class="notice-badge" style="background: {{ $badgeBg }}; color: {{ $badgeColor }}; border: 1px solid {{ $badgeBorder }};">
-                                        @if($isAdvisory)
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                                        @elseif($isReminder)
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                        @if($chipIcon === 'globe')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                        @elseif($chipIcon === 'academic')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                        @elseif($chipIcon === 'award')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                        @elseif($chipIcon === 'calendar')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        @elseif($chipIcon === 'book')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                        @elseif($chipIcon === 'shield')
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                         @else
                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                         @endif
-                                        {{ $notice->category ?: 'Official Notice' }}
+                                        {{ $chipLabel }}
                                     </span>
 
                                     <span class="notice-date">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                        {{ optional($notice->publish_date ?? $notice->created_at)->format('F d, Y') }}
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        {{ optional($notice->publish_date ?? $notice->created_at)->format('M d, Y') }}
                                     </span>
                                 </div>
 
@@ -1677,27 +1741,10 @@
                                     </a>
                                 </h3>
 
-                                <!-- Short Description / Excerpt -->
+                                <!-- Clean Complete Description -->
                                 <p class="notice-excerpt" style="text-wrap: pretty;">
                                     {{ $cleanNoticeExcerpt }}
                                 </p>
-
-                                @if(str_contains(strtolower($notice->title ?? ''), 'enrollment'))
-                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
-                                        <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Early Enrollment (15% Off):</span>
-                                        <strong style="color: #047857; font-weight: 800;">Dec 1–31, 2026</strong>
-                                    </div>
-                                @elseif(str_contains(strtolower($notice->title ?? ''), 'gem') || str_contains(strtolower($notice->title ?? ''), 'competition'))
-                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
-                                        <span style="font-weight: 700; color: #1e40af; text-transform: uppercase;">Competition Dates:</span>
-                                        <strong style="color: #1d4ed8; font-weight: 800;">Dec 13–15, 2026</strong>
-                                    </div>
-                                @elseif(str_contains(strtolower($notice->title ?? ''), 'musabaqah') || str_contains(strtolower($notice->title ?? ''), 'qur\'an'))
-                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
-                                        <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Registration Open:</span>
-                                        <strong style="color: #047857; font-weight: 800;">Until Jan 17, 2027</strong>
-                                    </div>
-                                @endif
                             </div>
 
                             <!-- Card Footer: Author & Read More Link -->
@@ -1774,11 +1821,12 @@
                             }
 
                             $rawNewsBody = (string) ($announcement->content ?? '');
-                            $rawNewsBody = preg_replace('/<(style|script|table)\b[^>]*>.*?<\/\1>/is', ' ', $rawNewsBody);
+                            $rawNewsBody = preg_replace('/<(style|script|table|h[1-6])\b[^>]*>.*?<\/\1>/is', ' ', $rawNewsBody);
                             $rawNewsBody = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>'], ' ', $rawNewsBody);
                             $rawNewsBody = strip_tags($rawNewsBody);
                             $rawNewsBody = html_entity_decode($rawNewsBody, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                            $cleanNewsExcerpt = Str::limit(trim(preg_replace('/\s+/', ' ', $rawNewsBody)), 135, '...');
+                            $rawNewsBody = preg_replace('/\b(?:Assalaamu\s+al[ai]ykum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?|Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh(?:u)?\.?)\s*/iu', '', $rawNewsBody);
+                            $cleanNewsExcerpt = \Illuminate\Support\Str::words(trim(preg_replace('/\s+/', ' ', $rawNewsBody)), 23, '...');
                         @endphp
                         <a href="{{ route('announcement.show', $announcement->uuid ?? $announcement->id) }}" class="news-card">
                             <div class="news-image">
@@ -1865,8 +1913,8 @@
                     <span class="active-dot"></span>
                     ACTIVE &bull; FULL COMPLIANCE
                 </div>
-                <div class="home-accred-icon" style="color: #b91c1c;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: flex-start;">
+                    <img src="/accre/peac_certified_jhs_466150.webp" alt="PEAC Certified 466150 Junior High School" style="height: 56px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));" loading="lazy">
                 </div>
                 <h3>DepEd &amp; PEAC Certified Status</h3>
                 <p>Junior High School Program officially certified under the Educational Service Contracting (ESC) system with Full Compliance.</p>

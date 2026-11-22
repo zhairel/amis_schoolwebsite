@@ -884,6 +884,11 @@
                 <div class="footer-content">
                     <div class="footer-section">
                         <img src="/logo.png" alt="AMIS Logo" class="footer-logo" width="160" height="160" style="width: 160px !important; height: 160px !important; max-width: 160px !important; max-height: 160px !important; object-fit: contain !important; display: block;" onerror="this.src='https://amis.edu.ph/logo.png'">
+                        <div style="margin-top: 14px; display: flex; align-items: center; gap: 8px;">
+                            <a href="{{ route('about.certifications') }}" title="PEAC Certified Junior High School (DepEd ID: 466150)">
+                                <img src="/accre/peac_certified_jhs_466150.webp" alt="PEAC Certified Junior High School 466150" style="height: 44px; width: auto; object-fit: contain; background: white; padding: 4px 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" loading="lazy">
+                            </a>
+                        </div>
                     </div>
                     
                     <div class="footer-section">

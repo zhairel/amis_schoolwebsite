@@ -420,6 +420,15 @@
 
                     <!-- Official Verification Summary Card -->
                     <div class="peac-meta-card">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1.5px solid #e2e8f0; flex-wrap: wrap;">
+                            <img src="/accre/peac_certified_jhs_466150.webp" alt="PEAC Certified 466150 Junior High School" style="height: 78px; width: auto; object-fit: contain; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));" loading="lazy">
+                            <div style="text-align: left;">
+                                <div style="font-size: 1.25rem; font-weight: 800; color: #0f172a; line-height: 1.3;">PEAC Certified Junior High School Program</div>
+                                <div style="font-size: 0.92rem; color: #059669; font-weight: 700;">DepEd School ID: 466150 &bull; ESC School ID: 1104046</div>
+                                <div style="font-size: 0.82rem; color: #64748b; margin-top: 2px;">Educational Service Contracting (ESC) Participating School &bull; Full Compliance</div>
+                            </div>
+                        </div>
+
                         <div class="peac-meta-grid">
                             <div class="peac-meta-item">
                                 <span class="peac-meta-label">Certification Status</span>
