@@ -220,70 +220,139 @@
     }
     .announcements-column {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
         gap: 24px;
-        justify-content: center;
-        justify-items: center;
+        align-items: stretch;
     }
     .news-card {
-        background: white;
-        border-radius: 12px;
+        background: #ffffff;
+        border-radius: 18px;
         border: 1px solid #e2e8f0;
-        transition: all 0.3s ease;
+        border-top: 4px solid #059669;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         text-decoration: none;
         color: inherit;
         width: 100%;
-        max-width: 340px;
     }
     .news-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
         border-color: var(--primary);
+        box-shadow: 0 14px 30px rgba(5, 150, 105, 0.12);
     }
     .news-image {
         width: 100%;
-        aspect-ratio: 1/1;
-        background: #f3f4f6;
+        aspect-ratio: 16 / 10;
+        background: #f1f5f9;
         overflow: hidden;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-bottom: 1px solid #f1f5f9;
     }
     .news-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .news-card:hover .news-image img {
+        transform: scale(1.03);
+    }
+    .news-cat-pill {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 4;
+        background: rgba(15, 23, 42, 0.8);
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .news-photo-count {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 4;
+        background: rgba(15, 23, 42, 0.78);
+        color: #ffffff;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        backdrop-filter: blur(6px);
     }
     .news-content {
-        padding: 15px;
+        padding: 20px 22px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        justify-content: space-between;
+        gap: 10px;
         flex-grow: 1;
     }
     .news-date {
-        color: var(--primary);
-        font-size: 0.7rem;
+        color: #64748b;
+        font-size: 0.78rem;
         font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     .news-card h3 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.4;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 6px 0 8px;
+        line-height: 1.35;
+        text-wrap: balance;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    .news-excerpt {
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.6;
+        margin: 0;
+        text-wrap: pretty;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .news-card-footer {
+        padding-top: 12px;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 4px;
+    }
+    .news-author-tag {
+        font-size: 0.78rem;
+        color: #64748b;
+        font-weight: 600;
+    }
     .news-link {
         color: var(--primary);
-        font-weight: 700;
-        font-size: 0.8rem;
-        margin-top: auto;
+        font-weight: 800;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
     }
 
     /* Calendar CSS */
@@ -665,13 +734,37 @@
         background: white;
         border: 1px solid #e2e8f0;
         border-radius: 18px;
-        padding: 26px 24px;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.035);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+    }
+    .notice-card-media {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #f1f5f9;
+        overflow: hidden;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .notice-card-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .notice-card:hover .notice-card-media img {
+        transform: scale(1.03);
+    }
+    .notice-card-body {
+        padding: 22px 22px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
     }
     .notice-card:hover {
         transform: translateY(-4px);
@@ -1514,6 +1607,18 @@
                         $isAdvisory = str_contains($categoryLower, 'advisory');
                         $isReminder = str_contains($categoryLower, 'reminder');
                         $isUrgent = in_array(strtolower($notice->priority ?? ''), ['high', 'urgent']);
+
+                        $noticeImgs = json_decode($notice->image ?? '', true);
+                        $noticeImg = is_array($noticeImgs) ? ($noticeImgs[0] ?? null) : $notice->image;
+
+                        // Clean notice excerpt (remove style/script/table memorandum headers first)
+                        $rawNoticeText = (string) ($notice->content ?? '');
+                        $rawNoticeText = preg_replace('/<(style|script|table)\b[^>]*>.*?<\/\1>/is', ' ', $rawNoticeText);
+                        $rawNoticeText = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>', '</tr>', '</td>', '</th>'], ' ', $rawNoticeText);
+                        $rawNoticeText = strip_tags($rawNoticeText);
+                        $rawNoticeText = html_entity_decode($rawNoticeText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                        $rawNoticeText = preg_replace('/\b(?:Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh\.?)\s*/iu', '', $rawNoticeText);
+                        $cleanNoticeExcerpt = Str::limit(trim(preg_replace('/\s+/', ' ', $rawNoticeText)), 145, '...');
                         
                         // Badge & accent colors based on notice category and priority
                         if ($isUrgent || str_contains($categoryLower, 'important')) {
@@ -1538,70 +1643,83 @@
                             $badgeBorder = '#a7f3d0';
                         }
                     @endphp
-                    <div class="notice-card" style="border-top: 4px solid {{ $accentColor }};">
-                        <div>
-                            <!-- Header: Category & Publication Date -->
-                            <div class="notice-header">
-                                <span class="notice-badge" style="background: {{ $badgeBg }}; color: {{ $badgeColor }}; border: 1px solid {{ $badgeBorder }};">
-                                    @if($isAdvisory)
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                                    @elseif($isReminder)
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                                    @else
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                    @endif
-                                    {{ $notice->category ?: 'Official Notice' }}
-                                </span>
+                    <article class="notice-card" style="border-top: 4px solid {{ $accentColor }};">
+                        @if($noticeImg)
+                            <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}" class="notice-card-media" tabindex="-1" aria-hidden="true">
+                                <img src="{{ $noticeImg }}" alt="{{ $notice->title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                            </a>
+                        @endif
+                        <div class="notice-card-body">
+                            <div>
+                                <!-- Header: Category & Publication Date -->
+                                <div class="notice-header">
+                                    <span class="notice-badge" style="background: {{ $badgeBg }}; color: {{ $badgeColor }}; border: 1px solid {{ $badgeBorder }};">
+                                        @if($isAdvisory)
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                        @elseif($isReminder)
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                        @else
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        @endif
+                                        {{ $notice->category ?: 'Official Notice' }}
+                                    </span>
 
-                                <span class="notice-date">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                    {{ optional($notice->publish_date ?? $notice->created_at)->format('F d, Y') }}
-                                </span>
+                                    <span class="notice-date">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        {{ optional($notice->publish_date ?? $notice->created_at)->format('F d, Y') }}
+                                    </span>
+                                </div>
+
+                                <!-- Notice Title -->
+                                <h3 class="notice-title" style="text-wrap: balance;">
+                                    <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}">
+                                        {{ $notice->title }}
+                                    </a>
+                                </h3>
+
+                                <!-- Short Description / Excerpt -->
+                                <p class="notice-excerpt" style="text-wrap: pretty;">
+                                    {{ $cleanNoticeExcerpt }}
+                                </p>
+
+                                @if(str_contains(strtolower($notice->title ?? ''), 'enrollment'))
+                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
+                                        <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Early Enrollment (15% Off):</span>
+                                        <strong style="color: #047857; font-weight: 800;">Dec 1–31, 2026</strong>
+                                    </div>
+                                @elseif(str_contains(strtolower($notice->title ?? ''), 'gem') || str_contains(strtolower($notice->title ?? ''), 'competition'))
+                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
+                                        <span style="font-weight: 700; color: #1e40af; text-transform: uppercase;">Competition Dates:</span>
+                                        <strong style="color: #1d4ed8; font-weight: 800;">Dec 13–15, 2026</strong>
+                                    </div>
+                                @elseif(str_contains(strtolower($notice->title ?? ''), 'musabaqah') || str_contains(strtolower($notice->title ?? ''), 'qur\'an'))
+                                    <div class="notice-countdown-strip" style="margin: 10px 0 12px; padding: 7px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
+                                        <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Registration Open:</span>
+                                        <strong style="color: #047857; font-weight: 800;">Until Jan 17, 2027</strong>
+                                    </div>
+                                @endif
                             </div>
 
-                            <!-- Notice Title -->
-                            <h3 class="notice-title">
-                                <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}">
-                                    {{ $notice->title }}
+                            <!-- Card Footer: Author & Read More Link -->
+                            <div class="notice-footer">
+                                <span class="notice-author">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    {{ (!empty($notice->author) && !str_contains(strtolower($notice->author), 'admin')) ? $notice->author : 'AMIS Administration' }}
+                                </span>
+                                <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}" class="notice-read-more">
+                                    <span>Read Notice</span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
-                            </h3>
-
-                            <!-- Short Description / Excerpt -->
-                            <p class="notice-excerpt">
-                                {{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], ' ', $notice->content)))), 140, '...') }}
-                            </p>
-
-                            @if(str_contains(strtolower($notice->title ?? ''), 'enrollment'))
-                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
-                                    <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Opens Dec 1 (15% Off):</span>
-                                    <strong style="color: #047857; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeEnrollClock">19d 14h 22m 00s</strong>
-                                </div>
-                            @elseif(str_contains(strtolower($notice->title ?? ''), 'gem') || str_contains(strtolower($notice->title ?? ''), 'competition'))
-                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
-                                    <span style="font-weight: 700; color: #991b1b; text-transform: uppercase;">Registration (Nov 20):</span>
-                                    <strong style="color: #b91c1c; font-variant-numeric: tabular-nums; font-weight: 800;" id="noticeGemClock">9d 14h 00m 00s</strong>
-                                </div>
-                            @elseif(str_contains(strtolower($notice->title ?? ''), 'musabaqah') || str_contains(strtolower($notice->title ?? ''), 'qur\'an'))
-                                <div class="notice-countdown-strip" style="margin: 10px 0 6px; padding: 6px 12px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
-                                    <span style="font-weight: 700; color: #065f46; text-transform: uppercase;">Registration Open:</span>
-                                    <strong style="color: #047857; font-weight: 800;">Until Jan 17, 2027</strong>
-                                </div>
-                            @endif
+                            </div>
                         </div>
-
-                        <!-- Card Footer: Author & Read More Link -->
-                        <div class="notice-footer">
-                            <span class="notice-author">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                {{ (!empty($notice->author) && !str_contains(strtolower($notice->author), 'admin')) ? $notice->author : 'AMIS IT Support' }}
-                            </span>
-                            <a href="{{ route('announcement.show', $notice->uuid ?? $notice->id) }}" class="notice-read-more">
-                                <span>Read More</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </a>
-                        </div>
-                    </div>
+                    </article>
                 @endforeach
+            </div>
+            <div style="text-align: center; margin-top: 32px;">
+                <a href="{{ route('news.index', ['tab' => 'notices']) }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; border-radius: 999px; background: #f8fafc; border: 1.5px solid #cbd5e1; color: #0f172a; font-weight: 800; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='#059669';this.style.color='#059669';" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#0f172a';">
+                    <span>View All Official School Notices &amp; Advisories</span>
+                    <span>&rarr;</span>
+                </a>
             </div>
         @else
             <!-- Proper Empty State -->
@@ -1617,12 +1735,21 @@
 </section>
 
 <!-- ANNOUNCEMENTS & NEWS -->
-<section class="section news-announcements">
+<section class="section news-announcements" style="padding: 70px 0;">
     <div class="container">
-        <h2 class="section-title">News & Info</h2>
-        <p class="section-subtitle" style="margin-bottom: 8px;">Stay updated with the latest news, announcements, and info from AMIS</p>
-        <div style="text-align: center; margin-bottom: 30px;">
-            <a href="{{ route('news.index') }}" style="color: #059669; font-weight: 700; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s;" onmouseover="this.style.color='#047857'" onmouseout="this.style.color='#059669'">View All News & Info →</a>
+        <div style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #059669; padding: 5px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border: 1px solid #a7f3d0;">
+                    <span style="display: inline-block; width: 7px; height: 7px; background: #059669; border-radius: 50%; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);"></span>
+                    Campus Journalism &amp; Achievements
+                </span>
+            </div>
+            <h2 class="section-title" style="margin-bottom: 10px; font-size: 2.25rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">News &amp; Campus Highlights</h2>
+            <p class="section-subtitle" style="color: #64748b; font-size: 1.02rem; margin: 0 0 16px; line-height: 1.6;">Celebrating student achievements, international conferences, and institutional milestones at AMIS</p>
+            <a href="{{ route('news.index') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #059669; font-weight: 800; font-size: 0.92rem; text-decoration: none; background: #ffffff; padding: 8px 18px; border-radius: 999px; border: 1px solid #a7f3d0; box-shadow: 0 2px 6px rgba(5, 150, 105, 0.08);">
+                <span>Explore Full Newsroom &amp; Archive</span>
+                <span>&rarr;</span>
+            </a>
         </div>
         
         <div class="news-layout">
@@ -1630,28 +1757,58 @@
             @if($announcements->count() > 0)
                 <div class="announcements-column">
                     @foreach($announcements as $announcement)
+                        @php
+                            $imgs = json_decode($announcement->image, true);
+                            $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $announcement->image;
+                            $photoCount = is_array($imgs) ? count($imgs) : ($firstImg ? 1 : 0);
+
+                            $rawTitle = trim((string) $announcement->title);
+                            $rawTitle = preg_replace('/^AMIS\s+News\s*\|\s*/i', '', $rawTitle);
+                            if ($rawTitle === mb_strtoupper($rawTitle, 'UTF-8') && mb_strlen($rawTitle) > 18) {
+                                $rawTitle = mb_convert_case(mb_strtolower($rawTitle, 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+                                $rawTitle = str_ireplace(
+                                    ['Amis', 'Peac', 'Dti', 'Ayimun', 'Adni', 'Deped', 'Qahe', 'Actd'],
+                                    ['AMIS', 'PEAC', 'DTI', 'AYIMUN', 'ADNI', 'DepEd', 'QAHE', 'ACTD'],
+                                    $rawTitle
+                                );
+                            }
+
+                            $rawNewsBody = (string) ($announcement->content ?? '');
+                            $rawNewsBody = preg_replace('/<(style|script|table)\b[^>]*>.*?<\/\1>/is', ' ', $rawNewsBody);
+                            $rawNewsBody = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>'], ' ', $rawNewsBody);
+                            $rawNewsBody = strip_tags($rawNewsBody);
+                            $rawNewsBody = html_entity_decode($rawNewsBody, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                            $cleanNewsExcerpt = Str::limit(trim(preg_replace('/\s+/', ' ', $rawNewsBody)), 135, '...');
+                        @endphp
                         <a href="{{ route('announcement.show', $announcement->uuid ?? $announcement->id) }}" class="news-card">
                             <div class="news-image">
-                                @php
-                                    $imgs = json_decode($announcement->image, true);
-                                    $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $announcement->image;
-                                @endphp
+                                <span class="news-cat-pill">{{ $announcement->category ?: 'AMIS News' }}</span>
+                                @if($photoCount > 1)
+                                    <span class="news-photo-count">{{ $photoCount }} Photos</span>
+                                @endif
                                 @if(is_array($imgs) && count($imgs) > 1)
                                     <div class="news-slideshow-container w-full h-full relative">
                                         @foreach($imgs as $idx => $img)
-                                             <img src="{{ $img }}" alt="{{ $announcement->title }}" class="news-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ $idx === 0 ? 'opacity-100' : 'opacity-0' }}" loading="lazy">
+                                             <img src="{{ $img }}" alt="{{ $rawTitle }}" class="news-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 {{ $idx === 0 ? 'opacity-100' : 'opacity-0' }}" loading="lazy">
                                         @endforeach
                                     </div>
                                 @else
-                                    <img src="{{ $firstImg ?? '/summer-class.png' }}" alt="{{ $announcement->title }}" class="w-full h-full object-cover" loading="lazy">
+                                    <img src="{{ $firstImg ?? '/summer-class.png' }}" alt="{{ $rawTitle }}" class="w-full h-full object-cover" loading="lazy">
                                 @endif
                             </div>
                             <div class="news-content">
-                                <div class="news-date">
-                                    {{ strtoupper(optional($announcement->publish_date ?? $announcement->created_at)->format('F d, Y') ?? 'ANNOUNCEMENT') }}
+                                <div>
+                                    <div class="news-date">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        {{ optional($announcement->publish_date ?? $announcement->created_at)->format('F d, Y') ?? 'AMIS Update' }}
+                                    </div>
+                                    <h3>{{ $rawTitle }}</h3>
+                                    <p class="news-excerpt">{{ $cleanNewsExcerpt }}</p>
                                 </div>
-                                <h3>{{ $announcement->title }}</h3>
-                                <span class="news-link">Read More →</span>
+                                <div class="news-card-footer">
+                                    <span class="news-author-tag">{{ (!empty($announcement->author) && !str_contains(strtolower($announcement->author), 'admin')) ? $announcement->author : 'AMIS Newsroom' }}</span>
+                                    <span class="news-link">Read Story &rarr;</span>
+                                </div>
                             </div>
                         </a>
                     @endforeach

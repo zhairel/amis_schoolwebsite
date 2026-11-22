@@ -1,732 +1,831 @@
 @extends('layouts.app')
 
-@section('title', 'News & Info | AMIS')
+@section('title', 'Newsroom & Official Notices | Al Munawwara Islamic School')
+
+@php
+    $activeTab = $activeTab ?? request('tab', 'all');
+    $searchQuery = $searchQuery ?? request('q', '');
+    $counts = $counts ?? [
+        'all' => $announcements->total(),
+        'notices' => 0,
+        'news' => 0,
+        'events' => 0,
+    ];
+
+    $cleanAnnouncementTitle = function (?string $rawTitle): string {
+        $title = trim((string) $rawTitle);
+        if ($title === '') return 'Official AMIS Update';
+        // Remove redundant prefix like "AMIS News | "
+        $title = preg_replace('/^AMIS\s+News\s*\|\s*/i', '', $title);
+        if ($title === mb_strtoupper($title, 'UTF-8') && mb_strlen($title) > 18) {
+            $title = mb_convert_case(mb_strtolower($title, 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+            $title = str_ireplace(
+                ['Amis-Gem', 'Amis', 'Peac', 'Dti', 'Ayimun', 'Adni', 'Deped', 'Qahe', 'Actd', 'Asad', 'Isal', 'S.y.', 'Sy ', 'Ii', 'Iii'],
+                ['AMIS-GEM', 'AMIS', 'PEAC', 'DTI', 'AYIMUN', 'ADNI', 'DepEd', 'QAHE', 'ACTD', 'ASAD', 'ISAL', 'S.Y.', 'SY ', 'II', 'III'],
+                $title
+            );
+        }
+        return $title;
+    };
+
+    $cleanAnnouncementExcerpt = function (?string $rawHtml, int $limit = 175): string {
+        $text = (string) $rawHtml;
+        // Remove inline style/script blocks
+        $text = preg_replace('/<(style|script)\b[^>]*>.*?<\/\1>/is', ' ', $text);
+        // Remove memorandum table/header blocks so the excerpt shows the actual message body
+        $text = preg_replace('/<table\b[^>]*>.*?<\/table>/is', ' ', $text);
+        // Add space before and after block/break tags before stripping HTML
+        $text = str_ireplace(['</p>', '<br>', '<br/>', '<br />', '</div>', '</li>', '</tr>', '</td>', '</th>', '</h1>', '</h2>', '</h3>', '</h4>'], ' ', $text);
+        $text = strip_tags($text);
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // Strip leading memorandum boilerplate if still present in plain text
+        $text = preg_replace('/^(?:MEMORANDUM|Circular\s+No\.[^\n]*|TO\s*:.*?DATE\s*:[^\n]*)/is', ' ', $text);
+        $text = preg_replace('/\b(?:Assalaamu\s+alaikum\s+wa\s+rahmatullahi\s+wa\s+barakatuh\.?| السَّلَامُ عَلَيْكُمْ[^\s]*)\s*/iu', '', $text);
+        $text = trim(preg_replace('/\s+/', ' ', $text));
+        return \Illuminate\Support\Str::limit($text, $limit, '...');
+    };
+@endphp
 
 @section('styles')
 <style>
-    .page-hero {
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        color: white;
-        padding: 100px 0 60px;
-        text-align: center;
-    }
-    .page-hero h1 {
-        font-size: 2.75rem;
-        margin-bottom: 12px;
-        font-weight: 800;
-    }
-    .page-hero p {
-        font-size: 1.15rem;
-        opacity: 0.95;
-    }
-    .sy-badge {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 4px 14px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .news-section {
+    .newsroom-page {
         background: #f8fafc;
-        padding: 60px 0;
+        min-height: 100vh;
+        padding-bottom: 5rem;
     }
-    
-    .news-list {
-        max-width: 900px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+
+    /* Hero Header */
+    .newsroom-hero {
+        background: radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.25) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 80%, rgba(250, 204, 21, 0.14) 0%, transparent 45%),
+                    linear-gradient(135deg, #022c22 0%, #064e3b 52%, #047857 100%);
+        color: #ffffff;
+        padding: 3.25rem 0 3.75rem;
+        border-bottom: 3px solid rgba(250, 204, 21, 0.35);
     }
-    
-    .news-item {
-        display: flex;
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .news-item:hover {
-        border-color: #059669;
-        transform: translateY(-2px);
-    }
-    
-    .news-item-image {
-        width: 280px;
-        height: 190px;
-        flex-shrink: 0;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .news-item-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .news-item-content {
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex-grow: 1;
-    }
-    
-    .news-item-meta {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 10px;
-    }
-    
-    .news-item-date {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .news-item-title {
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 10px;
-        line-height: 1.4;
-    }
-    
-    .news-item-excerpt {
-        font-size: 0.95rem;
-        color: #475569;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    .news-item-link {
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: #059669;
-        text-decoration: none;
+    .newsroom-breadcrumb {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        transition: color 0.2s;
-    }
-    
-    .news-item-link:hover {
-        color: #047857;
-    }
-    
-    /* Pagination styling */
-    .news-pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        margin-top: 40px;
-    }
-    
-    .pagination-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        border: 1px solid #e2e8f0;
-        background: white;
-        color: #475569;
-        text-decoration: none;
-        transition: all 0.2s;
-    }
-    
-    .pagination-btn:hover:not(.disabled-link) {
-        border-color: #059669;
-        color: #059669;
-    }
-    
-    .pagination-btn.disabled-link {
-        opacity: 0.4;
-        pointer-events: none;
-        cursor: not-allowed;
-    }
-    
-    .pagination-number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 40px;
-        height: 40px;
-        padding: 0 6px;
-        border-radius: 8px;
-        border: 1px solid #e2e8f0;
-        background: white;
-        color: #475569;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.2s;
-    }
-    
-    .pagination-number:hover {
-        border-color: #059669;
-        color: #059669;
-    }
-    
-    .pagination-number.active {
-        background: #059669;
-        border-color: #059669;
-        color: white;
-    }
-    
-    @media (max-width: 768px) {
-        .news-item {
-            flex-direction: column;
-        }
-        .news-item-image {
-            width: 100%;
-            height: 200px;
-        }
-        .news-item-content {
-            padding: 20px;
-        }
-        .news-item-title {
-            font-size: 1.2rem;
-        }
-    }
-
-    /* TOP STORIES SECTION */
-    .top-stories-section {
-        background: #ffffff;
-        padding: 50px 0 60px;
-        border-bottom: 1px solid #e2e8f0;
-    }
-    .top-stories-header {
-        margin-bottom: 28px;
-    }
-    .top-stories-badge-row {
-        margin-bottom: 10px;
-    }
-    .top-stories-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: #ecfdf5;
-        color: #059669;
-        border: 1px solid #a7f3d0;
-        padding: 5px 14px;
+        gap: 0.5rem;
+        font-size: 0.84rem;
+        color: rgba(255, 255, 255, 0.82);
+        margin-bottom: 1.25rem;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 0.38rem 0.9rem;
         border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
-    .pulse-dot {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #059669;
-        box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
-    }
-    .top-stories-title {
-        font-size: 2.25rem;
-        font-weight: 800;
-        color: #0f172a;
-        margin: 0 0 8px;
-        letter-spacing: -0.5px;
-    }
-    .top-stories-subtitle {
-        font-size: 1rem;
-        color: #64748b;
-        margin: 0;
-    }
-
-    /* TOP STORIES MOSAIC / BENTO GRID */
-    .top-stories-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 255px 255px;
-        gap: 12px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    /* Specific Grid Placements matching user reference layout */
-    .top-story-card-0 {
-        grid-column: 1 / 3;
-        grid-row: 1 / 3;
-    }
-    .top-story-card-1 {
-        grid-column: 3 / 5;
-        grid-row: 1 / 2;
-    }
-    .top-story-card-2 {
-        grid-column: 3 / 4;
-        grid-row: 2 / 3;
-    }
-    .top-story-card-3 {
-        grid-column: 4 / 5;
-        grid-row: 2 / 3;
-    }
-
-    /* Base Card Styling */
-    .top-story-card {
-        position: relative;
-        border-radius: 16px;
-        overflow: hidden;
-        background-color: #0f172a;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        isolation: isolate;
-    }
-    .top-story-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-    }
-
-    /* Stretched link pattern */
-    .top-story-card .top-story-card-link::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-    }
-
-    /* Media & Background Image */
-    .top-story-media {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-        overflow: hidden;
-    }
-    .top-story-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
-        display: block;
-    }
-    .top-story-card:hover .top-story-img {
-        transform: scale(1.06);
-    }
-
-    /* Gradient Vignette Overlay */
-    .top-story-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0) 15%,
-            rgba(0, 0, 0, 0.45) 55%,
-            rgba(0, 0, 0, 0.94) 100%
-        );
-        transition: background 0.3s ease;
-    }
-    .top-story-card:hover .top-story-overlay {
-        background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0.05) 10%,
-            rgba(0, 0, 0, 0.55) 50%,
-            rgba(0, 0, 0, 0.98) 100%
-        );
-    }
-
-    /* Content Area */
-    .top-story-content {
-        position: relative;
-        z-index: 1;
-        padding: 22px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        color: #ffffff;
-    }
-    .top-story-card-0 .top-story-content {
-        padding: 30px 28px;
-        gap: 12px;
-    }
-
-    /* Badge */
-    .top-story-tag-wrap {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    .top-story-cat {
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 999px;
-        font-size: 0.72rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        background: rgba(15, 23, 42, 0.75);
-        color: #f1f5f9;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .top-story-cat.cat-good-news {
-        background: #059669;
-        color: #ffffff;
-        border-color: #34d399;
-        box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
-    }
-
-    /* Headlines */
-    .top-story-headline {
-        margin: 0;
-        line-height: 1.25;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    }
-    .top-story-card-0 .top-story-headline {
-        font-size: 1.7rem;
-        font-weight: 800;
-    }
-    .top-story-card-1 .top-story-headline {
-        font-size: 1.28rem;
-        font-weight: 700;
-    }
-    .top-story-card-2 .top-story-headline,
-    .top-story-card-3 .top-story-headline {
-        font-size: 1.05rem;
-        font-weight: 700;
-        line-height: 1.35;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    .top-story-card-link {
-        color: #ffffff;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    .top-story-card:hover .top-story-card-link {
+    .newsroom-breadcrumb a {
         color: #a7f3d0;
+        text-decoration: none;
+        font-weight: 600;
     }
-
-    /* Snippet */
-    .top-story-snippet {
-        margin: 0;
-        font-size: 0.92rem;
-        color: rgba(255, 255, 255, 0.88);
-        line-height: 1.55;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    /* Byline */
-    .top-story-byline {
-        display: flex;
+    .newsroom-kicker {
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.8);
-        font-weight: 500;
-        margin-top: 2px;
+        gap: 0.45rem;
+        background: rgba(250, 204, 21, 0.16);
+        color: #fde047;
+        border: 1px solid rgba(250, 204, 21, 0.4);
+        padding: 0.32rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.85rem;
     }
-    .story-author {
-        font-weight: 700;
-        color: #ffffff;
+    .newsroom-hero h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: clamp(2rem, 1.35rem + 2.2vw, 3rem);
+        font-weight: 900;
+        line-height: 1.15;
+        margin: 0 0 0.75rem;
+        text-wrap: balance;
     }
-    .story-separator {
-        color: rgba(255, 255, 255, 0.5);
+    .newsroom-hero p {
+        font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.12rem);
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 64ch;
+        line-height: 1.65;
+        margin: 0;
     }
 
-    /* Feed Header */
-    .feed-header-bar {
-        max-width: 900px;
-        margin: 0 auto 30px;
+    /* Filter Tabs & Search Toolbar */
+    .newsroom-toolbar-wrap {
+        margin-top: -1.65rem;
+        position: relative;
+        z-index: 10;
+        margin-bottom: 2.5rem;
+    }
+    .newsroom-toolbar {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 0.9rem 1.15rem;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 12px;
-        border-bottom: 2px solid #e2e8f0;
-        padding-bottom: 14px;
+        gap: 1rem;
+    }
+    .newsroom-tabs {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+    }
+    .newsroom-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.55rem 1rem;
+        border-radius: 12px;
+        font-size: 0.86rem;
+        font-weight: 700;
+        color: #475569;
+        text-decoration: none;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
+    }
+    .newsroom-tab:hover {
+        border-color: #059669;
+        color: #059669;
+        background: #f0fdf4;
+    }
+    .newsroom-tab.active {
+        background: #059669;
+        border-color: #059669;
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.22);
+    }
+    .newsroom-tab-count {
+        font-size: 0.72rem;
+        font-weight: 800;
+        padding: 0.12rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.08);
+        color: inherit;
+    }
+    .newsroom-tab.active .newsroom-tab-count {
+        background: rgba(255, 255, 255, 0.22);
+        color: #ffffff;
     }
 
-    /* Responsiveness */
-    @media (max-width: 991px) {
-        .top-stories-grid {
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: auto;
-            gap: 12px;
-        }
-        .top-story-card-0 {
-            grid-column: 1 / 3;
-            grid-row: auto;
-            height: 380px;
-        }
-        .top-story-card-1 {
-            grid-column: 1 / 3;
-            grid-row: auto;
-            height: 250px;
-        }
-        .top-story-card-2 {
-            grid-column: 1 / 2;
-            grid-row: auto;
-            height: 230px;
-        }
-        .top-story-card-3 {
-            grid-column: 2 / 3;
-            grid-row: auto;
-            height: 230px;
-        }
+    .newsroom-search-form {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+        max-width: 340px;
+        min-width: 240px;
+    }
+    .newsroom-search-input {
+        width: 100%;
+        padding: 0.58rem 0.95rem;
+        border-radius: 12px;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        font-size: 0.88rem;
+        color: #0f172a;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .newsroom-search-input:focus {
+        border-color: #059669;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+    }
+    .newsroom-search-btn {
+        padding: 0.58rem 1rem;
+        border-radius: 12px;
+        border: none;
+        background: #0f172a;
+        color: #ffffff;
+        font-size: 0.84rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .newsroom-search-btn:hover {
+        background: #059669;
     }
 
-    @media (max-width: 640px) {
-        .top-stories-grid {
+    /* Section Headings */
+    .newsroom-section-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .newsroom-section-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: #ecfdf5;
+        color: #047857;
+        border: 1px solid #a7f3d0;
+        padding: 0.28rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.45rem;
+    }
+    .newsroom-section-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: clamp(1.45rem, 1.15rem + 1vw, 2rem);
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    /* Featured Highlights Section (Clean Cards — Zero Text Overlaid on Photos) */
+    .featured-highlights-wrap {
+        margin-bottom: 3.25rem;
+    }
+    .featured-lead-card {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+        margin-bottom: 1.35rem;
+        position: relative;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .featured-lead-card:hover {
+        transform: translateY(-3px);
+        border-color: #059669;
+        box-shadow: 0 18px 40px rgba(5, 150, 105, 0.12);
+    }
+    .featured-lead-img {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+        max-height: 410px;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        display: block;
+        background: #f1f5f9;
+    }
+    .featured-lead-body {
+        padding: clamp(1.5rem, 2.5vw, 2.35rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .featured-sub-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.35rem;
+    }
+    .featured-sub-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .featured-sub-card:hover {
+        transform: translateY(-3px);
+        border-color: #059669;
+        box-shadow: 0 14px 30px rgba(5, 150, 105, 0.1);
+    }
+    .featured-sub-img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        background: #f1f5f9;
+    }
+    .featured-sub-body {
+        padding: 1.35rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        gap: 0.85rem;
+    }
+
+    /* Stretched link pattern from Modern Web Guidance */
+    .card-stretched:has(a.card-link) {
+        position: relative;
+    }
+    .card-stretched a.card-link {
+        color: inherit;
+        text-decoration: none;
+    }
+    .card-stretched a.card-link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+    .card-stretched:hover a.card-link {
+        color: #059669;
+    }
+
+    /* All Updates Feed Grid */
+    .feed-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.35rem;
+    }
+    .feed-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.035);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        position: relative;
+    }
+    .feed-card:hover {
+        transform: translateY(-3px);
+        border-color: #059669;
+        box-shadow: 0 14px 30px rgba(5, 150, 105, 0.1);
+    }
+    .feed-card.is-notice-card {
+        border-top: 4px solid #d97706;
+    }
+    .feed-card.is-urgent-card {
+        border-top: 4px solid #e11d48;
+    }
+    .feed-card.is-news-card {
+        border-top: 4px solid #059669;
+    }
+
+    .feed-card-media-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #f1f5f9;
+        overflow: hidden;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .feed-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .feed-card:hover .feed-card-img {
+        transform: scale(1.03);
+    }
+    .feed-photo-count {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(15, 23, 42, 0.78);
+        color: #ffffff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.22rem 0.6rem;
+        border-radius: 999px;
+        backdrop-filter: blur(6px);
+    }
+
+    .feed-card-body {
+        padding: 1.35rem 1.45rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        gap: 0.85rem;
+    }
+
+    .card-meta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .card-cat-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .card-date-text {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    .card-headline-lg {
+        font-family: 'Outfit', sans-serif;
+        font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.28;
+        margin: 0.5rem 0 0.65rem;
+        text-wrap: balance;
+    }
+    .card-headline-md {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.18rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.35;
+        margin: 0.35rem 0 0.45rem;
+        text-wrap: balance;
+    }
+
+    .card-excerpt {
+        font-size: 0.92rem;
+        color: #475569;
+        line-height: 1.62;
+        margin: 0;
+        text-wrap: pretty;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-footer-bar {
+        padding-top: 0.85rem;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        font-size: 0.82rem;
+    }
+    .card-author {
+        color: #64748b;
+        font-weight: 600;
+    }
+    .card-read-cta {
+        color: #059669;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    /* Pagination */
+    .news-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2.75rem;
+    }
+    .pagination-btn,
+    .pagination-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+        min-height: 42px;
+        padding: 0 0.65rem;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        color: #475569;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    .pagination-btn:hover:not(.disabled-link),
+    .pagination-number:hover {
+        border-color: #059669;
+        color: #059669;
+    }
+    .pagination-number.active {
+        background: #059669;
+        border-color: #059669;
+        color: #ffffff;
+    }
+    .pagination-btn.disabled-link {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    @media (max-width: 960px) {
+        .featured-lead-card,
+        .featured-sub-grid,
+        .feed-grid {
             grid-template-columns: 1fr;
-            gap: 12px;
         }
-        .top-story-card-0,
-        .top-story-card-1,
-        .top-story-card-2,
-        .top-story-card-3 {
-            grid-column: 1;
-            grid-row: auto;
-        }
-        .top-story-card-0 {
-            height: 340px;
-        }
-        .top-story-card-1 {
-            height: 230px;
-        }
-        .top-story-card-2,
-        .top-story-card-3 {
-            height: 210px;
-        }
-        .top-story-card-0 .top-story-headline {
-            font-size: 1.35rem;
-        }
-        .top-story-card-0 .top-story-content {
-            padding: 22px 18px;
+        .newsroom-search-form {
+            max-width: 100%;
+            width: 100%;
         }
     }
 </style>
 @endsection
 
 @section('content')
-<!-- HERO BANNER -->
-<section class="page-hero">
-    <div class="container">
-        <span class="sy-badge">School Year 2026 - 2027</span>
-        <h1>News & Info</h1>
-        <p>Stay informed with the latest updates, announcements, and info from AMIS</p>
-    </div>
-</section>
-
-<!-- TOP STORIES (GOOD NEWS & HIGHLIGHTS) -->
-@if(isset($topStories) && $topStories->count() >= 3 && request()->get('page', 1) == 1)
-<section class="top-stories-section">
-    <div class="container" style="max-width: 1200px;">
-        <div class="top-stories-header">
-            <div class="top-stories-badge-row">
-                <span class="top-stories-pill">
-                    <span class="pulse-dot"></span>
-                    Good News &amp; Achievements
-                </span>
+<div class="newsroom-page">
+    <!-- HERO BANNER -->
+    <section class="newsroom-hero">
+        <div class="container">
+            <nav class="newsroom-breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}">Home</a>
+                <span>/</span>
+                <span>Newsroom &amp; Official Notices</span>
+            </nav>
+            <div>
+                <span class="newsroom-kicker">Official School Communications &bull; SY 2026–2027</span>
+                <h1>AMIS Newsroom &amp; Official Notice Board</h1>
+                <p>Stay informed with verified school advisories, administrative circulars, student achievements, and campus events from Al Munawwara Islamic School.</p>
             </div>
-            <h2 class="top-stories-title">Top Stories</h2>
-            <p class="top-stories-subtitle">Celebrating academic excellence, global competitions, and inspiring achievements at AMIS</p>
         </div>
+    </section>
 
-        <div class="top-stories-grid">
-            @foreach($topStories as $idx => $story)
-                @php
-                    $storyImgs = json_decode($story->image, true);
-                    $storyImg = is_array($storyImgs) ? ($storyImgs[0] ?? null) : $story->image;
-                    if (!$storyImg) $storyImg = '/images/announcements/announcement_1784523441_ZOr34C.jpg';
-                    $plainContent = strip_tags($story->content);
-                    $authorName = (!empty($story->author) && !str_contains(strtolower($story->author), 'admin')) ? $story->author : 'AMIS IT Support';
-                    $storyDate = optional($story->publish_date ?? $story->created_at)->format('F d, Y');
-                    
-                    // Title formatting: if uppercase, convert to Title Case and preserve AMIS / PEAC / DTI / etc.
-                    $displayTitle = $story->title;
-                    if ($displayTitle === strtoupper($displayTitle)) {
-                        $displayTitle = ucwords(strtolower($displayTitle));
-                        $displayTitle = str_ireplace(
-                            ['amis', 'peac', 'dti', 'ayimun', 'adni', 'sy', 's.y.'],
-                            ['AMIS', 'PEAC', 'DTI', 'AYIMUN', 'ADNI', 'S.Y.', 'S.Y.'],
-                            $displayTitle
-                        );
-                    }
-                @endphp
+    <!-- FILTER TABS & SEARCH TOOLBAR -->
+    <div class="container newsroom-toolbar-wrap">
+        <div class="newsroom-toolbar">
+            <nav class="newsroom-tabs" aria-label="Filter announcements by category">
+                <a href="{{ route('news.index', ['tab' => 'all', 'q' => $searchQuery ?: null]) }}"
+                   class="newsroom-tab {{ $activeTab === 'all' ? 'active' : '' }}">
+                    <span>All Updates</span>
+                    <span class="newsroom-tab-count">{{ $counts['all'] ?? $announcements->total() }}</span>
+                </a>
+                <a href="{{ route('news.index', ['tab' => 'notices', 'q' => $searchQuery ?: null]) }}"
+                   class="newsroom-tab {{ $activeTab === 'notices' ? 'active' : '' }}">
+                    <span>AMIS Notices &amp; Advisories</span>
+                    <span class="newsroom-tab-count">{{ $counts['notices'] ?? 0 }}</span>
+                </a>
+                <a href="{{ route('news.index', ['tab' => 'news', 'q' => $searchQuery ?: null]) }}"
+                   class="newsroom-tab {{ $activeTab === 'news' ? 'active' : '' }}">
+                    <span>Good News &amp; Stories</span>
+                    <span class="newsroom-tab-count">{{ $counts['news'] ?? 0 }}</span>
+                </a>
+                <a href="{{ route('news.index', ['tab' => 'events', 'q' => $searchQuery ?: null]) }}"
+                   class="newsroom-tab {{ $activeTab === 'events' ? 'active' : '' }}">
+                    <span>Events &amp; Competitions</span>
+                    <span class="newsroom-tab-count">{{ $counts['events'] ?? 0 }}</span>
+                </a>
+            </nav>
 
-                <article class="top-story-card top-story-card-{{ $idx }}">
-                    <div class="top-story-media">
-                        <img src="{{ $storyImg }}" alt="{{ $displayTitle }}" loading="lazy" class="top-story-img">
+            <form method="GET" action="{{ route('news.index') }}" class="newsroom-search-form">
+                @if($activeTab !== 'all')
+                    <input type="hidden" name="tab" value="{{ $activeTab }}">
+                @endif
+                <input type="search"
+                       name="q"
+                       value="{{ $searchQuery }}"
+                       placeholder="Search news, notices, circulars..."
+                       class="newsroom-search-input"
+                       aria-label="Search news and notices">
+                <button type="submit" class="newsroom-search-btn">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- FEATURED TOP STORIES (Shown on 'All Updates', Page 1, without active search) -->
+        @if($activeTab === 'all' && $searchQuery === '' && isset($topStories) && $topStories->count() >= 1 && request()->get('page', 1) == 1)
+            @php
+                $leadStory = $topStories->first();
+                $subStories = $topStories->slice(1, 2);
+                $leadImgs = json_decode($leadStory->image ?? '', true);
+                $leadImg = is_array($leadImgs) ? ($leadImgs[0] ?? null) : $leadStory->image;
+                $leadTitle = $cleanAnnouncementTitle($leadStory->title);
+                $leadExcerpt = $cleanAnnouncementExcerpt($leadStory->content, 220);
+                $leadDate = optional($leadStory->publish_date ?? $leadStory->created_at)->format('F d, Y');
+                $leadAuthor = (!empty($leadStory->author) && !str_contains(strtolower($leadStory->author), 'admin')) ? $leadStory->author : 'AMIS Newsroom';
+            @endphp
+
+            <section class="featured-highlights-wrap" aria-label="Featured Campus Highlights">
+                <div class="newsroom-section-header">
+                    <div>
+                        <span class="newsroom-section-pill">&#9733; Featured Campus Highlights</span>
+                        <h2 class="newsroom-section-title">Top Stories &amp; Student Achievements</h2>
                     </div>
-                    <div class="top-story-overlay"></div>
-                    <div class="top-story-content">
-                        <div class="top-story-tag-wrap">
-                            <span class="top-story-cat {{ str_contains(strtolower($story->category), 'good') ? 'cat-good-news' : '' }}">
-                                {{ $story->category }}
-                            </span>
+                </div>
+
+                <!-- Lead Story Split Card -->
+                <article class="featured-lead-card card-stretched">
+                    <img src="{{ $leadImg ?: '/hero1.png' }}"
+                         alt="{{ $leadTitle }}"
+                         class="featured-lead-img"
+                         onerror="this.src='/hero1.png'">
+                    <div class="featured-lead-body">
+                        <div>
+                            <div class="card-meta-row">
+                                <span class="card-cat-badge" style="background: #dcfce7; color: #065f46; border: 1px solid #a7f3d0;">
+                                    {{ $leadStory->category ?: 'Featured Story' }}
+                                </span>
+                                <span class="card-date-text">{{ $leadDate }}</span>
+                            </div>
+                            <h3 class="card-headline-lg">
+                                <a href="{{ route('announcement.show', $leadStory->uuid ?? $leadStory->id) }}" class="card-link">
+                                    {{ $leadTitle }}
+                                </a>
+                            </h3>
+                            <p class="card-excerpt">{{ $leadExcerpt }}</p>
                         </div>
-                        
-                        <h3 class="top-story-headline">
-                            <a href="{{ route('announcement.show', $story->uuid ?? $story->id) }}" class="top-story-card-link">
-                                {{ $displayTitle }}
-                            </a>
-                        </h3>
-                        
-                        @if($idx === 0)
-                            <p class="top-story-snippet">{{ \Illuminate\Support\Str::limit($plainContent, 130) }}</p>
-                        @endif
-                        
-                        <div class="top-story-byline">
-                            <span class="story-author">{{ $authorName }}</span>
-                            <span class="story-separator">&bull;</span>
-                            <span class="story-date">{{ $storyDate }}</span>
-                        </div>
+
+                        <footer class="card-footer-bar">
+                            <span class="card-author">By {{ $leadAuthor }}</span>
+                            <span class="card-read-cta">Read Full Story &rarr;</span>
+                        </footer>
                     </div>
                 </article>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
 
-<!-- LIST OF ANNOUNCEMENTS -->
-<section class="news-section">
-    <div class="container">
-        <div class="feed-header-bar">
-            <div>
-                <h2 style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 0 0 4px; letter-spacing: -0.3px;">
-                    All News &amp; Advisories
-                </h2>
-                <p style="margin: 0; font-size: 0.92rem; color: #64748b;">Official announcements, circulars, and updates from AMIS</p>
-            </div>
-            <span style="font-size: 0.85rem; font-weight: 700; color: #475569; background: white; padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                {{ $announcements->total() }} Total Updates
-            </span>
-        </div>
-
-        @if($announcements->count() > 0)
-            <div class="news-list">
-                @foreach($announcements as $announcement)
-                    @php
-                        // Resolve image preview
-                        $imgs = json_decode($announcement->image, true);
-                        $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $announcement->image;
-                        
-                        // Parse content cleanly for display (strip HTML tags since it's just a snippet)
-                        $plainText = strip_tags($announcement->content);
-                        
-                        // Dynamic category badges matching our soft color system
-                        $categoryLower = strtolower($announcement->category);
-                        $badgeStyle = 'background: #e0f2fe; color: #0369a1;'; // Default sky blue
-                        
-                        if (str_contains($categoryLower, 'news') || str_contains($categoryLower, 'good')) {
-                            $badgeStyle = 'background: #dbeafe; color: #1e40af;'; // blue
-                        } elseif (str_contains($categoryLower, 'participant') || str_contains($categoryLower, 'call') || str_contains($categoryLower, 'apply') || str_contains($categoryLower, 'applicant')) {
-                            $badgeStyle = 'background: #f3e8ff; color: #6b21a8;'; // purple/violet
-                        } elseif (str_contains($categoryLower, 'event') || str_contains($categoryLower, 'sport')) {
-                            $badgeStyle = 'background: #fce7f3; color: #be185d;'; // pink/rose
-                        } elseif (str_contains($categoryLower, 'announcement') || str_contains($categoryLower, 'important')) {
-                            $badgeStyle = 'background: #fef3c7; color: #92400e;'; // amber/orange
-                        } else {
-                            $colorsList = [
-                                ['bg' => '#d1fae5', 'text' => '#065f46'], // green
-                                ['bg' => '#ffedd5', 'text' => '#9a3412'], // orange
-                                ['bg' => '#e0f2fe', 'text' => '#0369a1'], // sky
-                                ['bg' => '#e0e7ff', 'text' => '#3730a3'], // indigo
-                                ['bg' => '#fee2e2', 'text' => '#991b1b'], // red
-                            ];
-                            $colorIndex = abs(crc32($categoryLower)) % count($colorsList);
-                            $selectedColor = $colorsList[$colorIndex];
-                            $badgeStyle = "background: {$selectedColor['bg']}; color: {$selectedColor['text']};";
-                        }
-                    @endphp
-                    
-                    <div class="news-item">
-                        <!-- Left: Image -->
-                        <div class="news-item-image">
-                            <img src="{{ $firstImg ?? '/summer-class.png' }}" alt="{{ $announcement->title }}" onerror="this.src='/summer-class.png'">
-                        </div>
-                        
-                        <!-- Right: Details -->
-                        <div class="news-item-content">
-                            <div>
-                                <div class="news-item-meta">
-                                    @if($announcement->category)
-                                        <span style="{{ $badgeStyle }} display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-                                            {{ $announcement->category }}
-                                        </span>
-                                    @endif
-                                    <span class="news-item-date">
-                                        {{ optional($announcement->publish_date ?? $announcement->created_at)->format('F d, Y') ?? 'ANNOUNCEMENT' }}
-                                    </span>
+                @if($subStories->count() > 0)
+                    <div class="featured-sub-grid">
+                        @foreach($subStories as $story)
+                            @php
+                                $sImgs = json_decode($story->image ?? '', true);
+                                $sImg = is_array($sImgs) ? ($sImgs[0] ?? null) : $story->image;
+                                $sTitle = $cleanAnnouncementTitle($story->title);
+                                $sExcerpt = $cleanAnnouncementExcerpt($story->content, 145);
+                                $sDate = optional($story->publish_date ?? $story->created_at)->format('F d, Y');
+                                $sAuthor = (!empty($story->author) && !str_contains(strtolower($story->author), 'admin')) ? $story->author : 'AMIS Newsroom';
+                            @endphp
+                            <article class="featured-sub-card card-stretched">
+                                <img src="{{ $sImg ?: '/hero1.png' }}"
+                                     alt="{{ $sTitle }}"
+                                     class="featured-sub-img"
+                                     loading="lazy"
+                                     onerror="this.src='/hero1.png'">
+                                <div class="featured-sub-body">
+                                    <div>
+                                        <div class="card-meta-row">
+                                            <span class="card-cat-badge" style="background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe;">
+                                                {{ $story->category ?: 'AMIS News' }}
+                                            </span>
+                                            <span class="card-date-text">{{ $sDate }}</span>
+                                        </div>
+                                        <h3 class="card-headline-md">
+                                            <a href="{{ route('announcement.show', $story->uuid ?? $story->id) }}" class="card-link">
+                                                {{ $sTitle }}
+                                            </a>
+                                        </h3>
+                                        <p class="card-excerpt">{{ $sExcerpt }}</p>
+                                    </div>
+                                    <footer class="card-footer-bar">
+                                        <span class="card-author">{{ $sAuthor }}</span>
+                                        <span class="card-read-cta">Read Article &rarr;</span>
+                                    </footer>
                                 </div>
-                                <h2 class="news-item-title">{{ $announcement->title }}</h2>
-                                <p class="news-item-excerpt">{{ Str::limit($plainText, 180, '...') }}</p>
-                            </div>
-                            
-                            <a href="{{ route('announcement.show', $announcement->uuid ?? $announcement->id) }}" class="news-item-link">
-                                Read Full Article <span>→</span>
-                            </a>
-                        </div>
+                            </article>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-            
-            <!-- Custom Styled Pagination -->
-            @if($announcements->hasPages())
-                <div class="news-pagination">
-                    {{-- Previous Page Link --}}
-                    <a href="{{ $announcements->previousPageUrl() }}" class="pagination-btn {{ $announcements->onFirstPage() ? 'disabled-link' : '' }}">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: block;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
+                @endif
+            </section>
+        @endif
+
+        <!-- MAIN FEED: ALL NEWS & OFFICIAL NOTICES -->
+        <section aria-label="Official Updates Feed">
+            <div class="newsroom-section-header">
+                <div>
+                    <span class="newsroom-section-pill">
+                        @if($activeTab === 'notices')
+                            Official School Bulletin
+                        @elseif($activeTab === 'news')
+                            Campus Journalism
+                        @elseif($activeTab === 'events')
+                            Activities &amp; Calendar
+                        @else
+                            Complete Directory
+                        @endif
+                    </span>
+                    <h2 class="newsroom-section-title">
+                        @if($activeTab === 'notices')
+                            AMIS Official Notices &amp; Advisories
+                        @elseif($activeTab === 'news')
+                            School News &amp; Student Achievements
+                        @elseif($activeTab === 'events')
+                            School Events &amp; Academic Competitions
+                        @else
+                            All Official Notices, Advisories &amp; News
+                        @endif
+                    </h2>
+                </div>
+                @if($searchQuery !== '')
+                    <a href="{{ route('news.index', ['tab' => $activeTab]) }}" style="font-size: 0.85rem; font-weight: 700; color: #dc2626; text-decoration: none;">
+                        &times; Clear search &ldquo;{{ $searchQuery }}&rdquo;
                     </a>
-                    
-                    {{-- Pagination Numbers --}}
-                    @for ($page = 1; $page <= $announcements->lastPage(); $page++)
-                        <a href="{{ $announcements->url($page) }}" class="pagination-number {{ $announcements->currentPage() === $page ? 'active' : '' }}">
-                            {{ $page }}
+                @endif
+            </div>
+
+            @if($announcements->count() > 0)
+                <div class="feed-grid">
+                    @foreach($announcements as $announcement)
+                        @php
+                            $imgs = json_decode($announcement->image ?? '', true);
+                            $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $announcement->image;
+                            $photoCount = is_array($imgs) ? count($imgs) : ($firstImg ? 1 : 0);
+
+                            $title = $cleanAnnouncementTitle($announcement->title);
+                            $excerpt = $cleanAnnouncementExcerpt($announcement->content, 165);
+                            $pubDate = optional($announcement->publish_date ?? $announcement->created_at)->format('F d, Y') ?? 'Official Update';
+                            $author = (!empty($announcement->author) && !str_contains(strtolower($announcement->author), 'admin')) ? $announcement->author : 'AMIS Administration';
+
+                            $catLower = strtolower($announcement->category ?? '');
+                            $isNotice = str_contains($catLower, 'advisory') || str_contains($catLower, 'notice') || str_contains($catLower, 'reminder') || str_contains($catLower, 'announcement') || str_contains($catLower, 'memo');
+                            $isUrgent = in_array(strtolower($announcement->priority ?? ''), ['urgent', 'high'], true);
+
+                            if ($isUrgent && $isNotice) {
+                                $cardTypeClass = 'is-urgent-card';
+                                $badgeStyle = 'background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3;';
+                            } elseif ($isNotice) {
+                                $cardTypeClass = 'is-notice-card';
+                                $badgeStyle = 'background: #fef3c7; color: #92400e; border: 1px solid #fde68a;';
+                            } else {
+                                $cardTypeClass = 'is-news-card';
+                                $badgeStyle = 'background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0;';
+                            }
+                        @endphp
+
+                        <article class="feed-card card-stretched {{ $cardTypeClass }}">
+                            @if($firstImg)
+                                <div class="feed-card-media-wrap">
+                                    <img src="{{ $firstImg }}"
+                                         alt="{{ $title }}"
+                                         class="feed-card-img"
+                                         loading="lazy"
+                                         onerror="this.src='/hero1.png'">
+                                    @if($photoCount > 1)
+                                        <span class="feed-photo-count">{{ $photoCount }} Photos</span>
+                                    @endif
+                                </div>
+                            @endif
+
+                            <div class="feed-card-body">
+                                <div>
+                                    <div class="card-meta-row">
+                                        <span class="card-cat-badge" style="{{ $badgeStyle }}">
+                                            {{ $announcement->category ?: 'Official Notice' }}
+                                        </span>
+                                        <span class="card-date-text">{{ $pubDate }}</span>
+                                    </div>
+
+                                    <h3 class="card-headline-md">
+                                        <a href="{{ route('announcement.show', $announcement->uuid ?? $announcement->id) }}" class="card-link">
+                                            {{ $title }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="card-excerpt">{{ $excerpt }}</p>
+                                </div>
+
+                                <footer class="card-footer-bar">
+                                    <span class="card-author">{{ $author }}</span>
+                                    <span class="card-read-cta">
+                                        {{ $isNotice ? 'Read Official Notice' : 'Read Full Article' }} &rarr;
+                                    </span>
+                                </footer>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+
+                @if($announcements->hasPages())
+                    <div class="news-pagination">
+                        <a href="{{ $announcements->previousPageUrl() }}" class="pagination-btn {{ $announcements->onFirstPage() ? 'disabled-link' : '' }}" aria-label="Previous page">
+                            &larr;
                         </a>
-                    @endfor
-                    
-                    {{-- Next Page Link --}}
-                    <a href="{{ $announcements->nextPageUrl() }}" class="pagination-btn {{ !$announcements->hasMorePages() ? 'disabled-link' : '' }}">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: block;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
+                        @for ($page = 1; $page <= $announcements->lastPage(); $page++)
+                            <a href="{{ $announcements->url($page) }}" class="pagination-number {{ $announcements->currentPage() === $page ? 'active' : '' }}">
+                                {{ $page }}
+                            </a>
+                        @endfor
+                        <a href="{{ $announcements->nextPageUrl() }}" class="pagination-btn {{ !$announcements->hasMorePages() ? 'disabled-link' : '' }}" aria-label="Next page">
+                            &rarr;
+                        </a>
+                    </div>
+                @endif
+            @else
+                <div style="text-align: center; padding: 4.5rem 2rem; background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0;">
+                    <h3 style="font-size: 1.35rem; color: #0f172a; margin: 0 0 0.5rem; font-weight: 800;">No Matching Updates Found</h3>
+                    <p style="color: #64748b; margin: 0 0 1.25rem;">Try clearing your search filter or switching to another category tab.</p>
+                    <a href="{{ route('news.index') }}" style="display: inline-flex; padding: 0.65rem 1.35rem; border-radius: 10px; background: #059669; color: #ffffff; font-weight: 700; text-decoration: none;">
+                        View All Updates
                     </a>
                 </div>
             @endif
-        @else
-            <div style="text-align: center; padding: 100px 40px; background: white; border-radius: 16px; border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
-                <div style="width: 64px; height: 64px; border-radius: 50%; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-                </div>
-                <h3 style="font-size: 1.5rem; color: #1e293b; margin-bottom: 10px; font-weight: 700;">No News & Info Available</h3>
-                <p style="color: #64748b;">Please check back later for new updates, advisories, and info for this school year.</p>
-            </div>
-        @endif
+        </section>
     </div>
-</section>
+</div>
 @endsection

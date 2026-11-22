@@ -14,7 +14,7 @@ class PageController extends Controller
     public function home()
     {
         // 1. Fetch active School Notices (Official advisories, administrative notices, reminders, announcements)
-        $schoolNotices = Announcement::where(function ($query) {
+        $rawNotices = Announcement::where(function ($query) {
                 $query->whereNull('publish_date')
                       ->orWhere('publish_date', '<=', now());
             })
@@ -37,8 +37,22 @@ class PageController extends Controller
             ")
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')
-            ->take(6)
+            ->take(10)
             ->get();
+
+        // Deduplicate notices sharing the exact same primary banner (e.g. duplicate AMIS-GEM reminders)
+        $seenNoticeImages = [];
+        $schoolNotices = $rawNotices->filter(function ($notice) use (&$seenNoticeImages) {
+            $imgs = json_decode($notice->image ?? '', true);
+            $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $notice->image;
+            if ($firstImg && isset($seenNoticeImages[$firstImg])) {
+                return false;
+            }
+            if ($firstImg) {
+                $seenNoticeImages[$firstImg] = true;
+            }
+            return true;
+        })->take(6)->values();
 
         // 2. Fetch active News & Announcements (activities, achievements, events, student accomplishments, news articles)
         // Strictly excluding any notices to prevent duplication between sections
@@ -48,19 +62,16 @@ class PageController extends Controller
             })
             ->where(function ($query) {
                 $query->where(function ($q) {
-                    $q->where('category', 'not like', '%event%')
-                      ->where('category', 'not like', '%sport%')
-                      ->where('category', 'not like', '%activity%')
-                      ->where('category', 'not like', '%program%')
-                      ->where('category', 'not like', '%advisory%')
+                    $q->where('category', 'not like', '%advisory%')
                       ->where('category', 'not like', '%notice%')
                       ->where('category', 'not like', '%reminder%')
                       ->where('category', 'not like', '%memo%')
-                      ->where('category', 'not like', '%circular%');
+                      ->where('category', 'not like', '%circular%')
+                      ->where('category', 'not like', '%Official Announcement%');
                 })
                 ->orWhereNull('category');
             })
-            ->whereNotIn('id', $schoolNotices->pluck('id'))
+            ->whereNotIn('id', $rawNotices->pluck('id'))
             ->orderByRaw("
                 CASE priority
                     WHEN 'urgent' THEN 1
@@ -97,16 +108,29 @@ class PageController extends Controller
     /**
      * Display the dedicated news list index page.
      */
-    public function newsIndex()
+    public function newsIndex(Request $request)
     {
-        // 1. Fetch Top Stories (prioritize Good News, achievements, and major visual news)
-        $topStories = Announcement::where(function ($query) {
-                $query->whereNull('publish_date')
-                      ->orWhere('publish_date', '<=', now());
-            })
+        $activeTab = strtolower(trim((string) $request->query('tab', 'all')));
+        if (!in_array($activeTab, ['all', 'notices', 'news', 'events'], true)) {
+            $activeTab = 'all';
+        }
+        $searchQuery = trim((string) $request->query('q', ''));
+
+        $basePublished = fn () => Announcement::where(function ($query) {
+            $query->whereNull('publish_date')
+                  ->orWhere('publish_date', '<=', now());
+        });
+
+        // 1. Fetch Top 3 Visual Stories (Good News, JUST IN, AMIS News)
+        $topStories = $basePublished()
             ->whereNotNull('image')
             ->where('image', '!=', '')
             ->where('image', '!=', '[]')
+            ->where(function ($q) {
+                $q->where('category', 'like', '%Good News%')
+                  ->orWhere('category', 'like', '%JUST IN%')
+                  ->orWhere('category', 'like', '%AMIS News%');
+            })
             ->orderByRaw("
                 CASE 
                     WHEN category LIKE '%Good News%' THEN 1
@@ -117,28 +141,73 @@ class PageController extends Controller
             ")
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(3)
             ->get();
 
-        // 2. Paginated announcements feed
-        $announcements = Announcement::where(function ($query) {
-                $query->whereNull('publish_date')
-                      ->orWhere('publish_date', '<=', now());
-            })
-            ->orderByRaw("
-                CASE priority
-                    WHEN 'urgent' THEN 1
-                    WHEN 'high' THEN 2
-                    WHEN 'normal' THEN 3
-                    WHEN 'low' THEN 4
-                    ELSE 5
-                END ASC
-            ")
+        // 2. Category tab counts
+        $counts = [
+            'all' => $basePublished()->count(),
+            'notices' => $basePublished()->where(function ($q) {
+                $q->where('category', 'like', '%advisory%')
+                  ->orWhere('category', 'like', '%notice%')
+                  ->orWhere('category', 'like', '%reminder%')
+                  ->orWhere('category', 'like', '%announcement%')
+                  ->orWhere('category', 'like', '%memo%')
+                  ->orWhere('category', 'like', '%circular%');
+            })->count(),
+            'news' => $basePublished()->where(function ($q) {
+                $q->where('category', 'like', '%news%')
+                  ->orWhere('category', 'like', '%just in%');
+            })->count(),
+            'events' => $basePublished()->where(function ($q) {
+                $q->where('category', 'like', '%event%')
+                  ->orWhere('category', 'like', '%sport%')
+                  ->orWhere('category', 'like', '%activity%')
+                  ->orWhere('category', 'like', '%competition%');
+            })->count(),
+        ];
+
+        // 3. Paginated announcements feed with tab & search filter
+        $feedQuery = $basePublished();
+
+        if ($activeTab === 'notices') {
+            $feedQuery->where(function ($q) {
+                $q->where('category', 'like', '%advisory%')
+                  ->orWhere('category', 'like', '%notice%')
+                  ->orWhere('category', 'like', '%reminder%')
+                  ->orWhere('category', 'like', '%announcement%')
+                  ->orWhere('category', 'like', '%memo%')
+                  ->orWhere('category', 'like', '%circular%');
+            });
+        } elseif ($activeTab === 'news') {
+            $feedQuery->where(function ($q) {
+                $q->where('category', 'like', '%news%')
+                  ->orWhere('category', 'like', '%just in%');
+            });
+        } elseif ($activeTab === 'events') {
+            $feedQuery->where(function ($q) {
+                $q->where('category', 'like', '%event%')
+                  ->orWhere('category', 'like', '%sport%')
+                  ->orWhere('category', 'like', '%activity%')
+                  ->orWhere('category', 'like', '%competition%');
+            });
+        }
+
+        if ($searchQuery !== '') {
+            $feedQuery->where(function ($q) use ($searchQuery) {
+                $q->where('title', 'like', "%{$searchQuery}%")
+                  ->orWhere('content', 'like', "%{$searchQuery}%")
+                  ->orWhere('category', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        $announcements = $feedQuery
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('news_index', compact('announcements', 'topStories'));
+        return view('news_index', compact('announcements', 'topStories', 'activeTab', 'searchQuery', 'counts'));
     }
 
     /**
