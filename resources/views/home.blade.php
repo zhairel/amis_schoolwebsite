@@ -1622,7 +1622,14 @@
                         }
 
                         // Semantic category chip & accent colors tailored to the notice topic
-                        if (str_contains($titleLower, 'musabaqah') || str_contains($titleLower, 'qur\'an')) {
+                        if (str_contains($titleLower, 'holiday')) {
+                            $chipLabel = 'Holiday Advisory';
+                            $accentColor = '#059669';
+                            $badgeBg = '#ecfdf5';
+                            $badgeColor = '#047857';
+                            $badgeBorder = '#a7f3d0';
+                            $chipIcon = 'calendar';
+                        } elseif (str_contains($titleLower, 'musabaqah') || str_contains($titleLower, 'qur\'an')) {
                             $chipLabel = 'International Event';
                             $accentColor = '#059669';
                             $badgeBg = '#ecfdf5';
@@ -1674,7 +1681,9 @@
                         }
 
                         // Clean, complete, human-friendly notice description (never cuts off mid-word or starts with greetings/countdowns)
-                        if (str_contains($titleLower, 'musabaqah')) {
+                        if (str_contains($titleLower, 'holiday')) {
+                            $cleanNoticeExcerpt = "November 29, 2026 – Asynchronous Learning (students work independently, no class sessions). November 30, 2026 – Regular Holiday (Bonifacio Day, no classes and school office closed).";
+                        } elseif (str_contains($titleLower, 'musabaqah')) {
                             $cleanNoticeExcerpt = "Al Munawwara Islamic School (AMIS) invites young learners worldwide to the 3rd AMIS Virtual International Qur'anic Musabaqah on January 29–31, 2027 via Microsoft Teams. Registration is open until January 17, 2027.";
                         } elseif (str_contains($titleLower, 'early enrollment')) {
                             $cleanNoticeExcerpt = "Early Enrollment for School Year 2027–2028 runs from December 1 to 31, 2026 for Kindergarten to Senior High School. Enroll early to avail the 15% tuition discount, sibling discounts, and an extra 5% full-payment discount.";

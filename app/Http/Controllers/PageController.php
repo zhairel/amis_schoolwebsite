@@ -27,17 +27,16 @@ class PageController extends Controller
                       ->orWhere('category', 'like', '%circular%');
             })
             ->orderByRaw("
-                CASE priority
-                    WHEN 'urgent' THEN 1
-                    WHEN 'high' THEN 2
-                    WHEN 'normal' THEN 3
-                    WHEN 'low' THEN 4
-                    ELSE 5
+                CASE 
+                    WHEN priority IN ('urgent', 'high') THEN 1
+                    WHEN priority = 'normal' THEN 2
+                    WHEN priority = 'low' THEN 3
+                    ELSE 4
                 END ASC
             ")
             ->orderBy('publish_date', 'desc')
             ->orderBy('created_at', 'desc')
-            ->take(10)
+            ->take(12)
             ->get();
 
         // Deduplicate notices sharing the same topic or primary banner (e.g. duplicate AMIS-GEM reminders)
@@ -95,12 +94,11 @@ class PageController extends Controller
             })
             ->whereNotIn('id', $rawNotices->pluck('id'))
             ->orderByRaw("
-                CASE priority
-                    WHEN 'urgent' THEN 1
-                    WHEN 'high' THEN 2
-                    WHEN 'normal' THEN 3
-                    WHEN 'low' THEN 4
-                    ELSE 5
+                CASE 
+                    WHEN priority IN ('urgent', 'high') THEN 1
+                    WHEN priority = 'normal' THEN 2
+                    WHEN priority = 'low' THEN 3
+                    ELSE 4
                 END ASC
             ")
             ->orderBy('publish_date', 'desc')
