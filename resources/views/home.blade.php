@@ -1650,6 +1650,13 @@
                             $badgeColor = '#1d4ed8';
                             $badgeBorder = '#bfdbfe';
                             $chipIcon = 'award';
+                        } elseif (str_contains($titleLower, 'term 2 exam') || str_contains($titleLower, 'term 2 examination')) {
+                            $chipLabel = 'Examination Advisory';
+                            $accentColor = '#7c3aed';
+                            $badgeBg = '#f5f3ff';
+                            $badgeColor = '#6d28d9';
+                            $badgeBorder = '#ddd6fe';
+                            $chipIcon = 'calendar';
                         } elseif (str_contains($titleLower, 'summative') || str_contains($titleLower, 'schedule') || str_contains($titleLower, 'exam')) {
                             $chipLabel = 'Academic Schedule';
                             $accentColor = '#4f46e5';
@@ -1683,6 +1690,8 @@
                         // Clean, complete, human-friendly notice description (never cuts off mid-word or starts with greetings/countdowns)
                         if (str_contains($titleLower, 'holiday')) {
                             $cleanNoticeExcerpt = "November 29, 2026 – Asynchronous Learning (students work independently, no class sessions). November 30, 2026 – Regular Holiday (Bonifacio Day, no classes and school office closed).";
+                        } elseif (str_contains($titleLower, 'term 2 exam') || str_contains($titleLower, 'term 2 examination')) {
+                            $cleanNoticeExcerpt = "The Term 2 Examination will be officially conducted on December 1, 2, 3, and 6, 2026. Students are encouraged to review lessons diligently, and parents are reminded to settle outstanding balances before exam week.";
                         } elseif (str_contains($titleLower, 'musabaqah')) {
                             $cleanNoticeExcerpt = "Al Munawwara Islamic School (AMIS) invites young learners worldwide to the 3rd AMIS Virtual International Qur'anic Musabaqah on January 29–31, 2027 via Microsoft Teams. Registration is open until January 17, 2027.";
                         } elseif (str_contains($titleLower, 'early enrollment')) {
