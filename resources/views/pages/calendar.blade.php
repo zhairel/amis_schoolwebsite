@@ -1073,7 +1073,7 @@
                     </div>
                     <!-- External Actions -->
                     <div class="exam-action-buttons">
-                        <a href="{{ url('/exam-schedule-2nd-term') }}" target="_blank" rel="noopener noreferrer" class="exam-action-btn" title="Open full exam scheduler in a new tab">
+                        <a href="{{ url('/exam-schedule-2nd-term') }}?viewonly=1" target="_blank" rel="noopener noreferrer" class="exam-action-btn" title="Open full exam scheduler in a new tab">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>Open in New Tab</span>
                         </a>
@@ -1091,7 +1091,7 @@
                     <div class="exam-spinner"></div>
                     <span>Loading 2nd Term Examination Schedule...</span>
                 </div>
-                <iframe id="examScheduleIframe" src="{{ url('/exam-schedule-2nd-term') }}" title="AMIS 2nd Term Examination Schedule" onload="onExamIframeLoaded()"></iframe>
+                <iframe id="examScheduleIframe" src="{{ url('/exam-schedule-2nd-term') }}?viewonly=1" title="AMIS 2nd Term Examination Schedule" onload="onExamIframeLoaded()"></iframe>
             </div>
         </div>
 
@@ -1398,7 +1398,7 @@
             
             const iframe = document.getElementById('examScheduleIframe');
             if (iframe && !iframe.getAttribute('src')) {
-                iframe.src = "{{ url('/exam-schedule-2nd-term') }}";
+                iframe.src = "{{ url('/exam-schedule-2nd-term') }}?viewonly=1";
             }
         }
     }
@@ -1420,7 +1420,7 @@
             btnGrd.classList.add('active');
             btnSec.classList.remove('active');
         } else {
-            iframe.src = "{{ url('/exam-schedule-2nd-term') }}";
+            iframe.src = "{{ url('/exam-schedule-2nd-term') }}?viewonly=1";
             btnSec.classList.add('active');
             btnGrd.classList.remove('active');
         }
