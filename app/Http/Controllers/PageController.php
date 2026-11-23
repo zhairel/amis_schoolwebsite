@@ -354,18 +354,28 @@ class PageController extends Controller
 
     /**
      * Display Calendar of Activities page.
+     * Serves standalone 2nd Term Exam Scheduler by default (matching Vercel layout without website navbar).
+     * If explicitly requesting ?view=visual or ?view=list, renders the classic event calendar.
      */
-    public function calendar()
+    public function calendar(Request $request)
     {
-        $dbEvents = Announcement::where(function ($query) {
-                $query->where('category', 'like', '%event%')
-                      ->orWhere('category', 'like', '%sport%')
-                      ->orWhere('category', 'like', '%activity%')
-                      ->orWhere('category', 'like', '%program%');
-            })
-            ->get();
+        if ($request->get('view') === 'visual' || $request->get('view') === 'list') {
+            $dbEvents = Announcement::where(function ($query) {
+                    $query->where('category', 'like', '%event%')
+                          ->orWhere('category', 'like', '%sport%')
+                          ->orWhere('category', 'like', '%activity%')
+                          ->orWhere('category', 'like', '%program%');
+                })
+                ->get();
 
-        return view('pages.calendar', compact('dbEvents'));
+            return view('pages.calendar', compact('dbEvents'));
+        }
+
+        return response()->file(public_path('exam-schedule-2nd-term.html'), [
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]);
     }
 
     /**
