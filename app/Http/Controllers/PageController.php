@@ -421,7 +421,7 @@ class PageController extends Controller
      */
     public function saveExamSchedule(Request $request)
     {
-        $version = '20261123_v21_remove_saliha_proctor';
+        $version = '20261123_v22_restore_saliha_proctor';
         $staticJsonPath = public_path('exam_data_2nd_term.json');
         $staticJsPath = public_path('exam_data_2nd_term.js');
         $tmpJsonPath = '/tmp/amis_exam_schedule.json';
