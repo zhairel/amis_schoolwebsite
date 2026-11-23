@@ -421,7 +421,7 @@ class PageController extends Controller
      */
     public function saveExamSchedule(Request $request)
     {
-        $version = '20261123_v23_saliha_gmrc_normal_design';
+        $version = '20261123_v24_saliha_gmrc_clean_sync';
         $staticJsonPath = public_path('exam_data_2nd_term.json');
         $staticJsPath = public_path('exam_data_2nd_term.js');
         $tmpJsonPath = '/tmp/amis_exam_schedule.json';
